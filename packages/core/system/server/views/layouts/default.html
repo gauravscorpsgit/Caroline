@@ -2,15 +2,33 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="https://www.facebook.com/2008/fbml" itemscope="itemscope" itemtype="http://schema.org/Product">
 {% include '../includes/head.html' %}
 
-<body data-spy="scroll" data-target="#header-navbar" data-offset="51" data-ng-controller="ThemeController" ng-cloak class="ng-cloak" ng-class="state">
-<div id="page-container" class="fade in">
+<body data-spy="scroll" data-target="#header-navbar" data-offset="51" ng-cloak class="ng-cloak" ng-class="state" >
+<div id="page-container" class="fade in" ng-controller="HeaderController as hdrctr" ng-if="!hdrctr.hdrvars.isAuthenticated || !hdrctr.hdrvars.isFreelancer">
     <div data-ng-include="'/system/views/header.html'" data-role="navigation"></div>
 
     <div data-ng-include="'/admin/views/index.html'"></div>
 
     {% block content %}{% endblock %}
 </div>
+<!-- begin #page-loader -->
+<div id="page-loader" class="fade"><span class="spinner"></span></div>
+<!-- end #page-loader -->
+
+<!-- begin #page-container -->
+<div id="page-container" class="fade page-sidebar-fixed page-header-fixed">
+    <div data-ng-include="'/system/views/header.html'" data-role="navigation"></div>
+
+    <div data-ng-include="'/admin/views/index.html'"></div>
+
+    <!-- begin #content -->
+    <div id="content" class="content">
+        {% block content %}{% endblock %}
+    </div>
+    <!-- end #content -->
+    <!-- begin scroll to top btn -->
+    <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+    <!-- end scroll to top btn -->
+</div>
 {% include '../includes/foot.html' %}
 </body>
-
 </html>
