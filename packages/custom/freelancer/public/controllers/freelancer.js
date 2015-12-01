@@ -7,6 +7,7 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
       name: 'freelancer'
     };
 
+
     $scope.emailForm = {
       to_user:document.getElementById('email-to'),
       subject:'',
