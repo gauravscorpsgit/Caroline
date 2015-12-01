@@ -1,0 +1,88 @@
+<head>
+  <base href="/">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="fragment" content="!">
+
+  <title>{{appName}} - {{title}}</title>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  <meta name="keywords" content="node.js, express, mongoose, mongodb, angularjs, swig">
+  <meta name="description" content="MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).">
+
+  <meta property="fb:app_id" content="APP_ID">
+  <meta property="og:title" content="{{appName}} - {{title}}">
+  <meta property="og:description" content="MEAN - A Modern Stack: MongoDB, ExpressJS, AngularJS, NodeJS. (BONUS: Passport User Support).">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="APP_URL">
+  <meta property="og:image" content="APP_LOGO">
+  <meta property="og:site_name" content="MEAN - A Modern Stack">
+  <meta property="fb:admins" content="APP_ADMIN">
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="system/assets/theme/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
+    <link href="system/assets/theme/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="system/assets/theme/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="system/assets/theme/css/animate.min.css" rel="stylesheet" />
+    <link href="system/assets/theme/css/style.min.css" rel="stylesheet" />
+    <link href="system/assets/theme/css/style-responsive.min.css" rel="stylesheet" />
+    <link href="system/assets/theme/css/theme/default.css" rel="stylesheet" id="theme" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+
+    <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+    <link href="system/assets/theme/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="system/assets/theme/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+    <link href="system/assets/theme/plugins/bootstrap-datepicker/css/datepicker3.css" rel="stylesheet" />
+    <link href="system/assets/theme/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+    <!-- ================== END PAGE LEVEL STYLE ================== -->
+
+
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="system/assets/theme/plugins/pace/pace.min.js"></script>
+    <!-- ================== END BASE JS ================== -->
+
+  <!-- {{locals.config.cssFramework}} --><!--
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">-->
+
+  {% for file in aggregatedassets.header.css %}
+    <link rel="stylesheet" href="{{file}}">
+  {% endfor %}
+
+  {% for file in aggregatedassets.footer.css %}
+    <link rel="stylesheet" href="{{file}}">
+  {% endfor %}
+
+  {% for file in aggregatedassets.header.js %}
+    <script type="text/javascript" src="{{file}}"></script>
+  {% endfor %}
+
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="system/assets/theme/plugins/jquery/jquery-1.9.1.min.js"></script>
+    <script src="system/assets/theme/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+    <script src="system/assets/theme/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+    <script src="system/assets/theme/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="system/assets/theme/crossbrowserjs/html5shiv.js"></script>
+    <script src="system/assets/theme/crossbrowserjs/respond.min.js"></script>
+    <script src="system/assets/theme/crossbrowserjs/excanvas.min.js"></script>
+    <![endif]-->
+    <script src="system/assets/theme/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="system/assets/theme/plugins/jquery-cookie/jquery.cookie.js"></script>
+    <!-- ================== END BASE JS ================== -->
+
+    <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+    <script src="system/assets/theme/plugins/gritter/js/jquery.gritter.js"></script>
+    <script src="system/assets/theme/plugins/flot/jquery.flot.min.js"></script>
+    <script src="system/assets/theme/plugins/flot/jquery.flot.time.min.js"></script>
+    <script src="system/assets/theme/plugins/flot/jquery.flot.resize.min.js"></script>
+    <script src="system/assets/theme/plugins/flot/jquery.flot.pie.min.js"></script>
+    <script src="system/assets/theme/plugins/sparkline/jquery.sparkline.js"></script>
+    <script src="system/assets/theme/plugins/jquery-jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="system/assets/theme/plugins/jquery-jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="system/assets/theme/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="system/assets/theme/js/dashboard.min.js"></script>
+    <script src="system/assets/theme/js/apps.min.js"></script>
+    <!-- ================== END PAGE LEVEL JS ================== -->
+
+</head>

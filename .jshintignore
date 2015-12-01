@@ -1,0 +1,3 @@
+test/coverage/**
+packages/**/public/assets/*.js
+**/*.js
