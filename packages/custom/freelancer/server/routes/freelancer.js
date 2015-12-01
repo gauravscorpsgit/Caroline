@@ -3,6 +3,14 @@
 // The Package is past automatically as first parameter
 module.exports = function(Freelancer, app, auth, database) {
 
+<<<<<<< HEAD
+=======
+var freelancer_server_controllers = require('../controllers/freelancer');
+
+  app.route('/api/compose/register')
+      .post(freelancer_server_controllers.createEmail);
+
+>>>>>>> 5f3749817f7affe19c62e2f0313270be8fd72921
   app.get('/freelancer/example/anyone', function(req, res, next) {
     res.send('Anyone can access this');
   });
