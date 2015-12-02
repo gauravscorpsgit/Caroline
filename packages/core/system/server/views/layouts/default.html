@@ -3,7 +3,7 @@
 {% include '../includes/head.html' %}
 
 <body data-spy="scroll" data-target="#header-navbar" data-offset="51" ng-cloak class="ng-cloak" ng-class="state" >
-<div id="page-container" class="fade in" ng-controller="HeaderController as hdrctr" ng-if="!hdrctr.hdrvars.isAuthenticated || !hdrctr.hdrvars.isFreelancer">
+<div id="page-container" class="fade page-sidebar-fixed page-header-fixed in page-sidebar-minified" ng-controller="HeaderController as hdrctr" ng-if="!hdrctr.hdrvars.isAuthenticated || !hdrctr.hdrvars.isFreelancer">
     <div data-ng-include="'/system/views/header.html'" data-role="navigation"></div>
 
     <div data-ng-include="'/admin/views/index.html'"></div>
@@ -22,7 +22,6 @@
 
     <!-- begin #content -->
     <div id="content" class="content">
-        {% block content %}{% endblock %}
     </div>
     <!-- end #content -->
     <!-- begin scroll to top btn -->

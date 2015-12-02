@@ -16,7 +16,16 @@ var connection = mongoose.createConnection(config.db);
 
 autoIncrement.initialize(connection);
 
-var FreelancerSchema = new Schema({
+var FreelancerEmailsSchema = new Schema({
+    user_id:{
+        type: Number,
+        required: true
+    },
+    recipient_id :{
+        type: Number,
+        required: true,
+        default: 1
+    },
     to_user:{
         type: Object,
         required: true
@@ -32,5 +41,5 @@ var FreelancerSchema = new Schema({
 
 });
 
-FreelancerSchema.plugin(autoIncrement.plugin, 'freelancer');
-mongoose.model('freelancer', FreelancerSchema);
+FreelancerEmailsSchema.plugin(autoIncrement.plugin, 'freelancer_emails');
+mongoose.model('freelancer_emails', FreelancerEmailsSchema);

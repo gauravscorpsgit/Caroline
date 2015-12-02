@@ -6,8 +6,12 @@
 var mongoose  = require('mongoose'),
     Schema    = mongoose.Schema,
     crypto    = require('crypto'),
+    config = require('meanio').loadConfig(),
+    autoIncrement = require('mongoose-auto-increment'),
           _   = require('lodash');
+var connection = mongoose.createConnection(config.db);
 
+autoIncrement.initialize(connection);
 /**
  * Validations
  */
@@ -178,5 +182,5 @@ UserSchema.methods = {
     return obj;
   }
 };
-
+UserSchema.plugin(autoIncrement.plugin, 'User');
 mongoose.model('User', UserSchema);

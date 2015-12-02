@@ -51,13 +51,15 @@ module.exports = {
       enabled: false
     }
   },
-  emailFrom: 'SENDER EMAIL ADDRESS', // sender address like ABC <abc@example.com>
-  mailer: {
-    service: 'SERVICE_PROVIDER', // Gmail, SMTP
-    auth: {
-      user: 'EMAIL_ID',
-      pass: 'PASSWORD'
-    }
-  }, 
+    admin_email : 'care@chefmother.com',
+    emailFrom: 'care@chefmother.com', // sender address like ABC <abc@example.com>
+    mailer: {
+        service: 'zoho',
+        auth: {
+            user: 'care@chefmother.com',
+            pass: 'chefmother123$'
+        }
+
+    },
   secret: 'SOME_TOKEN_SECRET'
 };

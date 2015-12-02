@@ -14,7 +14,17 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
             isFreelancer : MeanUser.isFreelancer
         };
 
+        vm.openFreelancerBlock = function(flag){
+            switch (flag){
+                case  'compose':
+                    $rootScope.$broadcast('openCompose');
+                    break;
 
+                case  'inbox':
+                    $rootScope.$broadcast('openInbox');
+                    break;
+            }
+        };
 
         // Default hard coded menu items for main menu
         var defaultMainMenu = [];

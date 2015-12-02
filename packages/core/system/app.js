@@ -21,6 +21,7 @@ SystemPackage.register(function(app, auth, database, circles) {
 /*
   SystemPackage.aggregateAsset('css', 'common.css');*/
   SystemPackage.angularDependencies(['mean-factory-interceptor']);
+    SystemPackage.aggregateAsset('js', 'filepicker.js');
 
 
   // The middleware in config/express will run before this code
