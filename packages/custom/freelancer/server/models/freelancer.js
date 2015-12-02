@@ -37,8 +37,10 @@ var FreelancerEmailsSchema = new Schema({
     content:{
         type: String,
         required: true
+    },created: {
+        type: Date,
+        default: Date.now
     }
-
 });
 
 FreelancerEmailsSchema.plugin(autoIncrement.plugin, 'freelancer_emails');

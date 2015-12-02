@@ -25,7 +25,7 @@ exports.getUserSentEmails = function(req,resMain){
         } else{
             resMain.json({success: true, emails : res});
         }
-    });
+    }).sort({ created: -1 });
 };
 
 exports.createEmail = function(req,resMain){
