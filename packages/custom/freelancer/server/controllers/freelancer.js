@@ -16,6 +16,18 @@ exports.render = function(req, res) {
     res.render('index');
 };
 
+exports.getUserSentEmails = function(req,resMain){
+
+    FreelancerEmailsSchema.find({user_id : req.user._id}, function(err,res){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        } else{
+            resMain.json({success: true, emails : res});
+        }
+    });
+};
+
 exports.createEmail = function(req,resMain){
 
     req.body.user_id = req.user._id;
@@ -32,7 +44,7 @@ exports.createEmail = function(req,resMain){
                 to: req.body.to_user,
                 from: config.emailFrom
             };
-            mailOptions = templates.dish_captured_mail(mailOptions,req.user, res);
+            mailOptions = templates.notify_contrator(mailOptions,req.body);
             sendMail(mailOptions);
             resMain.json({success: true});
         }

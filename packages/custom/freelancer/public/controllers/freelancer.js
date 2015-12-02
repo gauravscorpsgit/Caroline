@@ -23,8 +23,20 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
             content:''
         };
 
+        $scope.getInboxMessage = function(){
+            Freelancer.compose_resource.get(function(response,header,error) {
+                if(response.success){
+                    $scope.user_emails = response.emails;
+                    Notification.success('Emails fetched successfully');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            });
+
+        };
+
         $scope.openUploadDialog = function(){
-            console.log('hi');
             filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
             filepicker.pickMultiple(
                 {
@@ -45,10 +57,13 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
         }
 
         $scope.email_form = function(){
-            console.log($scope.emailForm);
             Freelancer.compose_resource.post($scope.emailForm, function(response,header,error) {
                 if(response.success){
-                    Notification.success('Email is subbmited');
+                    Notification.success('Email has been saved and sent to '+ $scope.emailForm.to_user);
+
+                    $scope.emailForm.to_user='';
+                    $scope.emailForm.subject='';
+                    $scope.emailForm.content='';
                 }
 
                 else{
