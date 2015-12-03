@@ -4,7 +4,7 @@
         <!-- begin vertical-box-column -->
         <div class="vertical-box-column width-250">
             <!-- begin wrapper -->
-            <div class="wrapper bg-silver text-center" style="margin-top:56px;">
+            <div class="wrapper bg-silver text-center">
                 <a href="email_compose.html" class="btn btn-success p-l-40 p-r-40 btn-sm">
                     Compose
                 </a>
@@ -35,11 +35,12 @@
         <!-- begin vertical-box-column -->
         <div class="vertical-box-column">
             <!-- begin wrapper -->
-            <div class="wrapper bg-silver-lighter" style="margin-top:56px;">
+            <div class="wrapper bg-silver-lighter">
                 <!-- begin btn-toolbar -->
                 <div class="btn-toolbar">
                     <div class="btn-group">
-                        <a href="" ng-click="openUploadDialog()" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-paperclip fa-2x"></i></a>
+                        <a href="inbox_v2.html" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-file"></i></a>
+                        <a href="inbox_v2.html" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-trash"></i></a>
                     </div>
                 </div>
                 <!-- end btn-toolbar -->
@@ -61,13 +62,13 @@
                         <div class="m-b-15">
                             <input type="text" class="form-control" data-ng-model="emailForm.subject">
                         </div>
-
                         <!-- end email subject -->
                         <!-- begin email content -->
                         <label class="control-label">Content:</label>
                         <div class="m-b-15">
                             <textarea class="textarea form-control" data-ng-model="emailForm.content" placeholder="Enter text ..." rows="12"></textarea>
                         </div>
+
                         <!-- end email content -->
                         <button type="submit" class="btn btn-primary p-l-40 p-r-40">Send</button>
                     </form>
@@ -78,12 +79,7 @@
         </div>
         <!-- end vertical-box-column -->
     </div>
-
     <!-- end vertical-box -->
+
 </div>
-<script>
-    $(document).ready(function() {
-        App.init();
-        EmailCompose.init();
-    });
-</script>
+<!-- end #content -->
