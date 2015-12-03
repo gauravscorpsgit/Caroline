@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Menus', 'MeanUser', '$state',
-    function($scope, $rootScope, Menus, MeanUser, $state) {
+angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Menus', 'MeanUser', '$state','$location',
+    function($scope, $rootScope, Menus, MeanUser, $state, $location) {
 
         var vm = this;
 
@@ -14,14 +14,28 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
             isFreelancer : MeanUser.isFreelancer
         };
 
+
         vm.openFreelancerBlock = function(flag){
+            $location.url('/admin/freelancer');
             switch (flag){
                 case  'compose':
+                    $scope.flag = flag;
+                    $scope.category = 'Email';
                     $rootScope.$broadcast('openCompose');
+
                     break;
 
                 case  'inbox':
+                    $scope.flag = flag;
+                    $scope.category = 'Email';
                     $rootScope.$broadcast('openInbox');
+                    break;
+
+                case 'free_landing_demo':
+                    $scope.flag = flag;
+                    $scope.category = 'Page';
+                    $rootScope.$broadcast('free_landing_demo');
+                    //$location.url('/freelancer/landing/demo');
                     break;
             }
         };
