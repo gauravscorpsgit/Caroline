@@ -279,8 +279,16 @@ module.exports = function(MeanUser) {
                 });
             });
         },
-        updateLanding : function(req,res){
-
+        updateLanding : function(req,resMain){
+            var freelancer_landing = new Freelancer_landing(req.body);
+            Freelancer_landing.findOneAndUpdate({user_id : req.user._id},freelancer_landing,function(err,res){
+                if(err){
+                    console.log(err);
+                    resMain.json({success : false});
+                }else{
+                    resMain.json({success : true});
+                }
+            });
         },
         getFreelancerLanding : function (req,resMain) {
             Freelancer_landing.find({user_id : req.user._id}, function(err,res){

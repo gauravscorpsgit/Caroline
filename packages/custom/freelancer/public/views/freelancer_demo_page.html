@@ -20,9 +20,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 centered">
-                    <img src="{{landing_info.user_intro.profile_image}}" alt="Stanley"><br/><a href="" ><i class="fa fa-pencil-square-o"></i>Change Picture</a>
-                    <h1>{{landing_info.user_intro.Hi_message}}<br/> <a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></h1>
-                    <p>{{landing_info.user_intro.Hi_description}}<br/><a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></p>
+                    <button class="btn btn-success m-r-5 m-b-5" ng-click="enableChanges()">Edit Your Profile</button> <button ng-click="updateFreelancerLanding()" class="btn btn-success m-r-5 m-b-5">Save Changes</button>
+                    <div class="clearfix"></div>
+                    <br/>
+                    <img ng-if="landing_info.user_intro.profile_image.indexOf('filepicker.io') > -1" ng-src="{{landing_info.user_intro.profile_image}}/convert?w=200&h=200&fit=scale" style="width:200px; border-radius: 50%;" alt="Stanley">
+
+                    <img ng-if="landing_info.user_intro.profile_image.indexOf('filepicker.io') == -1" ng-src="{{landing_info.user_intro.profile_image}}" alt="Stanley">
+                    <div class="clearfix"></div>
+                    <br/><a ng-click="openProfilePicDialog()" ng-show="landing_editable" href="" ><i class="fa fa-pencil-square-o"></i>Change Picture</a>
+                    <h1>{{landing_info.user_intro.Hi_message}}</h1>
+                    <input ng-show="landing_editable" type="text" class="form-control" ng-model="landing_info.user_intro.Hi_message">
+                    <div class="clearfix"></div>
+                    <p>{{landing_info.user_intro.Hi_description}}<br/></p>
+                    <textarea  ng-show="landing_editable" ng-model="landing_info.user_intro.Hi_description" rows="8" class="col-xs-12"></textarea>
                 </div><!-- /col-lg-8 -->
             </div><!-- /row -->
         </div> <!-- /container -->
@@ -31,79 +41,86 @@
         <div class="row mt centered">
             <div class="col-lg-3">
                 <span class="glyphicon glyphicon-book"></span>
-                <p>{{landing_info.user_positives.one}}<a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></p>
+                <p>{{landing_info.user_positives.one}}</p>
+                <input type="text" class="form-control"  ng-show="landing_editable" ng-model="landing_info.user_positives.one">
             </div>
 
             <div class="col-lg-3">
                 <span class="glyphicon glyphicon-user"></span>
-                <p>{{landing_info.user_positives.two}}<a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></p>
+                <p>{{landing_info.user_positives.two}}</p>
+                <input type="text" class="form-control"  ng-show="landing_editable" ng-model="landing_info.user_positives.two">
             </div>
 
             <div class="col-lg-3">
                 <span class="glyphicon glyphicon-fire"></span>
-                <p>{{landing_info.user_positives.three}}<a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></p>
+                <p>{{landing_info.user_positives.three}}</p>
+                <input  ng-show="landing_editable" type="text" class="form-control" ng-model="landing_info.user_positives.three">
             </div>
 
             <div class="col-lg-3">
                 <span class="glyphicon glyphicon-globe"></span>
-                <p>{{landing_info.user_positives.four}}<a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></p>
+                <p>{{landing_info.user_positives.four}}</p>
+                <input type="text" class="form-control"  ng-show="landing_editable" ng-model="landing_info.user_positives.four">
             </div>
         </div><!-- /row -->
 
         <div class="row mt">
             <div class="col-lg-6">
                 <h4>THE THINKING</h4>
-                <p>{{landing_info.user_thinking}}<a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></p>
+                <p>{{landing_info.user_thinking}}</p>
+                <textarea ng-model="landing_info.user_thinking"  ng-show="landing_editable" rows="8" class="col-xs-12"></textarea>
             </div><!-- /colg-lg-6 -->
 
             <div class="col-lg-6">
                 <h4>THE SKILLS</h4>
                 <div ng-repeat="skill in landing_info.user_skills">
-                    {{skill.name}}<a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a>
+                    {{skill.name}}
+                    <input ng-show="landing_editable" type="text" class="form-control" ng-model="landing_info.user_skills[$index].name">
+                    <input ng-show="landing_editable" type="text" class="form-control" ng-model="landing_info.user_skills[$index].percentage">
+                    <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removeSkill($index)"><i class="fa fa-minus"></i></a>
                     <div class="progress">
                         <div class="progress-bar progress-bar-theme" role="progressbar" aria-valuenow="{{skill.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.percentage}}%;">
-                            <span class="sr-only">{{skill.percentage}}%<a href=""> <i class="fa fa-pencil-square-o"></i> Edit</a></span>
+                            <span class="sr-only">{{skill.percentage}}%</span>
                         </div>
                     </div>
                 </div>
-                <a href=""> <i class="fa fa-plus"></i>Add Skills</a>
+                <a ng-show="landing_editable" ng-click="addSkills()" href=""> <i class="fa fa-plus"></i>Add Skills</a>
             </div><!-- /col-lg-6 -->
         </div><!-- /row -->
     </div>
     <!-- +++++ Projects Section +++++ -->
+
     <div class="container pt">
         <div class="row mt centered">
-            <h1>PORTFOLIO<a href=""> <i class="fa fa-plus"></i>Add</a></h1>
-            <div class="col-lg-4">
-                <a class="zoom green" href=""><img class="img-responsive" src="freelancer/assets/freelancer/img/portfolio/port01.jpg" alt="" /></a>
-                <p>APE</p>
+            <h1>PORTFOLIO<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a></h1>
+            <div ng-if="landing_info.portfolio.length > 0">
+                <div class="col-lg-4" ng-repeat="portfolio in landing_info.portfolio">
+                    <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removePortfolio($index)"><i class="fa fa-minus"></i></a>
+                    <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio.image}}" alt="" /></a>
+                    <p>{{portfolio.title}}</p>
+                </div>
             </div>
-            <div class="col-lg-4">
-                <a class="zoom green" href=""><img class="img-responsive" src="freelancer/assets/freelancer/img/portfolio/port02.jpg" alt="" /></a>
-                <p>RAIDERS</p>
+            <div class="col-lg-4" ng-if="landing_info.portfolio.length == 0">
+                <div class="alert alert-warning fade in m-b-15">
+                    <strong>Warning!</strong>
+                    No Portfolio added.
+                    <span class="close" data-dismiss="alert">&times;</span>
+                </div>
+                <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
+                <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot</a>
+                <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
+                <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
+                <p>{{portfolio_skeleton.title}}</p>
             </div>
-            <div class="col-lg-4">
-                <a class="zoom green" href=""><img class="img-responsive" src="freelancer/assets/freelancer/img/portfolio/port03.jpg" alt="" /></a>
-                <p>VIKINGS</p>
-            </div>
-        </div><!-- /row -->
-        <div class="row mt centered">
-            <div class="col-lg-4">
-                <a class="zoom green" href=""><img class="img-responsive" src="freelancer/assets/freelancer/img/portfolio/port04.jpg" alt="" /></a>
-                <p>YODA</p>
-            </div>
-            <div class="col-lg-4">
-                <a class="zoom green" href=""><img class="img-responsive" src="freelancer/assets/freelancer/img/portfolio/port05.jpg" alt="" /></a>
-                <p>EMPERORS</p>
-            </div>
-            <div class="col-lg-4">
-                <a class="zoom green" href=""><img class="img-responsive" src="freelancer/assets/freelancer/img/portfolio/port06.jpg" alt="" /></a>
-                <p>CHIEFS</p>
+            <div class="col-lg-4" ng-show ="landing_editable && landing_info.portfolio.length > 0">
+                <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
+                <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot</a>
+                <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
+                <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
+                <p>{{portfolio_skeleton.title}}</p>
             </div>
         </div><!-- /row -->
     </div><!-- /container -->
-
-
     <!-- +++++ Footer Section +++++ -->
 
     <div id="footer">

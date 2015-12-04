@@ -82,7 +82,7 @@
             </div>
             <!-- end wrapper -->
             <!-- begin list-email -->
-            <ul class="list-group list-group-lg no-radius list-email" ng-repeat="email in user_emails">
+            <ul class="list-group list-group-lg no-radius list-email"ng-if="user_emails.length > 0" ng-repeat="email in user_emails">
                 <li class="list-group-item inverse">
                     <div class="email-checkbox">
                         <label>
@@ -108,7 +108,7 @@
             <!-- end list-email -->
             <!-- begin wrapper -->
             <div class="wrapper bg-silver-lighter clearfix">
-                <div class="btn-group pull-right">
+                <div ng-if="user_emails.length > 0" class="btn-group pull-right">
                     <button class="btn btn-white btn-sm">
                         <i class="fa fa-chevron-left"></i>
                     </button>
@@ -116,7 +116,12 @@
                         <i class="fa fa-chevron-right"></i>
                     </button>
                 </div>
-                <div class="m-t-5">1,232 messages</div>
+                <div ng-if="user_emails.length > 0" class="m-t-5">1,232 messages</div>
+                <div ng-if="user_emails.length == 0" class="alert alert-warning fade in m-b-15">
+                    <strong>Warning!</strong>
+                    There are no emails to show.
+                    <span class="close" data-dismiss="alert">&times;</span>
+                </div>
             </div>
             <!-- end wrapper -->
         </div>
