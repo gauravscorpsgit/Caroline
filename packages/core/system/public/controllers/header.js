@@ -20,8 +20,10 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
             Freelancer.storefront_resource.get({freelancerId: $stateParams.freelancerId}, function(response,header,error){
                 if(response.success){
                     Notification.success('Freelancer details updated successfully.');
+                    if(response.freelancer_object.length > 0)
                     $scope.freelancer_object = response.freelancer_object[0];
-                    console.log(response.freelancer_object[0]);
+                    else
+                    $location.url('/')
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
