@@ -7,6 +7,19 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
             name: 'freelancer'
         };
 
+        $scope.getFreelancerDetails = function(){
+            Freelancer.freelancer_details_resource.get(function(response,header,error){
+                if(response.success){
+                    console.log(response);
+                    $scope.landing_info = response.freelancer_object[0];
+                    Notification.success('Freelancer details fetched');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            });
+        };
+
         $scope.activeTemplate = 'freelancer/views/compose_email.html';
         $rootScope.$on('openCompose', function(){
             $scope.activeTemplate = 'freelancer/views/compose_email.html';

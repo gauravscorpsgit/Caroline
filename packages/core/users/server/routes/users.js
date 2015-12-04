@@ -13,6 +13,10 @@ module.exports = function(MeanUser, app, auth, database, passport) {
   app.route('/api/users/me')
     .get(users.me);
 
+    app.route('/api/user/freelancer/landing')
+        .put(users.updateLanding)
+        .get(users.getFreelancerLanding);
+
   // Setting up the userId param
   app.param('userId', users.user);
 

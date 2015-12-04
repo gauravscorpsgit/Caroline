@@ -4,14 +4,15 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-  User = mongoose.model('User'),
-  async = require('async'),
-  config = require('meanio').loadConfig(),
-  crypto = require('crypto'),
-  nodemailer = require('nodemailer'),
-  templates = require('../template'),
-  _ = require('lodash'),
-  jwt = require('jsonwebtoken'); //https://npmjs.org/package/node-jsonwebtoken
+    User = mongoose.model('User'),
+    Freelancer_landing = mongoose.model('freelancer_landing'),
+    async = require('async'),
+    config = require('meanio').loadConfig(),
+    crypto = require('crypto'),
+    nodemailer = require('nodemailer'),
+    templates = require('../template'),
+    _ = require('lodash'),
+    jwt = require('jsonwebtoken'); //https://npmjs.org/package/node-jsonwebtoken
 
 
 
@@ -34,26 +35,26 @@ module.exports = function(MeanUser) {
          * Auth callback
          */
         authCallback: function(req, res) {
-          var payload = req.user;
-          var escaped = JSON.stringify(payload);      
-          escaped = encodeURI(escaped);
-          // We are sending the payload inside the token
-          var token = jwt.sign(escaped, config.secret, { expiresInMinutes: 60*5 });
-          res.cookie('token', token);
-          var destination = config.strategies.landingPage;
-          if(!req.cookies.redirect)
-            res.cookie('redirect', destination);
-          res.redirect(destination);
+            var payload = req.user;
+            var escaped = JSON.stringify(payload);
+            escaped = encodeURI(escaped);
+            // We are sending the payload inside the token
+            var token = jwt.sign(escaped, config.secret, { expiresInMinutes: 60*5 });
+            res.cookie('token', token);
+            var destination = config.strategies.landingPage;
+            if(!req.cookies.redirect)
+                res.cookie('redirect', destination);
+            res.redirect(destination);
         },
 
         /**
          * Show login form
          */
         signin: function(req, res) {
-          if (req.isAuthenticated()) {
-            return res.redirect('/');
-          }
-          res.redirect('/login');
+            if (req.isAuthenticated()) {
+                return res.redirect('/');
+            }
+            res.redirect('/login');
         },
 
         /**
@@ -76,7 +77,7 @@ module.exports = function(MeanUser) {
          * Session
          */
         session: function(req, res) {
-          res.redirect('/');
+            res.redirect('/');
         },
 
         /**
@@ -101,31 +102,31 @@ module.exports = function(MeanUser) {
 
             // Hard coded for now. Will address this with the user permissions system in v0.3.5
             user.roles = ['authenticated',req.body.userType];
-            user.save(function(err) {
+            user.save(function(err, resSave) {
                 if (err) {
                     switch (err.code) {
                         case 11000:
                         case 11001:
-                        res.status(400).json([{
-                            msg: 'Username already taken',
-                            param: 'username'
-                        }]);
-                        break;
+                            res.status(400).json([{
+                                msg: 'Username already taken',
+                                param: 'username'
+                            }]);
+                            break;
                         default:
-                        var modelErrors = [];
+                            var modelErrors = [];
 
-                        if (err.errors) {
+                            if (err.errors) {
 
-                            for (var x in err.errors) {
-                                modelErrors.push({
-                                    param: x,
-                                    msg: err.errors[x].message,
-                                    value: err.errors[x].value
-                                });
+                                for (var x in err.errors) {
+                                    modelErrors.push({
+                                        param: x,
+                                        msg: err.errors[x].message,
+                                        value: err.errors[x].value
+                                    });
+                                }
+
+                                res.status(400).json(modelErrors);
                             }
-
-                            res.status(400).json(modelErrors);
-                        }
                     }
                     return res.status(400);
                 }
@@ -145,12 +146,38 @@ module.exports = function(MeanUser) {
                             email: user.email
                         }
                     });
-
+                    if(resSave){
+                        if(req.body.userType == 'freelancer'){
+                            var landing_schema = {
+                                user_id : resSave._id,
+                                user_intro: {
+                                    profile_image:'freelancer/assets/freelancer/img/user.png',
+                                    Hi_message:'Hi, I am Stanley!',
+                                    Hi_description:'Hello everybody. I am Stanley, a free handsome bootstrap theme coded by BlackTie.co. A really simple theme for those wanting to showcase their work with a cute & clean style.'
+                                },
+                                user_positives : {
+                                    one:'Good Learner',
+                                    two:'Highly Motivated',
+                                    three:'Curious to learn new technologies',
+                                    four :'Enjoys challenges'
+                                },
+                                user_thinking : 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.',
+                                user_skills : [
+                                    {name : 'Wordpress', percentage : 50},
+                                    {name : 'Photoshop', percentage : 50},
+                                    {name : 'HTML + CSS', percentage : 50},
+                                ],
+                                portfolio : []
+                            }
+                            var freelancer_landing = new Freelancer_landing(landing_schema);
+                            freelancer_landing.save();
+                        }
+                    }
                     // We are sending the payload inside the token
                     var token = jwt.sign(escaped, config.secret, { expiresInMinutes: 60*5 });
-                    res.json({ 
-                      token: token,
-                      redirect: config.strategies.landingPage
+                    res.json({
+                        token: token,
+                        redirect: config.strategies.landingPage
                     });
                 });
                 res.status(200);
@@ -186,7 +213,7 @@ module.exports = function(MeanUser) {
                 escaped = encodeURI(escaped);
                 var token = jwt.sign(escaped, config.secret, { expiresInMinutes: 60*5 });
                 res.json({ token: token });
-               
+
             });
         },
 
@@ -252,6 +279,21 @@ module.exports = function(MeanUser) {
                 });
             });
         },
+        updateLanding : function(req,res){
+
+        },
+        getFreelancerLanding : function (req,resMain) {
+            Freelancer_landing.find({user_id : req.user._id}, function(err,res){
+
+                if(err){
+                    console.log(err);
+                    resMain.json({success: false});
+                } else{
+                    resMain.json({success: true, freelancer_object : res});
+                }
+
+            });
+        },
 
         /**
          * Callback for forgot password link
@@ -259,60 +301,60 @@ module.exports = function(MeanUser) {
         forgotpassword: function(req, res, next) {
             async.waterfall([
 
-                function(done) {
-                    crypto.randomBytes(20, function(err, buf) {
-                        var token = buf.toString('hex');
-                        done(err, token);
-                    });
-                },
-                function(token, done) {
-                    User.findOne({
-                        $or: [{
-                            email: req.body.text
-                        }, {
-                            username: req.body.text
-                        }]
-                    }, function(err, user) {
-                        if (err || !user) return done(true);
-                        done(err, user, token);
-                    });
-                },
-                function(user, token, done) {
-                    user.resetPasswordToken = token;
-                    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-                    user.save(function(err) {
-                        done(err, token, user);
-                    });
-                },
-                function(token, user, done) {
-                    var mailOptions = {
-                        to: user.email,
-                        from: config.emailFrom
-                    };
-                    mailOptions = templates.forgot_password_email(user, req, token, mailOptions);
-                    sendMail(mailOptions);
-                    done(null, user);
-                }
-            ],
-            function(err, user) {
-
-                var response = {
-                    message: 'Mail successfully sent',
-                    status: 'success'
-                };
-                if (err) {
-                    response.message = 'User does not exist';
-                    response.status = 'danger';
-
-                }
-                MeanUser.events.publish({
-                    action: 'forgot_password',
-                    user: {
-                        name: req.body.text
+                    function(done) {
+                        crypto.randomBytes(20, function(err, buf) {
+                            var token = buf.toString('hex');
+                            done(err, token);
+                        });
+                    },
+                    function(token, done) {
+                        User.findOne({
+                            $or: [{
+                                email: req.body.text
+                            }, {
+                                username: req.body.text
+                            }]
+                        }, function(err, user) {
+                            if (err || !user) return done(true);
+                            done(err, user, token);
+                        });
+                    },
+                    function(user, token, done) {
+                        user.resetPasswordToken = token;
+                        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+                        user.save(function(err) {
+                            done(err, token, user);
+                        });
+                    },
+                    function(token, user, done) {
+                        var mailOptions = {
+                            to: user.email,
+                            from: config.emailFrom
+                        };
+                        mailOptions = templates.forgot_password_email(user, req, token, mailOptions);
+                        sendMail(mailOptions);
+                        done(null, user);
                     }
+                ],
+                function(err, user) {
+
+                    var response = {
+                        message: 'Mail successfully sent',
+                        status: 'success'
+                    };
+                    if (err) {
+                        response.message = 'User does not exist';
+                        response.status = 'danger';
+
+                    }
+                    MeanUser.events.publish({
+                        action: 'forgot_password',
+                        user: {
+                            name: req.body.text
+                        }
+                    });
+                    res.json(response);
                 });
-                res.json(response);
-            });
         }
     };
 }
