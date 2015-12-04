@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.system').controller('HeaderController', ['$scope', '$rootScope', 'Menus', 'MeanUser', '$state','$location',
-    function($scope, $rootScope, Menus, MeanUser, $state, $location) {
+angular.module('mean.system',['ui-notification']).controller('HeaderController', ['$scope', '$rootScope', 'Menus', 'MeanUser', '$state','$location','$stateParams','Freelancer','Notification',
+    function($scope, $rootScope, Menus, MeanUser, $state, $location, $stateParams, Freelancer, Notification) {
 
         var vm = this;
 
@@ -14,6 +14,20 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
             isFreelancer : MeanUser.isFreelancer
         };
 
+
+        $scope.getLandingObject = function(){
+            //$stateParams.FreelancerId
+            Freelancer.storefront_resource.get({freelancerId: $stateParams.freelancerId}, function(response,header,error){
+                if(response.success){
+                    Notification.success('Freelancer details updated successfully.');
+                    $scope.freelancer_object = response.freelancer_object[0];
+                    console.log(response.freelancer_object[0]);
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            });
+        };
 
         vm.openFreelancerBlock = function(flag){
             $location.url('/admin/freelancer');
@@ -36,6 +50,11 @@ angular.module('mean.system').controller('HeaderController', ['$scope', '$rootSc
                     $scope.category = 'Page';
                     $rootScope.$broadcast('free_landing_demo');
                     //$location.url('/freelancer/landing/demo');
+                    break;
+                case 'public_landing':
+                    $scope.flag = flag;
+                    $scope.category = 'Page';
+                    $location.url('/freelancer/storefront/'+MeanUser.user._id);
                     break;
             }
         };

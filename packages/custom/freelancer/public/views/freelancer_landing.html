@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <!-- Custom styles for this template -->
+    <link href="freelancer/assets/freelancer/css/main.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="freelancer/assets/freelancer/js/hover.zoom.js"></script>
+    <script src="freelancer/assets/freelancer/js/hover.zoom.conf.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div ng-init="getLandingObject()" ng-controller="HeaderController">
+    <div id="ww">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 centered">
+                    <img ng-if="freelancer_object.user_intro.profile_image.indexOf('filepicker.io') > -1" ng-src="{{freelancer_object.user_intro.profile_image}}/convert?w=200&h=200&fit=scale" style="width:200px; border-radius: 50%;" alt="Stanley">
+                    <img ng-if="freelancer_object.user_intro.profile_image.indexOf('filepicker.io') == -1" ng-src="{{freelancer_object.user_intro.profile_image}}" alt="Stanley">
+                    <div class="clearfix"></div>
+                    <h1>{{freelancer_object.user_intro.Hi_message}}</h1>
+                    <p>{{freelancer_object.user_intro.Hi_description}}<br/></p>
+                </div><!-- /col-lg-8 -->
+            </div><!-- /row -->
+        </div> <!-- /container -->
+    </div><!-- /ww -->
+    <div class="container pt">
+        <div class="row mt centered">
+            <div class="col-lg-3">
+                <span class="glyphicon glyphicon-book"></span>
+                <p>{{freelancer_object.user_positives.one}}</p>
+            </div>
+
+            <div class="col-lg-3">
+                <span class="glyphicon glyphicon-user"></span>
+                <p>{{freelancer_object.user_positives.two}}</p>
+            </div>
+
+            <div class="col-lg-3">
+                <span class="glyphicon glyphicon-fire"></span>
+                <p>{{freelancer_object.user_positives.three}}</p>
+            </div>
+
+            <div class="col-lg-3">
+                <span class="glyphicon glyphicon-globe"></span>
+                <p>{{freelancer_object.user_positives.four}}</p>
+            </div>
+        </div><!-- /row -->
+
+        <div class="row mt">
+            <div class="col-lg-6">
+                <h4>THE THINKING</h4>
+                <p>{{freelancer_object.user_thinking}}</p>
+            </div><!-- /colg-lg-6 -->
+
+            <div class="col-lg-6">
+                <h4>THE SKILLS</h4>
+                <div ng-repeat="skill in freelancer_object.user_skills">
+                    {{skill.name}}
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-theme" role="progressbar" aria-valuenow="{{skill.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{skill.percentage}}%;">
+                            <span class="sr-only">{{skill.percentage}}%</span>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /col-lg-6 -->
+        </div><!-- /row -->
+    </div>
+    <!-- +++++ Projects Section +++++ -->
+
+    <div class="container pt">
+        <div class="row mt centered">
+            <h1>PORTFOLIO<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a></h1>
+            <div ng-if="freelancer_object.portfolio.length > 0">
+                <div class="col-lg-4" ng-repeat="portfolio in freelancer_object.portfolio">
+                    <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removePortfolio($index)"><i class="fa fa-minus"></i></a>
+                    <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio.image}}" alt="" /></a>
+                    <p>{{portfolio.title}}</p>
+                </div>
+            </div>
+            <div class="col-lg-4" ng-if="freelancer_object.portfolio.length == 0">
+                <div class="alert alert-warning fade in m-b-15">
+                    <strong>Warning!</strong>
+                    No Portfolio added by Freelancer.
+                    <span class="close" data-dismiss="alert">&times;</span>
+                </div>
+            </div>
+        </div><!-- /row -->
+    </div><!-- /container -->
+    <!-- +++++ Footer Section +++++ -->
+
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h4>My Bunker</h4>
+                    <p>
+                        Some Address 987,<br/>
+                        +34 9054 5455, <br/>
+                        Madrid, Spain.
+                    </p>
+                </div><!-- /col-lg-4 -->
+
+                <div class="col-lg-4">
+                    <h4>My Links</h4>
+                    <p>
+                        <a href="">Dribbble</a><br/>
+                        <a href="">Twitter</a><br/>
+                        <a href="">Facebook</a>
+                    </p>
+                </div><!-- /col-lg-4 -->
+
+                <div class="col-lg-4">
+                    <h4>About Stanley</h4>
+                    <p>This cute theme was created to showcase your work in a simple way. Use it wisely.</p>
+                </div><!-- /col-lg-4 -->
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

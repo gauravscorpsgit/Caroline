@@ -11,14 +11,9 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 }
             }
         })
-            /*.state('freelancer_demo_page', {
-                url: '/freelancer/landing/demo',
-                templateUrl: 'freelancer/views/freelancer_demo_page.html',
-                resolve: {
-                    loggedin: function(MeanUser) {
-                        return MeanUser.checkLoggedin();
-                    }
-                }
-            });*/
+            .state('freelancer_landing_page', {
+                url: '/freelancer/storefront/:freelancerId',
+                templateUrl: 'freelancer/views/freelancer_landing.html'
+            });
     }
 ]);

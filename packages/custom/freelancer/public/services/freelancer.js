@@ -8,6 +8,9 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
             }),
             freelancer_details_resource : $resource('/api/user/freelancer/landing',{},{update :{method : 'PUT',data : '@_data'},
                 get : {method : 'GET',isArray: false}
+            }),
+            storefront_resource : $resource('/api/user/storefront',{freelancerId :'@_freelancerId'},{
+                get : {method : 'GET',isArray: false}
             })
         };
     }

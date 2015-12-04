@@ -22,13 +22,12 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
         };
 
 
-
         $scope.updateFreelancerLanding = function(){
             Freelancer.freelancer_details_resource.update($scope.landing_info,function(response,header,error){
                 if(response.success){
+                    Notification.success('Freelancer details updated successfully.');
                     $scope.landing_editable = false;
                     $scope.$apply();
-                    Notification.success('Freelancer details updated successfully.');
                 }
                 else{
                     Notification.error('There was an issue, Please try again');

@@ -302,6 +302,16 @@ module.exports = function(MeanUser) {
 
             });
         },
+        getFreelancerStorefront : function (req,resMain) {
+            Freelancer_landing.find({user_id : req.query.freelancerId}, function(err,res){
+                if(err){
+                    console.log(err);
+                    resMain.json({success: false});
+                } else{
+                    resMain.json({success: true, freelancer_object : res});
+                }
+            });
+        },
 
         /**
          * Callback for forgot password link

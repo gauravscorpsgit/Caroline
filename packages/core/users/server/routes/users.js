@@ -17,6 +17,9 @@ module.exports = function(MeanUser, app, auth, database, passport) {
         .put(users.updateLanding)
         .get(users.getFreelancerLanding);
 
+    app.route('/api/user/storefront')
+        .get(users.getFreelancerStorefront);
+
     // Setting up the userId param
     app.param('userId', users.user);
 
