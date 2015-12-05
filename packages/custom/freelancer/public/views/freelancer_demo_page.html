@@ -66,14 +66,62 @@
         <div class="container pt">
             <div class="row mt centered">
                 <h1>YOUR SERVICES<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a></h1>
-                <div ng-if="landing_info.products.length > 0">
-                    <div class="col-lg-4" ng-repeat="product in landing_info.products">
+                <div ng-if="landing_info.products.length > 0" class ="col-lg-12">
+                    <div ng-repeat="product in landing_info.products"class="col-lg-4 md-card">
                         <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removeProduct($index)"><i class="fa fa-minus"></i></a>
-                        <p>{{product.title}}</p>
-                        <a class="zoom green" href=""><img class="img-responsive" src="{{product.image}}" alt="" /></a>
-                        <p>{{product.description}}</p>
-                        <p>${{product.price}}</p>
+                        <h2>{{product.title}} </h2>
+                        <carousel>
+                            <slide>
+                                <img style="border-top-left-radius: 4px;border-top-right-radius: 4px; width: 100%" class="img-responsive" src = "{{product.image}}/convert?h=150&fit=scale"/>
+                                <div class="carousel-caption">
+                                </div>
+                            </slide>
+                        </carousel>
+                        <div class="col-md-12" style="margin-top: 10px;">
+                            <div class="col-md-7" style="text-align: left;">
+                                <p style="font-size: initial;">{{product.description}}</p>
+                            </div>
+                            
+                            <div class="col-md-5">
+                                <div style="text-align: left;">
+                                    <h4><i class="fa fa-usd"></i> {{product.price}}</b></h4>
+                                </div>
+                               <!-- <ngcart-addtocart id="{{dish._id}}" name="{{dish.title}},{{dish.images[0].url}}" price="{{dish.price}}" quantity="1" quantity-max="5">Add to Cart</ngcart-addtocart>-->
+                            </div>
+                        </div>
+                        <a href="">
+                            <div style="display: inline-flex;float: left;padding: 10px;">
+                                <img ng-if="landing_info.user_intro.profile_image.indexOf('filepicker.io') > -1" ng-src="{{landing_info.user_intro.profile_image}}/convert?w=50&h=50&fit=scale" style="width:50px; border-radius: 50%;">
+                                <img ng-if="landing_info.user_intro.profile_image.indexOf('filepicker.io') == -1" ng-src="{{landing_info.user_intro.profile_image}}" style="width:50px; height: 50px;">
+                                <h5 style="margin-left: 15px;">Gaurav Chawla</h5>
+                            </div>
+                        </a>
+
+                        <div class="clearfix"></div>
+                        <div style="margin-left: 10px;">
+                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                <input type="hidden" name="cmd" value="_xclick" />
+                                <input type="hidden" name="business" value="molnars77@gmail.com" />
+                                <input type="hidden" name="lc" value="CA" />
+                                <input type="hidden" name="item_name" value="{{product.title}}" />
+                                <input type="hidden" name="item_number" value="{{product._id}}" />
+                                <input type="hidden" name="amount" value="{{product.price}}" />
+                                <input type="hidden" name="currency_code" value="{{ settings.paypal.currency_code }}" />
+                                <input type="hidden" name="button_subtype" value="services" />
+                                <input type="hidden" name="no_note" value="{{ settings.paypal.no_note }}" />
+                                <input type="hidden" name="tax_rate" value="0" />
+                                <input type="hidden" name="shipping" value="0" />
+                                <input type="hidden" name="return" value="http://rankmantra.in/Suresh/design/CloudOne/Cloud/app/#/payment_status_success">
+                                <input type="hidden" name="cancel_return" value="http://rankmantra.in/Suresh/design/CloudOne/Cloud/app/#/payment_status_failed">
+                                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest" />
+                                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+                                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                            </form>
+                        </div>
                     </div>
+                    <div class="clearfix" ng-if="$index%3==2"></div>
+                    <div ng-repeat-end=""></div>
+
                 </div>
                 <div class="col-lg-4" ng-if="landing_info.products.length == 0">
                     <div class="alert alert-warning fade in m-b-15">
@@ -95,7 +143,6 @@
                     <div class="clearfix"></div>
                     <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstProduct()">ADD SERVICE</button>
                 </div>
-
 
                 <div class="col-lg-4" ng-show ="landing_editable && landing_info.products.length > 0">
                     <input  ng-model="product_skeleton.title" type="text" class="form-control" placeholder="Service Title">
