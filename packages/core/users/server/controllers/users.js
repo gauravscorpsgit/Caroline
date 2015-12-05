@@ -171,7 +171,8 @@ module.exports = function(MeanUser) {
                                 footer : {
                                     header : 'About Stanley',
                                     description :'Hey I am stanley and learn more about me by working with me.'
-                                }
+                                },
+                                products:[]
                             };
                             console.log(landing_schema);
                             var freelancer_landing = new Freelancer_landing(landing_schema);

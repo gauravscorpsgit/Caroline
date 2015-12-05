@@ -63,7 +63,57 @@
                 <input type="text" class="form-control"  ng-show="landing_editable" ng-model="landing_info.user_positives.four">
             </div>
         </div><!-- /row -->
+        <div class="container pt">
+            <div class="row mt centered">
+                <h1>YOUR SERVICES<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a></h1>
+                <div ng-if="landing_info.products.length > 0">
+                    <div class="col-lg-4" ng-repeat="product in landing_info.products">
+                        <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removeProduct($index)"><i class="fa fa-minus"></i></a>
+                        <p>{{product.title}}</p>
+                        <a class="zoom green" href=""><img class="img-responsive" src="{{product.image}}" alt="" /></a>
+                        <p>{{product.description}}</p>
+                        <p>${{product.price}}</p>
+                    </div>
+                </div>
+                <div class="col-lg-4" ng-if="landing_info.products.length == 0">
+                    <div class="alert alert-warning fade in m-b-15">
+                        <strong>Warning!</strong>
+                        No Services added.
+                        <span class="close" data-dismiss="alert">&times;</span>
+                    </div>
+                    <input  ng-model="product_skeleton.title" type="text" class="form-control" placeholder="Service Title">
+                    <p>{{product_skeleton.title}}</p>
+                    <div class="clearfix"></div>
+                    <a ng-click="openProductPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Your Service Image</a>
+                    <a class="zoom green" href=""><img class="img-responsive" src="{{product_skeleton.image}}" alt="" /></a>
+                    <div class="clearfix"></div>
+                    <p>{{product_skeleton.description}}</p>
+                    <input  ng-model="product_skeleton.description" type="text" class="form-control" placeholder="Service Description">
+                    <div class="clearfix"></div>
+                    <p>${{product_skeleton.price}}</p>
+                    <input  ng-model="product_skeleton.price" type="number" class="form-control" placeholder="Service Price">
+                    <div class="clearfix"></div>
+                    <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstProduct()">ADD SERVICE</button>
+                </div>
 
+
+                <div class="col-lg-4" ng-show ="landing_editable && landing_info.products.length > 0">
+                    <input  ng-model="product_skeleton.title" type="text" class="form-control" placeholder="Service Title">
+                    <p>{{product_skeleton.title}}</p>
+                    <div class="clearfix"></div>
+                    <a ng-click="openProductPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Your Service Image</a>
+                    <a class="zoom green" href=""><img class="img-responsive" src="{{product_skeleton.image}}" alt="" /></a>
+                    <div class="clearfix"></div>
+                    <p>{{product_skeleton.description}}</p>
+                    <input  ng-model="product_skeleton.description" placeholder="Service Descripton" type="text" class="form-control">
+                    <div class="clearfix"></div>
+                    <p>${{product_skeleton.price}}</p>
+                    <input  ng-model="product_skeleton.price" type="number" class="form-control" placeholder="Service Price">
+                    <div class="clearfix"></div>
+                    <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstProduct()">ADD SERVICE</button>
+                </div>
+            </div>
+        </div>
         <div class="row mt">
             <div class="col-lg-6">
                 <h4>THE THINKING</h4>

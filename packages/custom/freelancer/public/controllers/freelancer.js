@@ -22,12 +22,12 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
         };
 
 
+
         $scope.updateFreelancerLanding = function(){
             Freelancer.freelancer_details_resource.update($scope.landing_info,function(response,header,error){
                 if(response.success){
                     Notification.success('Freelancer details updated successfully.');
                     $scope.landing_editable = false;
-                    $scope.$apply();
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
@@ -85,6 +85,60 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
             });
 
         };
+
+        $scope.product_skeleton = {
+            title : '',
+            description:'',
+            image : '',
+            price : ''
+        };
+
+        $scope.pushFirstProduct = function(){
+            if($scope.product_skeleton.title.length > 0 && $scope.product_skeleton.image.length > 0 && $scope.product_skeleton.description.length > 0  && $scope.product_skeleton.price.length != 0){
+                /* $scope.landing_info.products.push();
+                 Notification.success('Save changes to make the persistent.');*/
+
+                Freelancer.product_resource.save($scope.product_skeleton, function(response,header, error){
+                    console.log(response);
+                    if(response.success){
+                        $scope.landing_info.products.push(response.product_object);
+                        Notification.success('Service created, save changes to make the persistent.');
+                    }
+                    else{
+                        Notification.error('There was an issue, Please try again');
+                    }
+
+
+                });
+            }
+        };
+        $scope.removeProduct = function(index){
+            $scope.landing_info.products.splice(index, 1);
+        };
+
+
+        $scope.openProductPicDialog = function(index, is_intial){
+            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.pickMultiple(
+                {
+                    imageMax: [600 , 600],
+                    imageMin: [200, 200],
+                    maxFiles: 1
+                },
+                function(Blobs){
+                    console.log(JSON.stringify(Blobs));
+                    if(is_intial){
+                        $scope.product_skeleton.image = Blobs[0].url;
+                    }
+                    $scope.$apply();
+                },
+                function(error){
+                    console.log(JSON.stringify(error));
+                }
+            );
+        };
+
+
 
         $scope.portfolio_skeleton = {
             title : '',

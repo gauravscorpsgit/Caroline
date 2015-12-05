@@ -44,6 +44,10 @@ var FreelancerLandingSchema = new Schema({
         type: Object,
         required: false
     },
+    products :{
+        type: Object,
+        required: false
+    },
     created: {
         type: Date,
         default: Date.now

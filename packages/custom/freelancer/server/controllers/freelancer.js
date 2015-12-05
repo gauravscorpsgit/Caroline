@@ -6,6 +6,7 @@
 
 var mongoose = require('mongoose'),
     FreelancerEmailsSchema = mongoose.model('freelancer_emails'),
+    ProductSchema = mongoose.model('freelancer_products'),
     mean = require('meanio'),
     nodemailer = require('nodemailer'),
     templates = require('../template'),
@@ -26,6 +27,25 @@ exports.getUserSentEmails = function(req,resMain){
             resMain.json({success: true, emails : res});
         }
     }).sort({ created: -1 });
+};
+
+exports.createFreelancerProduct = function(req,resMain){
+    console.log(req.body);
+
+
+    req.body.user_id = req.user._id;
+
+    var product_db = new ProductSchema(req.body);
+    product_db.save(function(err,res) {
+        if (err) {
+            console.log(err);
+            resMain.json({success: false});
+        }
+        else
+        {
+            resMain.json({success: true, product_object : res});
+        }
+    })
 };
 
 exports.createEmail = function(req,resMain){
