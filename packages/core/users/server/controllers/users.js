@@ -167,8 +167,13 @@ module.exports = function(MeanUser) {
                                     {name : 'Photoshop', percentage : 50},
                                     {name : 'HTML + CSS', percentage : 50},
                                 ],
-                                portfolio : []
-                            }
+                                portfolio : [],
+                                footer : {
+                                    header : 'About Stanley',
+                                    description :'Hey I am stanley and learn more about me by working with me.'
+                                }
+                            };
+                            console.log(landing_schema);
                             var freelancer_landing = new Freelancer_landing(landing_schema);
                             freelancer_landing.save();
                         }
