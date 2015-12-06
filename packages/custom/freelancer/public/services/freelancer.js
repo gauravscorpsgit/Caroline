@@ -14,6 +14,9 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
             }),
             product_resource : $resource('/api/product/:product_id',{product_id : '@_product_id'},{
                 save : {method : 'POST', data:'@_data'}
+            }),
+            getWorker_resource : $resource('/api/freelancer/addworker',{email_id: '@_email_id'},{
+                get : {method : 'GET',isArray: false}
             })
         };
     }

@@ -21,6 +21,18 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
             $scope.landing_info.user_skills.splice( index, 1 );
         };
 
+        $scope.worker = {email:''};
+        $scope.getCoworker = function(){
+            console.log('Add co worker page');
+            Freelancer.getWorker_resource.get({email_id:$scope.worker},function(response,header,error){
+                if(response.success){
+                    console.log(response);
+                }
+                else{
+                    console.log('there is an issue');
+                }
+            })
+        };
 
 
         $scope.updateFreelancerLanding = function(){
@@ -60,6 +72,10 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
 
         $rootScope.$on('free_landing_demo', function(){
             $scope.activeTemplate = 'freelancer/views/freelancer_demo_page.html';
+        });
+
+        $rootScope.$on('Add_CoWorker', function(){
+            $scope.activeTemplate = 'freelancer/views/add_worker.html';
         });
 
 

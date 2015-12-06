@@ -6,6 +6,7 @@
 
 var mongoose = require('mongoose'),
     FreelancerEmailsSchema = mongoose.model('freelancer_emails'),
+    UserSchema = mongoose.model('User'),
     ProductSchema = mongoose.model('freelancer_products'),
     mean = require('meanio'),
     nodemailer = require('nodemailer'),
@@ -67,8 +68,22 @@ exports.createEmail = function(req,resMain){
             resMain.json({success: true});
         }
     })
-
 };
+
+exports.getUserWorkerEmail = function(req,resMain){
+    console.log(req.query.email_id.email);
+    UserSchema.findOne({email : req.query.email_id.email}, function(err,res){
+
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        } else{
+            console.log(res);
+            resMain.json({success: true});
+        }
+    })
+};
+
 function sendMail(mailOptions) {
     var transport = nodemailer.createTransport(config.mailer);
     transport.sendMail(mailOptions, function(error, success) {

@@ -31,6 +31,8 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
             });
         };
 
+
+
         vm.openFreelancerBlock = function(flag){
             $location.url('/admin/freelancer');
             switch (flag){
@@ -53,10 +55,23 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
                     $rootScope.$broadcast('free_landing_demo');
                     //$location.url('/freelancer/landing/demo');
                     break;
+
                 case 'public_landing':
                     $scope.flag = flag;
                     $scope.category = 'Page';
                     $location.url('/freelancer/storefront/'+MeanUser.user._id);
+                    break;
+
+                case 'Add_CoWorker':
+                    $scope.flag = flag;
+                    $scope.category = 'Worker';
+                    $rootScope.$broadcast('Add_CoWorker');
+                    break;
+
+                case 'Your_CoWorker':
+                    $scope.flag = flag;
+                    $scope.category = 'Worker';
+                    $rootScope.$broadcast();
                     break;
             }
         };

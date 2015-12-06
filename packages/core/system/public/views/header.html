@@ -190,6 +190,17 @@
                     <li><a ng-class="{active : flag === 'public_landing'}" href="" ng-click="hdrctr.openFreelancerBlock('public_landing', 'Page')">Your Store Front</a></li>
                 </ul>
             </li>
+            <li class="has-sub" ng-class="{active : category === 'Worker'}">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-user-plus"></i>
+                    <span>Add Co Worker</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a ng-class="{active : flag === 'Add_CoWorker'}" href="" ng-click="hdrctr.openFreelancerBlock('Add_CoWorker', 'Worker')">Add Co-Worker</a></li>
+                    <li><a ng-class="{active : flag === 'Your_CoWorker'}" href="" ng-click="hdrctr.openFreelancerBlock('Your_CoWorker', 'Worker')">Your Co-Worker</a></li>
+                </ul>
+            </li>
 
         </ul>
         <!-- end sidebar nav -->

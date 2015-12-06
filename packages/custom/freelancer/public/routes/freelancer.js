@@ -15,5 +15,6 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 url: '/freelancer/storefront/:freelancerId',
                 templateUrl: 'freelancer/views/freelancer_landing.html'
             });
+
     }
 ]);

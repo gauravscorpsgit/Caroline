@@ -9,6 +9,9 @@ module.exports = function(Freelancer, app, auth, database) {
         .post(freelancer_server_controllers.createEmail)
         .get(freelancer_server_controllers.getUserSentEmails);
 
+    app.route('/api/freelancer/addworker')
+        .get(freelancer_server_controllers.getUserWorkerEmail);
+
     app.route('/api/product')
         .post(freelancer_server_controllers.createFreelancerProduct)
 
