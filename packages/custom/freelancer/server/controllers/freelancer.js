@@ -31,6 +31,7 @@ exports.getUserSentEmails = function(req,resMain){
 
 exports.createFreelancerProduct = function(req,resMain){
     req.body.user_id = req.user._id;
+    req.body.username = req.user.name;
 
     var product_db = new ProductSchema(req.body);
     product_db.save(function(err,res) {

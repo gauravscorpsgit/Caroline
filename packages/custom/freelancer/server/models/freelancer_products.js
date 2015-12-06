@@ -22,6 +22,10 @@ var ProductSchema = new Schema({
         type: Number,
         required: true
     },
+    username:{
+        type: String,
+        required: true
+    },
     price :{
         type: Number,
         required: true,

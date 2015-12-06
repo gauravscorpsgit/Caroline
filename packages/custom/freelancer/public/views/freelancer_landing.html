@@ -54,8 +54,8 @@
         <div class="container pt">
             <div class="row mt centered">
                 <h1>YOUR SERVICES<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a></h1>
-                <div ng-if="landing_info.products.length > 0" class ="col-lg-12">
-                    <div ng-repeat="product in landing_info.products"class="col-lg-4 md-card">
+                <div ng-if="freelancer_object.products.length > 0" class ="col-lg-12">
+                    <div ng-repeat="product in freelancer_object.products"class="col-lg-4 md-card">
                         <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removeProduct($index)"><i class="fa fa-minus"></i></a>
                         <h2>{{product.title}} </h2>
                         <carousel>
@@ -79,9 +79,9 @@
                         </div>
                         <a href="">
                             <div style="display: inline-flex;float: left;padding: 10px;">
-                                <img ng-if="landing_info.user_intro.profile_image.indexOf('filepicker.io') > -1" ng-src="{{landing_info.user_intro.profile_image}}/convert?w=50&h=50&fit=scale" style="width:50px; border-radius: 50%;">
-                                <img ng-if="landing_info.user_intro.profile_image.indexOf('filepicker.io') == -1" ng-src="{{landing_info.user_intro.profile_image}}" style="width:50px; height: 50px;">
-                                <h5 style="margin-left: 15px;">Gaurav Chawla</h5>
+                                <img ng-if="freelancer_object.user_intro.profile_image.indexOf('filepicker.io') > -1" ng-src="{{freelancer_object.user_intro.profile_image}}/convert?w=50&h=50&fit=scale" style="width:50px; border-radius: 50%;">
+                                <img ng-if="freelancer_object.user_intro.profile_image.indexOf('filepicker.io') == -1" ng-src="{{freelancer_object.user_intro.profile_image}}" style="width:50px; height: 50px;">
+                                <h5 style="margin-left: 15px;">{{product.username}}</h5>
                             </div>
                         </a>
 
@@ -109,9 +109,8 @@
                     </div>
                     <div class="clearfix" ng-if="$index%3==2"></div>
                     <div ng-repeat-end=""></div>
-
                 </div>
-                <div class="col-lg-4" ng-if="landing_info.products.length == 0">
+                <div class="col-lg-4" ng-if="freelancer_object.products.length == 0">
                     <div class="alert alert-warning fade in m-b-15">
                         <strong>Warning!</strong>
                         No Services added.
