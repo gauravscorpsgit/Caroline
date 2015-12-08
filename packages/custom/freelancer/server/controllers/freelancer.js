@@ -91,14 +91,12 @@ exports.getUserWorkerEmail = function(req,resMain){
 };
 
 exports.getSearchEmail =function(req,resMain){
-    UserSchema.find({email : req.query.searchEmail_id.email}, function(err,res){
-
+    UserSchema.find({roles : 'contractor'}, function(err,res){
         if(err){
             console.log(err);
             resMain.json({success: false});
         } else{
-            console.log(res);
-            resMain.json({success: true});
+            resMain.json({success: true, contrator_list :res});
         }
     })
 
