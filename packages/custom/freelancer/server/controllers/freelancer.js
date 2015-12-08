@@ -90,6 +90,20 @@ exports.getUserWorkerEmail = function(req,resMain){
     })
 };
 
+exports.getSearchEmail =function(req,resMain){
+    UserSchema.find({email : req.query.searchEmail_id.email}, function(err,res){
+
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        } else{
+            console.log(res);
+            resMain.json({success: true});
+        }
+    })
+
+};
+
 function sendMail(mailOptions) {
     var transport = nodemailer.createTransport(config.mailer);
     transport.sendMail(mailOptions, function(error, success) {

@@ -34,6 +34,18 @@ angular.module('mean.freelancer',['ui-notification']).controller('FreelancerCont
         };
 
 
+        $scope.email_search = function(){
+            console.log('search emails');
+            Freelancer.getSearchEmail_resource.get({searchEmail_id:$scope.emailForm.to_user},function(response,header,error){
+                if(response.success){
+                    console.log(response);
+                }
+                else{
+                    console.log('there is an issue');
+                }
+            })
+        };
+
         $scope.updateFreelancerLanding = function(){
             Freelancer.freelancer_details_resource.update($scope.landing_info,function(response,header,error){
                 if(response.success){
