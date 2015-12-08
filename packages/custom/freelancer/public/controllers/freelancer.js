@@ -23,8 +23,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         $scope.worker = {email:''};
         $scope.getCoworker = function(){
-            console.log('Add co worker page');
-            Freelancer.getWorker_resource.get({email_id:$scope.worker},function(response,header,error){
+            Freelancer.getWorker_resource.get($scope.worker,function(response,header,error){
                 if(response.success){
                     console.log(response);
                 }
