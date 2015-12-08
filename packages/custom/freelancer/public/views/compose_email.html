@@ -45,19 +45,14 @@
                 <!-- end btn-toolbar -->
             </div>
             <!-- end wrapper -->
+
             <!-- begin wrapper -->
             <div class="wrapper">
                 <div class="p-30 bg-white">
                     <!-- begin email form -->
-                    <form name="email_to_form" ng-submit="email_form()" ng-init="email_search()">
-                        <div angucomplete-alt id="ex1" ng-enter="searchChefs()" ng-disabled="fetching" placeholder="Enter your city name" maxlength="50" pause="100" selected-object="user_location" local-data="indian_cities.data" search-fields="name" title-field="name" minlength="1" input-class="form-control form-control-small" match-class="highlight"></div>
-                        <!-- begin email to -->
-
+                    <form name="email_to_form" ng-submit="email_form(contractor_email.title)" ng-init="email_search()">
                         <label class="control-label">To:</label>
-                        <div class="m-b-15">
-                            <input type="text" class="form-control" data-ng-model="emailForm.to_user">
-                        </div>
-                        <!-- end email to -->
+                        <div angucomplete-alt id="ex1" ng-enter="searchChefs()" ng-disabled="fetching" placeholder="Enter contractor email address" maxlength="50" pause="100" selected-object="contractor_email" local-data="contractors_list.data" search-fields="email" title-field="email" minlength="1" input-class="form-control m-b-15 form-control-small" match-class="highlight"></div>
                         <!-- begin email subject -->
                         <label class="control-label">Subject:</label>
                         <div class="m-b-15">
