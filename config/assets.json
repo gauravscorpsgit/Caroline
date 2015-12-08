@@ -4,7 +4,8 @@
       "bower_components/build/css/dist.min.css": [
         "bower_components/angular/angular-csp.css",
         "bower_components/angular-ui-select/dist/select.min.css",
-        "bower_components/angular-ui-notification/dist/angular-ui-notification.min.css"
+        "bower_components/angular-ui-notification/dist/angular-ui-notification.min.css",
+        "bower_components/angucomplete-alt/angucomplete-alt.css"
       ]
     },
     "js": {
@@ -20,7 +21,8 @@
         "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         "bower_components/angular-ui-select/dist/select.min.js",
         "bower_components/web-bootstrap/index.js",
-        "bower_components/angular-ui-notification/dist/angular-ui-notification.min.js"
+        "bower_components/angular-ui-notification/dist/angular-ui-notification.min.js",
+        "bower_components/angucomplete-alt/dist/angucomplete-alt.min.js"
       ]
     }
   }

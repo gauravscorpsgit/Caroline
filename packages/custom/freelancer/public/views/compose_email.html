@@ -50,7 +50,9 @@
                 <div class="p-30 bg-white">
                     <!-- begin email form -->
                     <form name="email_to_form" ng-submit="email_form()" ng-init="email_search()">
+                        <div angucomplete-alt id="ex1" ng-enter="searchChefs()" ng-disabled="fetching" placeholder="Enter your city name" maxlength="50" pause="100" selected-object="user_location" local-data="indian_cities.data" search-fields="name" title-field="name" minlength="1" input-class="form-control form-control-small" match-class="highlight"></div>
                         <!-- begin email to -->
+
                         <label class="control-label">To:</label>
                         <div class="m-b-15">
                             <input type="text" class="form-control" data-ng-model="emailForm.to_user">

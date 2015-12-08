@@ -13,6 +13,7 @@
     "web-bootstrap": "./node_modules/meanio/resources/web-bootstrap.js",
     "angular-ui-select": "latest",
     "angular-sanitize": "latest",
-    "angular-ui-notification" : "0.1.0"
+    "angular-ui-notification": "0.1.0",
+    "angucomplete-alt": "1.1.0"
   }
 }
