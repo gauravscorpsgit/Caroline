@@ -90,6 +90,18 @@ exports.getUserWorkerEmail = function(req,resMain){
     })
 };
 
+
+exports.putWorker = function(req, resMain){
+    UserSchema.findByIdAndUpdate(req.body._id, function(err,res){
+        if(err){
+            console.log(err);
+            resMain.json({success : false});
+        }else{
+            resMain.json({success : true});
+        }
+    });
+};
+
 exports.getSearchEmail =function(req,resMain){
     UserSchema.find({email : req.query.searchEmail_id.email}, function(err,res){
 

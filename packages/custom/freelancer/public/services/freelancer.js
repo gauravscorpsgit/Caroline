@@ -20,6 +20,9 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
             }),
             getSearchEmail_resource :$resource('/api/freelancer/searchEmail',{searchEmail_id: '@_searchEmail_id'}, {
                 get: {method: 'GET', isArray: false}
+            }),
+            addWorker_resource :$resource('/api/freelancer/updateWorker',{Worker_id : '@_Worker_id'}, {
+                put: {method: 'PUT'}
             })
         };
     }
