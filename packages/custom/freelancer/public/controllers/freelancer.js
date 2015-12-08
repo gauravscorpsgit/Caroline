@@ -21,16 +21,38 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             $scope.landing_info.user_skills.splice( index, 1 );
         };
 
+        $scope.Search_initial = true;
+        $scope.Search_success = true;
         $scope.worker = {email:''};
         $scope.getCoworker = function(){
+            $scope.Search_initial = true;
+            $scope.Search_success = true;
             Freelancer.getWorker_resource.get($scope.worker,function(response,header,error){
                 if(response.success){
+                    $scope.Search_initial = false;
                     console.log(response);
+                    $scope.freelancer_worker = response.freelancer_object;
                 }
                 else{
                     console.log('there is an issue');
+                    $scope.Search_success = false;
                 }
             })
+        };
+
+
+        $scope.addWorker =function(id){
+
+            Freelancer.addWorker_resource.put(id, function(response,header,error) {
+                if(response.success){
+                    Notification.success('Email has been saved');
+                }
+
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+
         };
 
 

@@ -1,8 +1,59 @@
 <link href="system/assets/theme/plugins/bootstrap-wizard/css/bwizard.min.css" rel="stylesheet" />
 <!-- begin #content -->
-<div id="content" class="content">
+<div id="content" class="content" ng-cloak="">
     <!-- begin breadcrumb -->
     <div class="row">
+
+        <!--start user profile-->
+
+        <div class="col-md-4 panel panel-inverse" ng-if="Search_initial ==false">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Co-Worker Found</h4>
+            </div>
+
+            <div class="panel-body">
+                <div class="alert alert-success fade in m-b-15">
+                    <strong>Success!</strong>
+                    Vivamus vestibulum posuere est eu tincidunt.
+                    <span class="close" data-dismiss="alert">&times;</span>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <img ng-src="freelancer/assets/freelancer/img/user.png" >
+                <h4>USERNAME:{{freelancer_worker.name}}</h4>
+                <h4>ROLE:Freelancer</h4>
+                <h4>EMAIL ID:{{freelancer_worker.email}}</h4>
+                <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="addWorker(freelancer_worker._id)">Add</button>
+            </div>
+        </div>
+
+        <div class="col-md-4 md-card" ng-if="Search_success ==false">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Co-Worker Not Found</h4>
+            </div>
+            <div class="panel-body">
+                <div class="alert alert-danger fade in m-b-15">
+                    <strong>Success!</strong>
+                    Vivamus vestibulum posuere est eu tincidunt.
+                    <span class="close" data-dismiss="alert">&times;</span>
+                </div>
+            </div>
+        </div>
+        <!--end user profile-->
+
         <!-- begin col-12 -->
         <div class="col-md-12">
             <!-- begin panel -->
@@ -14,7 +65,7 @@
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                     </div>
-                    <h4 class="panel-title">Form Wizards</h4>
+                    <h4 class="panel-title">Search Co-Worker</h4>
                 </div>
                 <div class="panel-body">
                     <input class="col-md-6 form-control" type="text"  ng-model="worker.email" placeholder="Enter your Co Worker Email">
@@ -22,9 +73,13 @@
                     <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="getCoworker()">Search</button>
                 </div>
             </div>
+
             <!-- end panel -->
         </div>
+
         <!-- end col-12 -->
+
+
     </div>
     <!-- end row -->
 </div>
