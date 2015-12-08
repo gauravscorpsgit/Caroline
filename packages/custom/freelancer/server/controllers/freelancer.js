@@ -70,16 +70,22 @@ exports.createEmail = function(req,resMain){
     })
 };
 
-exports.getUserWorkerEmail = function(req,resMain){
-    console.log(req.query.email_id.email);
-    UserSchema.findOne({email : req.query.email_id.email}, function(err,res){
 
+exports.getUserWorkerEmail = function(req,resMain){
+    UserSchema.findOne({email : req.query.email}, function(err,res){
         if(err){
-            console.log(err);
+            console.log('err',err);
             resMain.json({success: false});
         } else{
-            console.log(res);
-            resMain.json({success: true});
+            if(res != null){
+                if((res.roles.indexOf('freelancer')!= -1) && (res.email != req.user.email)){
+                    resMain.json({success: true, freelancer_object : res});
+                }else{
+                    resMain.json({success: false});
+                }
+            }else{
+                resMain.json({success: false});
+            }
         }
     })
 };

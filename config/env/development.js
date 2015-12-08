@@ -51,13 +51,14 @@ module.exports = {
       enabled: false
     }
   },
+
     admin_email : 'care@chefmother.com',
-    emailFrom: 'spreadcircle@yahoo.com', // sender address like ABC <abc@example.com>
+    emailFrom: 'care@chefmother.com', // sender address like ABC <abc@example.com>
     mailer: {
-        service: 'yahoo',
+        service: 'zoho',
         auth: {
-            user: 'spreadcircle@yahoo.com',
-            pass: 'yahoo@13'
+            user: 'care@chefmother.com',
+            pass: 'chefmother123$'
         }
     },
   secret: 'SOME_TOKEN_SECRET'
