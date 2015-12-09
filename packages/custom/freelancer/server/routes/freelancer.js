@@ -12,6 +12,10 @@ module.exports = function(Freelancer, app, auth, database) {
     app.route('/api/freelancer/addworker')
         .get(freelancer_server_controllers.getUserWorkerEmail);
 
+
+    app.route('/api/freelancer/freelancerworker')
+        .get(freelancer_server_controllers.getFreelancerEmail);
+
     app.route('/api/freelancer/searchEmail')
         .get(freelancer_server_controllers.getSearchEmail);
 

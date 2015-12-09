@@ -77,6 +77,7 @@ exports.getUserWorkerEmail = function(req,resMain){
             console.log('err',err);
             resMain.json({success: false});
         } else{
+            console.log(res);
             if(res != null){
                 if((res.roles.indexOf('freelancer')!= -1) && (res.email != req.user.email)){
                     resMain.json({success: true, freelancer_object : res});
@@ -91,15 +92,21 @@ exports.getUserWorkerEmail = function(req,resMain){
 };
 
 
-exports.putWorker = function(req, resMain){
-    UserSchema.findByIdAndUpdate(req.body._id, function(err,res){
+exports.getFreelancerEmail =function(req,resMain){
+    UserSchema.find({roles : 'freelancer'}, function(err,res){
         if(err){
             console.log(err);
-            resMain.json({success : false});
-        }else{
-            resMain.json({success : true});
+            resMain.json({success: false});
+        } else{
+            resMain.json({success: true, freelancer_object :res});
         }
-    });
+    })
+};
+
+exports.putWorker = function(req, resMain){
+
+    console.log(req.body);
+
 };
 
 exports.getSearchEmail =function(req,resMain){
@@ -113,6 +120,18 @@ exports.getSearchEmail =function(req,resMain){
     })
 
 };
+
+/*exports.putWorkerEmail = function(req,resMain){
+    FreelancerEmailsSchema.findByIdAndUpdate(req.body._id, function(err,res){
+        if(err){
+            console.log(err);
+            resMain.json({success : false});
+        }else{
+            resMain.json({success : true});
+        }
+    });
+};*/
+
 
 function sendMail(mailOptions) {
     var transport = nodemailer.createTransport(config.mailer);

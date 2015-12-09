@@ -27,10 +27,10 @@
 
             <div class="panel-body">
                 <img ng-src="freelancer/assets/freelancer/img/user.png" >
-                <h4>USERNAME:{{freelancer_worker.name}}</h4>
+                <h4>USERNAME:{{Freelancer_list.name}}</h4>
                 <h4>ROLE:Freelancer</h4>
-                <h4>EMAIL ID:{{freelancer_worker.email}}</h4>
-                <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="addWorker(freelancer_worker._id)">Add</button>
+                <h4>EMAIL ID:{{Freelancer_list.email}}</h4>
+                <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="addWorker(Freelancer_list._id)">Add</button>
             </div>
         </div>
 
@@ -57,7 +57,7 @@
         <!-- begin col-12 -->
         <div class="col-md-12">
             <!-- begin panel -->
-            <div class="panel panel-inverse">
+            <div class="panel panel-inverse" ng-init="getFreelancersId()">
                 <div class="panel-heading">
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -68,9 +68,11 @@
                     <h4 class="panel-title">Search Co-Worker</h4>
                 </div>
                 <div class="panel-body">
-                    <input class="col-md-6 form-control" type="text"  ng-model="worker.email" placeholder="Enter your Co Worker Email">
+                    <!--<input class="col-md-6 form-control" type="text"  ng-model="worker.email" placeholder="Enter your Co Worker Email">-->
+                    <div angucomplete-alt id="ex1" ng-enter="searchChefs()" ng-disabled="fetching" placeholder="Enter Freelancer email address" maxlength="50" pause="100" selected-object="Freelancer_email" local-data="Freelancer_list.data" search-fields="email" title-field="email" minlength="1" input-class="form-control m-b-15 form-control-small" match-class="highlight"></div>
 
-                    <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="getCoworker()">Search</button>
+                    <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="getCoworker(Freelancer_email.title)">Search</button>
+
                 </div>
             </div>
 

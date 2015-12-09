@@ -21,17 +21,18 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             $scope.landing_info.user_skills.splice( index, 1 );
         };
 
+
         $scope.Search_initial = true;
         $scope.Search_success = true;
-        $scope.worker = {email:''};
-        $scope.getCoworker = function(){
+        /*$scope.worker = {email:};*/
+        $scope.getCoworker = function(email){
             $scope.Search_initial = true;
             $scope.Search_success = true;
-            Freelancer.getWorker_resource.get($scope.worker,function(response,header,error){
+            Freelancer.getWorker_resource.get({email : email}, function(response,header,error){
                 if(response.success){
                     $scope.Search_initial = false;
                     console.log(response);
-                    $scope.freelancer_worker = response.freelancer_object;
+                    $scope.Freelancer_list = response.freelancer_object;
                 }
                 else{
                     console.log('there is an issue');
@@ -40,10 +41,20 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
+        $scope.getFreelancersId = function(){
+            Freelancer.getfreelancerWorker_resource.get(function(response,header,error){
+                if(response.success){
+                    $scope.Freelancer_list = {data:response.freelancer_object};
+                }
+                else{
+                    Notification.error('No contractors found, Please try again');
+                }
+            })
+        };
+
 
         $scope.addWorker =function(id){
-
-            Freelancer.addWorker_resource.put(id, function(response,header,error) {
+            Freelancer.addWorker_resource.put({freelancer_id:id}, function(response,header,error) {
                 if(response.success){
                     Notification.success('Email has been saved');
                 }
@@ -78,6 +89,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                 }
             });
         };
+
 
         $scope.getFreelancerDetails = function(){
             Freelancer.freelancer_details_resource.get(function(response,header,error){
@@ -147,7 +159,6 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                  Notification.success('Save changes to make the persistent.');*/
 
                 Freelancer.product_resource.save($scope.product_skeleton, function(response,header, error){
-                    console.log(response);
                     if(response.success){
                         $scope.landing_info.products.push(response.product_object);
                         Notification.success('Service created, save changes to make the persistent.');
