@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     FreelancerEmailsSchema = mongoose.model('freelancer_emails'),
     UserSchema = mongoose.model('User'),
     ProductSchema = mongoose.model('freelancer_products'),
+    OrderSchema = mongoose.model('freelancer_order'),
     mean = require('meanio'),
     nodemailer = require('nodemailer'),
     templates = require('../template'),
@@ -131,6 +132,22 @@ exports.getSearchEmail =function(req,resMain){
         }
     });
 };*/
+
+exports.createOrder = function(req,resMain){
+    req.body.freelancer_id = req.user._id;
+
+    var order_db = new OrderSchema(req.body);
+    order_db.save(function(err,res) {
+        if (err) {
+            console.log(err);
+            resMain.json({success: false});
+        }
+        else
+        {
+            resMain.json({success: true, order_object : res});
+        }
+    })
+};
 
 
 function sendMail(mailOptions) {

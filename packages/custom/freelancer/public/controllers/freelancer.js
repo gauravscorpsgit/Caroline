@@ -136,7 +136,9 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         $scope.getInboxMessage = function(){
             Freelancer.compose_resource.get(function(response,header,error) {
                 if(response.success){
+
                     $scope.user_emails = response.emails;
+                    console.log(response);
                     Notification.success('Emails fetched successfully');
                 }
                 else{
@@ -146,12 +148,31 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         };
 
+
+
+        $scope.saveOrder = function(id){
+            Freelancer.order_resource.save( {product_id : id}, function(response,header, error){
+                if(response.success){
+                   $scope.order_list = response.order_object;
+                    Notification.success('Order is saved');
+                }
+                else{
+                    Notification.error('There was an issue, Order not saved');
+                }
+
+
+            });
+        };
+
         $scope.product_skeleton = {
             title : '',
             description:'',
             image : '',
             price : ''
+
         };
+
+
 
         $scope.pushFirstProduct = function(){
             if($scope.product_skeleton.title.length > 0 && $scope.product_skeleton.image.length > 0 && $scope.product_skeleton.description.length > 0  && $scope.product_skeleton.price.length != 0){

@@ -37,6 +37,9 @@ module.exports = function(Freelancer, app, auth, database) {
         res.send('Only users with Admin role can access this');
     });
 
+    app.route('/api/order')
+        .post(freelancer_server_controllers.createOrder);
+
     app.get('/freelancer/example/render', function(req, res, next) {
         Freelancer.render('index', {
             package: 'freelancer'
