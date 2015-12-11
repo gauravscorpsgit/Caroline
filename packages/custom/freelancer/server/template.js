@@ -10,3 +10,13 @@ module.exports = {
         return mailOptions;
     }
 };
+
+module.exports = {
+    co_worker_Mail: function(mailOptions) {
+        mailOptions.html = [
+            'Hi you have been added as co-worker'
+        ].join('\n\n');
+        mailOptions.subject = 'New co-worker Added[freelancer.com]';
+        return mailOptions;
+    }
+};
