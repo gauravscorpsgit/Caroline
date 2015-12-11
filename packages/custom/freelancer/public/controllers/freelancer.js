@@ -350,7 +350,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.storefront_resource.post({coWorker_array :coworkers},function(response,header,error){
                 if(response.success){
                     console.log(response);
-
+                    $scope.coworkers_list = response.coworker_objects_arr;
                     Notification.success('coworker details post successfully.');
 
                 }
