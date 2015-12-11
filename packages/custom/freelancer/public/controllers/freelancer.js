@@ -53,8 +53,8 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         };
 
 
-        $scope.addWorker =function(id){
-            Freelancer.addWorker_resource.put({freelancer_id:id}, function(response,header,error) {
+        $scope.addWorker =function(id, email){
+            Freelancer.addWorker_resource.put({freelancer_id:id, freelancer_email:email}, function(response,header,error) {
                 if(response.success){
                     if( response.status == 1)
                         Notification.warning('Freelancer already added as Co-Worker');

@@ -106,8 +106,6 @@ exports.getFreelancerEmail =function(req,resMain){
 };
 
 exports.putWorker = function(req, resMain){
-
-    //console.log(req.body);
     Freelancer_DetailsSchema.findOneAndUpdate(
         {$and :[{user_id: req.user._id},{coworkers:{$nin:[req.body.freelancer_id]}}]},
         {$push: {coworkers: req.body.freelancer_id}},
