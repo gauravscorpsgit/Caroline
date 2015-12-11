@@ -74,20 +74,26 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
             }
             destination = angular.isDefined(response.redirect) ? response.redirect : destination;
             this.user = user || response;
-            this.loggedin = true;
-            this.loginError = 0;
-            this.registerError = 0;
-            this.isAdmin = !! (this.user.roles.indexOf('admin') + 1);
-            this.isFreelancer = !! (this.user.roles.indexOf('freelancer') + 1);
-            this.isContractor = !! (this.user.roles.indexOf('contractor') + 1);
 
-            if(this.isFreelancer)
-               $location.path('/admin/freelancer');
+            if(this.user.roles === undefined){
+                $location.path('/auth/login');
+            }
+            else{
+                this.loggedin = true;
+                this.loginError = 0;
+                this.registerError = 0;
+                this.isAdmin = !! (this.user.roles.indexOf('admin') + 1);
+                this.isFreelancer = !! (this.user.roles.indexOf('freelancer') + 1);
+                this.isContractor = !! (this.user.roles.indexOf('contractor') + 1);
 
-            if(this.isContractor)
-                $location.path('/contractor');
+                if(this.isFreelancer)
+                    $location.path('/admin/freelancer');
 
-            $rootScope.$emit('loggedin');
+                if(this.isContractor)
+                    $location.path('/contractor');
+
+                $rootScope.$emit('loggedin');
+            }
         };
 
         MeanUserKlass.prototype.onIdFail = function (response) {
@@ -95,7 +101,8 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
             this.loginError = 'Authentication failed.';
             this.registerError = response;
             this.validationError = response.msg;
-            this.resetpassworderror = response.msg;
+            this.resetpassworderror = response;
+            $rootScope.$emit('response_fail',response);
             $rootScope.$emit('loginfailed');
             $rootScope.$emit('registerfailed');
         };

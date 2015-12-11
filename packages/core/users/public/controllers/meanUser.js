@@ -22,7 +22,7 @@ angular.module('mean.users')
 
       // This object will be filled by the form
       vm.user = {};
-      
+
       vm.input = {
         type: 'password',
         placeholder: 'Password',
@@ -55,7 +55,7 @@ angular.module('mean.users')
       vm.user = {
           userType:'freelancer'
       };
-      
+
       vm.registerForm = MeanUser.registerForm = true;
 
       vm.input = {
@@ -93,7 +93,7 @@ angular.module('mean.users')
   .controller('ForgotPasswordCtrl', ['MeanUser', '$rootScope',
     function(MeanUser, $rootScope) {
       var vm = this;
-      vm.user = {};      
+      vm.user = {};
       vm.registerForm = MeanUser.registerForm = false;
       vm.forgotpassword = function() {
         MeanUser.forgotpassword(this.user);
@@ -103,11 +103,16 @@ angular.module('mean.users')
       });
     }
   ])
-  .controller('ResetPasswordCtrl', ['MeanUser',
-    function(MeanUser) {
+  .controller('ResetPasswordCtrl', ['MeanUser','$rootScope',
+    function(MeanUser, $rootScope) {
       var vm = this;
-      vm.user = {};      
+      vm.user = {};
       vm.registerForm = MeanUser.registerForm = false;
+
+        $rootScope.$on('response_fail', function(event, args){
+            vm.response = args;
+        });
+
       vm.resetpassword = function() {
         MeanUser.resetpassword(this.user);
       };
