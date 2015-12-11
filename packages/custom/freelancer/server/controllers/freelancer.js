@@ -146,7 +146,15 @@ exports.getSearchEmail =function(req,resMain){
 };
 
 exports.createOrder = function(req,resMain){
-    req.body.freelancer_id = req.user._id;
+
+    if(req.user != undefined){
+        if(req.user.roles.indexOf('freelancer') != -1){
+            req.body.freelancer_id = req.user._id;
+        }else{
+            req.body.customer_id = req.user._id;
+        }
+    }
+
 
     var order_db = new OrderSchema(req.body);
     order_db.save(function(err,res) {

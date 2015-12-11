@@ -14,6 +14,17 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
             isFreelancer : MeanUser.isFreelancer
         };
 
+        $scope.saveOrder = function(id){
+            Freelancer.order_resource.save( {product_id : id, freelancer_id: $stateParams.freelancerId}, function(response,header, error){
+                if(response.success){
+                    $scope.order_list = response.order_object;
+                    Notification.success('Order is saved');
+                }
+                else{
+                    Notification.error('There was an issue, Order not saved');
+                }
+            });
+        };
 
         $scope.getLandingObject = function(){
             //$stateParams.FreelancerId
