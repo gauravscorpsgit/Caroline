@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
     FreelancerEmailsSchema = mongoose.model('freelancer_emails'),
     UserSchema = mongoose.model('User'),
     ProductSchema = mongoose.model('freelancer_products'),
+    Freelancer_DetailsSchema = mongoose.model('freelancer_landing'),
     OrderSchema = mongoose.model('freelancer_order'),
     mean = require('meanio'),
     nodemailer = require('nodemailer'),
@@ -106,8 +107,24 @@ exports.getFreelancerEmail =function(req,resMain){
 
 exports.putWorker = function(req, resMain){
 
-    console.log(req.body);
-
+    //console.log(req.body);
+    Freelancer_DetailsSchema.findOneAndUpdate(
+        {$and :[{user_id: req.user._id},{coworkers:{$nin:[req.body.freelancer_id]}}]},
+        {$push: {coworkers: req.body.freelancer_id}},
+        {safe: true},function(err, res) {
+            if(err){
+                console.log(err);
+                resMain.json({success: false});
+            }
+            else{
+                console.log(res);
+                if(res != null){
+                    resMain.json({success: true, status : 0});
+                }else{
+                    resMain.json({success: true, status : 1});
+                }
+            }
+        });
 };
 
 exports.getSearchEmail =function(req,resMain){
@@ -121,17 +138,6 @@ exports.getSearchEmail =function(req,resMain){
     })
 
 };
-
-/*exports.putWorkerEmail = function(req,resMain){
-    FreelancerEmailsSchema.findByIdAndUpdate(req.body._id, function(err,res){
-        if(err){
-            console.log(err);
-            resMain.json({success : false});
-        }else{
-            resMain.json({success : true});
-        }
-    });
-};*/
 
 exports.createOrder = function(req,resMain){
     req.body.freelancer_id = req.user._id;
