@@ -42,7 +42,7 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
             });
         };
 
-
+    
 
         vm.openFreelancerBlock = function(flag){
             $location.url('/admin/freelancer');
@@ -82,7 +82,7 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
                 case 'Your_CoWorker':
                     $scope.flag = flag;
                     $scope.category = 'Worker';
-                    $rootScope.$broadcast();
+                    $rootScope.$broadcast('Your_CoWorker');
                     break;
             }
         };
