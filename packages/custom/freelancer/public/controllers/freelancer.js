@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope',
-    function($scope, Global, Freelancer, Notification, $rootScope) {
+angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope','$stateParams',
+    function($scope, Global, Freelancer, Notification, $rootScope, $stateParams) {
         $scope.global = Global;
         $scope.package = {
             name: 'freelancer'
@@ -123,6 +123,10 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         $rootScope.$on('Add_CoWorker', function(){
             $scope.activeTemplate = 'freelancer/views/add_worker.html';
+        });
+
+        $rootScope.$on('Your_CoWorker', function(){
+            $scope.activeTemplate = 'freelancer/views/coworkers.html';
         });
 
 
@@ -316,6 +320,21 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                     $scope.emailForm.content='';
                 }
 
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
+
+
+        $scope.getYourCoworker = function(){
+            Freelancer.storefront_resource.get(function(response,header,error){
+                if(response.success){
+                    console.log(response);
+                    $scope.coWorker_object = response.freelancer_object;
+                    Notification.success('coworker details added successfully.');
+
+                }
                 else{
                     Notification.error('There was an issue, Please try again');
                 }
