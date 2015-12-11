@@ -119,6 +119,14 @@ exports.putWorker = function(req, resMain){
             else{
                 console.log(res);
                 if(res != null){
+
+                    var mailOptions = {
+                        to: req.body.freelancer_email,
+                        from: config.emailFrom
+                    };
+                    mailOptions = templates.co_worker_Mail(mailOptions,req.body);
+                    sendMail(mailOptions);
+
                     resMain.json({success: true, status : 0});
                 }else{
                     resMain.json({success: true, status : 1});

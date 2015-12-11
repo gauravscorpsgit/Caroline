@@ -52,6 +52,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
+
         $scope.addWorker =function(id){
             Freelancer.addWorker_resource.put({freelancer_id:id}, function(response,header,error) {
                 if(response.success){
@@ -59,6 +60,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                         Notification.warning('Freelancer already added as Co-Worker');
                     else
                         Notification.success('Freelancer added as your Co-worker');
+                    $scope.activeTemplate = 'freelancer/views/add_worker.html';
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
