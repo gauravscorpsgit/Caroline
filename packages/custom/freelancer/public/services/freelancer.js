@@ -10,7 +10,7 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
                 get : {method : 'GET',isArray: false}
             }),
             storefront_resource : $resource('/api/user/storefront',{freelancerId :'@_freelancerId'},{
-                get : {method : 'GET',isArray: false}
+                get : {method : 'GET',isArray: false},post :{method : 'POST',data : '@_data'}
             }),
             product_resource : $resource('/api/product/:product_id',{product_id : '@_product_id'},{
                 save : {method : 'POST', data:'@_data'}

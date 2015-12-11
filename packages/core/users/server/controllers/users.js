@@ -330,6 +330,23 @@
                 });
             },
 
+            createCoworkerData : function(req,resMain){
+
+                var coworker_arr = req.body.coWorker_array;
+
+
+                User.find({
+                    '_id': { $in: coworker_arr}
+                }, function(err, docs){
+                    if(err){
+                        resMain.json({success: false});
+                    } else{
+                        resMain.json({success: true,coworker_objects_arr : docs});
+                    }
+                })
+
+            },
+
             /**
              * Callback for forgot password link
              */

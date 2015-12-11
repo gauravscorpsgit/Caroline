@@ -18,7 +18,9 @@ module.exports = function(MeanUser, app, auth, database, passport) {
         .get(users.getFreelancerLanding);
 
     app.route('/api/user/storefront')
-        .get(users.getFreelancerStorefront);
+        .get(users.getFreelancerStorefront)
+        .post(users.createCoworkerData);
+
 
     // Setting up the userId param
     app.param('userId', users.user);

@@ -331,8 +331,27 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.storefront_resource.get(function(response,header,error){
                 if(response.success){
                     console.log(response);
-                    $scope.coWorker_object = response.freelancer_object;
+                   // $scope.coWorker_object = response.freelancer_object;
+                    $scope.postCoworker(response.freelancer_object[0].coworkers)
                     Notification.success('coworker details added successfully.');
+
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+
+
+
+        };
+
+        $scope.postCoworker = function(coworkers){
+            console.log(coworkers);
+            Freelancer.storefront_resource.post({coWorker_array :coworkers},function(response,header,error){
+                if(response.success){
+                    console.log(response);
+
+                    Notification.success('coworker details post successfully.');
 
                 }
                 else{
