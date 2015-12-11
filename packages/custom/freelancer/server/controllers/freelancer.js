@@ -150,6 +150,7 @@ exports.createOrder = function(req,resMain){
     if(req.user != undefined){
         if(req.user.roles.indexOf('freelancer') != -1){
             req.body.freelancer_id = req.user._id;
+            req.body.customer_id = req.user._id;
         }else{
             req.body.customer_id = req.user._id;
         }

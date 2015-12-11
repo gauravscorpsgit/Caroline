@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.system',['ui-notification']).controller('HeaderController', ['$scope', '$rootScope', 'Menus', 'MeanUser', '$state','$location','$stateParams','Freelancer','Notification',
-    function($scope, $rootScope, Menus, MeanUser, $state, $location, $stateParams, Freelancer, Notification) {
+angular.module('mean.system',['ui-notification']).controller('HeaderController', ['$scope', '$rootScope', 'Menus', 'MeanUser', '$state','$location','$stateParams','Freelancer','Notification','$http','$cookies',
+    function($scope, $rootScope, Menus, MeanUser, $state, $location, $stateParams, Freelancer, Notification, $http, $cookies) {
 
         var vm = this;
 
@@ -15,13 +15,24 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
         };
 
         $scope.saveOrder = function(id){
-            Freelancer.order_resource.save( {product_id : id, freelancer_id: $stateParams.freelancerId}, function(response,header, error){
-                if(response.success){
-                    $scope.order_list = response.order_object;
-                    Notification.success('Order is saved');
+            $http.get('/api/loggedin').success(function(user) {
+                // Authenticated
+                if (user !== '0'){
+                    Freelancer.order_resource.save( {product_id : id, freelancer_id: $stateParams.freelancerId}, function(response,header, error){
+                        if(response.success){
+                            $scope.order_list = response.order_object;
+                            Notification.success('Order is saved');
+                        }
+                        else{
+                            Notification.error('There was an issue, Order not saved');
+                        }
+                    });
                 }
-                else{
-                    Notification.error('There was an issue, Order not saved');
+                // Not Authenticated
+                else {
+                    Notification.warning('Login to proceed');
+                    $cookies.put('redirect', $location.path());
+                    $location.url('/auth/login');
                 }
             });
         };

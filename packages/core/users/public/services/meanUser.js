@@ -88,9 +88,11 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
 
                 if(this.isFreelancer)
                     $location.path('/admin/freelancer');
+                //else
+                //    $location.path('/');
 
-                if(this.isContractor)
-                    $location.path('/contractor');
+                /*if(this.isContractor)
+                    $location.path('/contractor');*/
 
                 $rootScope.$emit('loggedin');
             }
