@@ -30,7 +30,8 @@ var FreelancerLandingSchema = new Schema({
     },
     user_thinking :{
         type: String,
-        required: false
+        required: false,
+        trim: true
     },
     user_skills :{
         type: Object,
@@ -55,6 +56,11 @@ var FreelancerLandingSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    paypal_email: {
+        type: String,
+        required: false,
+        trim: true
     }
 });
 

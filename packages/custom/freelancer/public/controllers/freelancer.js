@@ -115,7 +115,11 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         $rootScope.$on('openInbox', function(){
             $scope.activeTemplate = 'freelancer/views/email_inbox.html';
-        });''
+        });
+
+        $rootScope.$on('openPaid', function(){
+            $scope.activeTemplate = 'freelancer/views/paypal.html';
+        });
 
         $rootScope.$on('free_landing_demo', function(){
             $scope.activeTemplate = 'freelancer/views/freelancer_demo_page.html';
@@ -353,6 +357,21 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                     $scope.coworkers_list = response.coworker_objects_arr;
                     Notification.success('coworker details post successfully.');
 
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
+
+        $scope.paypal = {
+            email :''
+        };
+
+        $scope.postPaypalEmail = function(){
+            Freelancer.paypal_resource.put($scope.paypal, function(response,header,error){
+                if(response.success){
+                    Notification.success('paypal email_id post successfully.');
                 }
                 else{
                     Notification.error('There was an issue, Please try again');

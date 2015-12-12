@@ -21,6 +21,8 @@ module.exports = function(MeanUser, app, auth, database, passport) {
         .get(users.getFreelancerStorefront)
         .post(users.createCoworkerData);
 
+    app.route('/api/user/paypalEmail')
+        .put(users.createPaypalId);
 
     // Setting up the userId param
     app.param('userId', users.user);

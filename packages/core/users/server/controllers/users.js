@@ -347,6 +347,17 @@
 
             },
 
+            createPaypalId : function(req,resMain){
+                Freelancer_landing.findOneAndUpdate({user_id: req.user._id}, {paypal_email: req.body.email}, function(err,res){
+                    if(err){
+                        console.log(err);
+                        resMain.json({success: false});
+                    } else{
+                        resMain.json({success: true, akhil : res});
+                    }
+                })
+            },
+
             /**
              * Callback for forgot password link
              */
@@ -359,6 +370,7 @@
                                 done(err, token);
                             });
                         },
+
                         function(token, done) {
                             User.findOne({
                                 $or: [{
