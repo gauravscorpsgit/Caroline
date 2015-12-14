@@ -20,3 +20,23 @@ module.exports = {
         return mailOptions;
     }
 };
+
+module.exports = {
+    paypalSuccess_Mail: function(mailOptions) {
+        mailOptions.html = [
+            'Hi your payment have been completed successfully'
+        ].join('\n\n');
+        mailOptions.subject = 'Payment Success';
+        return mailOptions;
+    }
+};
+
+module.exports = {
+    paypalFail_Mail: function(mailOptions) {
+        mailOptions.html = [
+            'Hi your payment has not been completed'
+        ].join('\n\n');
+        mailOptions.subject = 'Payment Failed';
+        return mailOptions;
+    }
+};

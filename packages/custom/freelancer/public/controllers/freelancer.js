@@ -379,5 +379,29 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
+        $scope.getPaypalFail = function(){
+            console.log($stateParams.order_id);
+            Freelancer.order_resource.put({state: 'Failed', order_id: $stateParams.order_id}, function(response,header,error){
+                if(response.success){
+                    Notification.success('Your payment has been failed');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
+
+
+        $scope.getPaypalSuccess = function(){
+            console.log($stateParams.order_id);
+            Freelancer.order_resource.put({state: 'Success', order_id: $stateParams.order_id}, function(response,header,error){
+                if(response.success){
+                    Notification.success('Your payment has been completed');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
 
     }]);

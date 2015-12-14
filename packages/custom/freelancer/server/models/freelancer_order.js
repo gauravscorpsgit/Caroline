@@ -48,6 +48,11 @@ var OrderSchema = new Schema({
         type: String,
         required: false,
         default: 'temp'
+    },
+    paymentStatus : {
+        type: String,
+        required: false,
+        trim: true
     }
 });
 

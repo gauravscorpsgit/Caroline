@@ -170,6 +170,39 @@ exports.createOrder = function(req,resMain){
     })
 };
 
+exports.updateOrderId = function(req,resMain) {
+    console.log(req.body.order_id);
+    OrderSchema.findOneAndUpdate({_id: req.body.order_id}, {paymentStatus: req.body.state}, function(err,res){
+        if (err) {
+            console.log(err);
+            resMain.json({success: false});
+        }
+        else
+        {
+            if(req.body.state == 'Success'){
+                var mailOptions = {
+                    to: req.user._id,
+                    bcc: req.body.freelancer_email,
+                    from: config.emailFrom
+                };
+                mailOptions = templates.paypalSuccess_Mail(mailOptions,req.body);
+                sendMail(mailOptions);
+            }
+            else{
+                var mailOptions = {
+                    to: req.user._id,
+                    from: config.emailFrom
+                };
+                mailOptions = templates.paypalFail_Mail(mailOptions,req.body);
+                sendMail(mailOptions);
+
+            }
+            resMain.json({success: true, order_object : res});
+        }
+    })
+
+};
+
 
 function sendMail(mailOptions) {
     var transport = nodemailer.createTransport(config.mailer);

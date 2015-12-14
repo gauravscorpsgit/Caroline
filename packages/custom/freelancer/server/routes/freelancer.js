@@ -38,7 +38,8 @@ module.exports = function(Freelancer, app, auth, database) {
     });
 
     app.route('/api/order')
-        .post(freelancer_server_controllers.createOrder);
+        .post(freelancer_server_controllers.createOrder)
+        .put(freelancer_server_controllers.updateOrderId);
 
     app.get('/freelancer/example/render', function(req, res, next) {
         Freelancer.render('index', {
