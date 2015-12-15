@@ -101,6 +101,12 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
                     $scope.category = 'Worker';
                     $rootScope.$broadcast('Your_CoWorker');
                     break;
+
+                case 'YourJob':
+                    $scope.flag = flag;
+                    $scope.category = 'Jobs';
+                    $rootScope.$broadcast('YourJob');
+                    break;
             }
         };
 

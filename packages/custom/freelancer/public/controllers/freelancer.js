@@ -133,6 +133,10 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             $scope.activeTemplate = 'freelancer/views/coworkers.html';
         });
 
+        $rootScope.$on('YourJob', function(){
+            $scope.activeTemplate = 'freelancer/views/yourJob.html';
+        });
+
 
         $scope.emailForm = {
             to_user:'',
@@ -395,6 +399,19 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.order_resource.put({state: 'Success', order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Your payment has been completed');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
+
+        $scope.getProductId = function(){
+            Freelancer.productOrder_resource.put(function(response,header,error){
+                if(response.success){
+                    console.log(response);
+                    Notification.success('Successfully');
+                    $scope.orders = response.my_orders;
                 }
                 else{
                     Notification.error('There was an issue, Please try again');

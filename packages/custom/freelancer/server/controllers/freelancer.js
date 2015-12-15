@@ -209,6 +209,40 @@ exports.updateOrderId = function(req,resMain) {
 
 };
 
+exports.putProductOrder = function(req,resMain){
+    OrderSchema.find({freelancer_id : req.user._id, paymentStatus:'Success'}, function(err,res){
+        if (err) {
+            console.log(err);
+            resMain.json({success: false});
+        }
+        else{
+            var product_id_array = [];
+            var customer_id_array = [];
+            for (var i =0; i<res.length; i=i+1){
+                product_id_array.push(res[i].product_id);
+                customer_id_array.push(res[i].customer_id);
+            }
+            ProductSchema.find({'_id': { $in: product_id_array}}, function(err, products){
+                if(err){
+                    resMain.json({success: false});
+                } else{
+                    UserSchema.find({
+                        '_id': { $in: customer_id_array}
+                    }, function(err, customers){
+                        if(err){
+                            resMain.json({success: false});
+                        } else{
+
+                            resMain.json({success: true,purchased_products : products, my_orders: res, my_customers: customers});
+                        }
+                    })
+                }
+            });
+        }
+
+    })
+};
+
 
 function sendMail(mailOptions) {
     var transport = nodemailer.createTransport(config.mailer);

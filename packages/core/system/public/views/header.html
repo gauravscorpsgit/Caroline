@@ -183,6 +183,18 @@
         <!-- begin sidebar nav -->
         <ul class="nav">
             <li class="nav-header">Navigation</li>
+
+            <li class="has-sub" ng-class="{active : category === 'Jobs'}">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-bookmark-o"></i>
+                    <span>Jobs</span>
+                </a>
+                <ul class="sub-menu">
+                    <li ng-class="{active : flag === 'YourJob'}"><a href="" ng-click="hdrctr.openFreelancerBlock('YourJob', 'Jobs')">Your Jobs</a></li>
+
+                </ul>
+            </li>
             <li class="has-sub" ng-class="{active : category === 'Email'}">
                 <a href="javascript:;">
                     <b class="caret pull-right"></b>
