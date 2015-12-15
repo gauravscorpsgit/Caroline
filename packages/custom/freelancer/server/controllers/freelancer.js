@@ -61,13 +61,13 @@ exports.createEmail = function(req,resMain){
         }
         else
         {
+            resMain.json({success: true});
             var mailOptions = {
                 to: req.body.to_user,
                 from: config.emailFrom
             };
             mailOptions = templates.notify_contrator(mailOptions,req.body);
             sendMail(mailOptions);
-            resMain.json({success: true});
         }
     })
 };
@@ -179,23 +179,29 @@ exports.updateOrderId = function(req,resMain) {
         }
         else
         {
+            console.log(res);
             if(req.body.state == 'Success'){
-                var mailOptions = {
-                    to: req.user._id,
-                    bcc: req.body.freelancer_email,
-                    from: config.emailFrom
-                };
-                mailOptions = templates.paypalSuccess_Mail(mailOptions,req.body);
-                sendMail(mailOptions);
+                UserSchema.findById(res.freelancer_id, function(err,user){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        var mailOptions = {
+                            to: req.user.email,
+                            bcc: user.email,
+                            from: config.emailFrom
+                        };
+                        mailOptions = templates.co_worker_Mail(mailOptions,req.body);
+                        sendMail(mailOptions);
+                    }
+                });
             }
             else{
                 var mailOptions = {
-                    to: req.user._id,
+                    to: req.user.email,
                     from: config.emailFrom
                 };
                 mailOptions = templates.paypalFail_Mail(mailOptions,req.body);
                 sendMail(mailOptions);
-
             }
             resMain.json({success: true, order_object : res});
         }

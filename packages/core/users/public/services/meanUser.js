@@ -88,8 +88,10 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
 
                 if(this.isFreelancer)
                     $location.path('/admin/freelancer');
-                //else
-                //    $location.path('/');
+                else
+                    $location.path($cookies.get('redirect'));
+
+                $cookies.remove('redirect');
 
                 /*if(this.isContractor)
                     $location.path('/contractor');*/

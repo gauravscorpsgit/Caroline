@@ -380,7 +380,6 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         };
 
         $scope.getPaypalFail = function(){
-            console.log($stateParams.order_id);
             Freelancer.order_resource.put({state: 'Failed', order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Your payment has been failed');
@@ -390,7 +389,6 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                 }
             })
         };
-
 
         $scope.getPaypalSuccess = function(){
             console.log($stateParams.order_id);
@@ -403,5 +401,4 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                 }
             })
         };
-
     }]);
