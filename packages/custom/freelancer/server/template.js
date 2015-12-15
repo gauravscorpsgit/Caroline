@@ -8,30 +8,21 @@ module.exports = {
         ].join('\n\n');
         mailOptions.subject = data.subject+' [freelancer.com]';
         return mailOptions;
-    }
-};
-
-module.exports = {
+    },
     co_worker_Mail: function(mailOptions) {
         mailOptions.html = [
             'Hi you have been added as co-worker'
         ].join('\n\n');
         mailOptions.subject = 'New co-worker Added[freelancer.com]';
         return mailOptions;
-    }
-};
-
-module.exports = {
+    },
     paypalSuccess_Mail: function(mailOptions) {
         mailOptions.html = [
             'Hi your payment have been completed successfully'
         ].join('\n\n');
         mailOptions.subject = 'Payment Success';
         return mailOptions;
-    }
-};
-
-module.exports = {
+    },
     paypalFail_Mail: function(mailOptions) {
         mailOptions.html = [
             'Hi your payment has not been completed'

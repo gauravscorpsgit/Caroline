@@ -96,8 +96,10 @@
                     <div class="email-info">
                         <span class="email-time">Today</span>
                         <h5 class="email-title">
-                            <a href="email_detail.html">{{email.subject}}</a>
+                            <a>{{email.to_user}}</a>
                             <span class="label label-inverse f-s-10">admin</span>
+                            <div class="clearfix"></div>
+                            <a>{{email.subject}}</a>
                         </h5>
                         <p class="email-desc">
                             {{email.content}}
