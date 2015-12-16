@@ -206,7 +206,6 @@ exports.updateOrderId = function(req,resMain) {
             resMain.json({success: true, order_object : res});
         }
     })
-
 };
 
 exports.putProductOrder = function(req,resMain){
