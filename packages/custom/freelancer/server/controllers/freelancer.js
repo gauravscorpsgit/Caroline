@@ -190,7 +190,7 @@ exports.updateOrderId = function(req,resMain) {
                             bcc: user.email,
                             from: config.emailFrom
                         };
-                        mailOptions = templates.co_worker_Mail(mailOptions,req.body);
+                        mailOptions = templates.paypalSuccess_Mail(mailOptions,req.body);
                         sendMail(mailOptions);
                     }
                 });
@@ -241,6 +241,10 @@ exports.putProductOrder = function(req,resMain){
         }
 
     })
+};
+
+exports.submitWork = function(req,resMain) {
+
 };
 
 

@@ -20,7 +20,8 @@ module.exports = function(Freelancer, app, auth, database) {
         .get(freelancer_server_controllers.getSearchEmail);
 
     app.route('/api/freelancer/updateWorker')
-        .put(freelancer_server_controllers.putWorker);
+        .put(freelancer_server_controllers.putWorker)
+    .post(freelancer_server_controllers.submitWork);
 
     app.route('/api/product')
         .post(freelancer_server_controllers.createFreelancerProduct)

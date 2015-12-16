@@ -168,7 +168,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         $scope.saveOrder = function(id){
             Freelancer.order_resource.save( {product_id : id}, function(response,header, error){
                 if(response.success){
-                   $scope.order_list = response.order_object;
+                    $scope.order_list = response.order_object;
                     Notification.success('Order is saved');
                 }
                 else{
@@ -339,7 +339,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.storefront_resource.get(function(response,header,error){
                 if(response.success){
                     console.log(response);
-                   // $scope.coWorker_object = response.freelancer_object;
+                    // $scope.coWorker_object = response.freelancer_object;
                     $scope.postCoworker(response.freelancer_object[0].coworkers)
                     Notification.success('coworker details added successfully.');
 
@@ -406,16 +406,62 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
+        var fm = this;
         $scope.getProductId = function(){
             Freelancer.productOrder_resource.put(function(response,header,error){
                 if(response.success){
-                    console.log(response);
                     Notification.success('Successfully');
-                    $scope.orders = response.my_orders;
+                    $scope.orders = {orders : [], customers :[], products :[]}
+                    var product_object_array = [];
+                    var customers_object_array = [];
+
+                    for(var j = 0; j<response.my_orders.length; j=j+1 ) {
+                        for (var i = 0; i < response.purchased_products.length; i = i + 1) {
+                            if (response.purchased_products[i]._id == response.my_orders[j].product_id) {
+                                product_object_array.push(response.purchased_products[i]);
+                            }
+                        }
+                        for (var k = 0; k < response.my_customers.length; k = k + 1) {
+                            if (response.my_customers[k]._id == response.my_orders[j].customer_id) {
+                                customers_object_array.push(response.my_customers[k]);
+                            }
+                        }
+                    }
+
+                    $scope.orders.orders = response.my_orders;
+                    $scope.orders.customers = customers_object_array;
+                    $scope.orders.products = product_object_array;
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
                 }
             })
         };
+
+        $scope.submitWork = function(pid){
+
+            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.pickMultiple(
+                {
+                    imageMax: [600 , 600],
+                    imageMin: [200, 200],
+                    maxFiles: 1
+                },
+                function(Blobs){
+                    console.log(JSON.stringify(Blobs));
+                    //$scope.product_skeleton.image = Blobs[0].url;
+
+                    Freelancer.productOrder_resource.post_work_to_client({work_url : Blobs[0].url}, function(response,header,error){
+
+                    });
+
+                    $scope.$apply();
+                },
+                function(error){
+                    console.log(JSON.stringify(error));
+                }
+            );
+
+        };
+
     }]);
