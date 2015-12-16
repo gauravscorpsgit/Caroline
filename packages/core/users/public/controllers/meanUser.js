@@ -16,8 +16,8 @@ angular.module('mean.users')
         });
     }
   ])
-  .controller('LoginCtrl', ['$rootScope', 'MeanUser',
-    function($rootScope, MeanUser) {
+  .controller('LoginCtrl', ['$rootScope', 'MeanUser','$location',
+    function($rootScope, MeanUser, $location) {
       var vm = this;
 
       // This object will be filled by the form
@@ -46,6 +46,12 @@ angular.module('mean.users')
       vm.login = function() {
         MeanUser.login(this.user);
       };
+
+        $rootScope.$on('loggedin',function(event, args){
+            if(MeanUser.isContractor){
+                $location.path('/');
+            }
+        });
     }
   ])
   .controller('RegisterCtrl', ['$rootScope', 'MeanUser',

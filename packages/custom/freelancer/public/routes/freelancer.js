@@ -2,12 +2,16 @@
 
 angular.module('mean.freelancer').config(['$stateProvider',
     function($stateProvider) {
+
         $stateProvider.state('freelancer admin', {
             url: '/admin/freelancer',
             templateUrl: 'freelancer/views/index.html',
             resolve: {
                 loggedin: function(MeanUser) {
                     return MeanUser.checkLoggedin();
+                },
+                isFreelancer: function(MeanUser) {
+                    return MeanUser.checkFreelancer();
                 }
             }
         })

@@ -398,6 +398,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.order_resource.put({state: 'Success', order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Your payment has been completed');
+                    $cookies.put('redirect', '/enter_requirements');
                     $location.url('/enter_requirements');
                 }
                 else{
