@@ -21,7 +21,7 @@ module.exports = function(Freelancer, app, auth, database) {
 
     app.route('/api/freelancer/updateWorker')
         .put(freelancer_server_controllers.putWorker)
-    .post(freelancer_server_controllers.submitWork);
+
 
     app.route('/api/product')
         .post(freelancer_server_controllers.createFreelancerProduct)
@@ -43,7 +43,9 @@ module.exports = function(Freelancer, app, auth, database) {
         .put(freelancer_server_controllers.updateOrderId);
 
     app.route('/api/freelancer/productOrder')
-        .put(freelancer_server_controllers.putProductOrder);
+        .put(freelancer_server_controllers.putProductOrder)
+        .post(freelancer_server_controllers.submitWork);
+
 
     app.get('/freelancer/example/render', function(req, res, next) {
         Freelancer.render('index', {

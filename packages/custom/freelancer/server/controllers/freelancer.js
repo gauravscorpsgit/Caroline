@@ -244,8 +244,42 @@ exports.putProductOrder = function(req,resMain){
 };
 
 exports.submitWork = function(req,resMain) {
+    var d = new Date();
+    var date_string = d.getDate()+'-'+d.getMonth()+'-'+d.getFullYear();
+    var deliverable = {date : date_string, url : req.body.work_url};
+    OrderSchema.findOneAndUpdate({_id: req.body.order_id},
+        {$push: {deliverables: deliverable}},
+        {safe: true},function(err, res){
+            if(err){
+                console.log(err);
+                resMain.json({success: false});
+            }else{
+                resMain.json({success: true,deliverable : deliverable});
+                UserSchema.findById(res.customer_id, function(err,customer){
+                    if(err){
+                        console.log(err);
+                    }else{
 
+                        var mailOptions = {
+                            to: customer.email,
+                            bcc: req.user.email,
+                            from: config.emailFrom
+                        };
+                        var email_content ={
+                            order: res,
+                            deliverable : deliverable,
+                            freelancer : req.user,
+                            customer : customer
+                        }
+
+                        mailOptions = templates.deliverable_notify(mailOptions,email_content);
+                        sendMail(mailOptions);
+                    }
+                });
+            }
+        });
 };
+
 
 
 function sendMail(mailOptions) {

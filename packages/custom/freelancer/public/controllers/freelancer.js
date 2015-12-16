@@ -438,8 +438,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
-        $scope.submitWork = function(pid){
-
+        $scope.submitWork = function(oid, index){
             filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
             filepicker.pickMultiple(
                 {
@@ -449,12 +448,15 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                 },
                 function(Blobs){
                     console.log(JSON.stringify(Blobs));
-                    //$scope.product_skeleton.image = Blobs[0].url;
-
-                    Freelancer.productOrder_resource.post_work_to_client({work_url : Blobs[0].url}, function(response,header,error){
-
+                    Freelancer.productOrder_resource.post_work_to_client({work_url : Blobs[0].url, order_id: oid}, function(response,header,error){
+                        if(response.success){
+                            Notification.success('Work has been submission successfully.');
+                            $scope.orders.orders[index].deliverables.push(response.deliverable);
+                        }
+                        else{
+                            Notification.error('Work submission failed. Try again later.');
+                        }
                     });
-
                     $scope.$apply();
                 },
                 function(error){

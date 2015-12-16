@@ -44,10 +44,10 @@ var OrderSchema = new Schema({
         required: true,
         default: false
     },
-    deliverable_url :{
-        type: String,
-        required: false,
-        default: 'temp'
+    deliverables :{
+        type: Array,
+        default: [],
+        required: false
     },
     paymentStatus : {
         type: String,
