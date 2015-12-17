@@ -16,10 +16,9 @@ angular.module('mean.users')
         });
     }
   ])
-  .controller('LoginCtrl', ['$rootScope', 'MeanUser','$location',
-    function($rootScope, MeanUser, $location) {
+  .controller('LoginCtrl', ['$rootScope', 'MeanUser','$location','$cookies',
+    function($rootScope, MeanUser, $location, $cookies) {
       var vm = this;
-
       // This object will be filled by the form
       vm.user = {};
 
@@ -48,7 +47,7 @@ angular.module('mean.users')
       };
 
         $rootScope.$on('loggedin',function(event, args){
-            if(MeanUser.isContractor){
+            if(MeanUser.isContractor && !($cookies.get('redirect').indexOf('storefront') > -1)){
                 $location.path('/');
             }
         });

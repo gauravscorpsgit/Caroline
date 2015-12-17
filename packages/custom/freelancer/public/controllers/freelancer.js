@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope','$stateParams','$location',
-    function($scope, Global, Freelancer, Notification, $rootScope, $stateParams, $location) {
+angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope','$stateParams','$location','$cookies',
+    function($scope, Global, Freelancer, Notification, $rootScope, $stateParams, $location, $cookies) {
         $scope.global = Global;
         $scope.package = {
             name: 'freelancer'
