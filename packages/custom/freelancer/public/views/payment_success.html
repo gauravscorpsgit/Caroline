@@ -119,11 +119,20 @@
                             <h4>Thankyou for Payment</h4>
                             <p>Please fill the requirements bellow whcih will explain the need.</p>
                         </div>
+                        <div ng-if="!requirement_sent">
                         <textarea class="textarea form-control" ng-model="clientReqiuire.description" placeholder="Enter text ..." rows="12"></textarea>
 
                         <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="sendRequirement(orderObject.freelancer_id )">Send Requirement</button>
-
+                        </div>
+                        <div ng-if="requirement_sent">
+                            <div class="alert alert-success fade in m-b-15">
+                                <strong>Success!</strong>
+                                Requirements has been sent!
+                                <span class="close" data-dismiss="alert">×</span>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
                 <!-- end panel -->

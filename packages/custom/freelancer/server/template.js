@@ -32,7 +32,7 @@ module.exports = {
     },
     client_Mail: function(mailOptions,object) {
         mailOptions.html = [
-            'Hi'+object.freelancer.name+',<br><br>'+object.contractor+ 'has just sent you the requirements, please go through it mentioned below: <br><br>'+object.clientreqire.description+'.<br><br>Reagrds:<br>'+object.contractor
+            'Hi '+object.freelancer.name+',<br><br>'+object.contractor+ ' has just sent you the requirements, please go through it mentioned below: <br><br>'+object.clientreqire.description+'.<br><br>Reagrds:<br>'+object.contractor
         ].join('\n\n');
         mailOptions.subject = 'Hi '+object.freelancer.name+'! You have received the requirements from order #'+object.orderId+'.';
         return mailOptions;
@@ -43,6 +43,14 @@ module.exports = {
             'Please go through the work and approve it <a href="http://localhost:3000/client/work">here</a>.<br><br>Regards:<br>Admin'
         ].join('\n\n');
         mailOptions.subject = 'Hi Five! Work submission for order #'+object.order._id;
+        return mailOptions;
+    },
+    work_approval: function(mailOptions, object) {
+        mailOptions.html = [
+            'Hi '+object.freelancer.name+',<br><br>'+object.customer.name+' has approved your work for order #'+object.order._id+'<br/><br/>' +
+            'Regards:<br>Admin'
+        ].join('\n\n');
+        mailOptions.subject = 'Hi Five! Your has been approved for order #'+object.order._id;
         return mailOptions;
     }
 };

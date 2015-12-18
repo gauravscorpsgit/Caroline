@@ -211,7 +211,7 @@ exports.updateOrderId = function(req,resMain) {
 
 
 exports.putRequirement = function(req,resMain){
-console.log(req.body.order_id,req.body.client_Des);
+    console.log(req.body.order_id,req.body.client_Des);
     UserSchema.findById({_id: req.body.freelancer_id ,order:req.body.order_id,client_Des:req.body.client_Des }, function(err,res){
         if(err){
             console.log(err);
@@ -341,6 +341,36 @@ exports.getClientWork = function(req, resMain){
     });
 };
 
+exports.updateWorkApprovalStatus = function(req, resMain){
+    OrderSchema.findByIdAndUpdate(req.body.order_id, {approval_status: true}, function(err, res){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        }else{
+            resMain.json({success: true});
+            UserSchema.findById(res.freelancer_id, function(err, freelancer){
+
+                if(err){
+
+                }else{
+                    var mailOptions = {
+                        to: freelancer.email,
+                        from: config.emailFrom
+                    };
+                    var email_content ={
+                        order: res,
+                        freelancer : freelancer,
+                        customer : req.user
+                    }
+
+                    mailOptions = templates.work_approval(mailOptions,email_content);
+                    sendMail(mailOptions);
+                }
+
+            });
+        }
+    });
+};
 
 function sendMail(mailOptions) {
     var transport = nodemailer.createTransport(config.mailer);

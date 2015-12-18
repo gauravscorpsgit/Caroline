@@ -45,7 +45,17 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
 
         this.approveWork = function(order_id,index){
-            console.log(order_id+'  '+index);
+
+            Freelancer.getClientWork_resource.approve_work({order_id : order_id}, function(response, error, header){
+                if(response){
+                    $scope.orders_client.myorders[index].approval_status = true;
+                    Notification.success('Order has been marked approved.');
+
+                }else{
+                    Notification.error('There was issue please try again.');
+                }
+            });
+
         };
 
         $scope.addSkills = function(){
@@ -457,8 +467,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.require_resource.put({freelancer_id:freelancer_id ,client_Des: $scope.clientReqiuire, order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Mail send successfully');
-
-                    console.log(response.mail_object);
+                    $scope.requirement_sent = true;
                 }
                 else{
                     Notification.error('Mail not send, Please try again');
