@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope','$stateParams','$location','$cookies',
-    function($scope, Global, Freelancer, Notification, $rootScope, $stateParams, $location, $cookies) {
+angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope','$stateParams','$location','$cookies','$timeout',
+    function($scope, Global, Freelancer, Notification, $rootScope, $stateParams, $location, $cookies, $timeout) {
         $scope.global = Global;
         $scope.package = {
             name: 'freelancer'
@@ -398,11 +398,36 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.order_resource.put({state: 'Success', order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Your payment has been completed');
-                    $cookies.put('redirect', '/enter_requirements');
-                    $location.url('/enter_requirements');
+                    /*$cookies.put('redirect', '/enter_requirements');
+                     $location.url('/enter_requirements');*/
+
+                    $scope.orderObject = response.order_object;
+                    $timeout(function(){
+                        $scope.requirement_initial = true;
+                    },1000);
+
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
+
+
+
+        $scope.clientReqiuire = {
+            description:''
+        };
+        $scope.sendRequirement =function(freelancer_id){
+
+            Freelancer.require_resource.put({freelancer_id:freelancer_id ,client_Des: $scope.clientReqiuire, order_id: $stateParams.order_id}, function(response,header,error){
+                if(response.success){
+                    Notification.success('Mail send successfully');
+
+                    console.log(response.mail_object);
+                }
+                else{
+                    Notification.error('Mail not send, Please try again');
                 }
             })
         };

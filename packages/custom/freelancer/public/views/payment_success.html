@@ -83,6 +83,7 @@
         margin-bottom: 10px;
     }
 </style>
+
 <div id="w" class="md-card" style="margin-top : 150px;" ng-init="getPaypalSuccess()" ng-controller="FreelancerController">
     <div id="content">
         <!-- Icons source http://dribbble.com/shots/913555-Flat-Web-Elements -->
@@ -94,4 +95,49 @@
 
 
     </div><!-- @end #content -->
+
+
+    <div class="md-card" ng-cloak="" ng-if="requirement_initial" style="margin-top: 50px;">
+        <!-- begin breadcrumb -->
+        <div class="row">
+
+            <!-- begin col-12 -->
+            <div class="col-md-12">
+                <!-- begin panel -->
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                        </div>
+                        <h4 class="panel-title">Client Requirement</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="note note-success">
+                            <h4>Thankyou for Payment</h4>
+                            <p>Please fill the requirements bellow whcih will explain the need.</p>
+                        </div>
+                        <textarea class="textarea form-control" ng-model="clientReqiuire.description" placeholder="Enter text ..." rows="12"></textarea>
+
+                        <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="sendRequirement(orderObject.freelancer_id )">Send Requirement</button>
+
+                    </div>
+                </div>
+
+                <!-- end panel -->
+            </div>
+
+            <!-- end col-12 -->
+
+
+        </div>
+        <!-- end row -->
+    </div>
+
+  <!--  <div class="md-card" ng-if="requirement_initial">
+        <textarea class="textarea form-control" ng-model="emailreqiuire.description" placeholder="Enter text ..." rows="12"></textarea>
+        <button class="btn btn-success m-r-5 m-b-5" ng-click="sendRequirement()">Send Requirement</button>
+    </div>-->
 </div><!-- @end #w -->

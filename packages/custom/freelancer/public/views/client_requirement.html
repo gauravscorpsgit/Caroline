@@ -1,8 +1,9 @@
 <div class="col-md-12" ng-controller="FreelancerController">
     <h1>Client Requirement</h1>
     <label class="control-label">Explain your requirements:</label>
-    <div class="m-b-15">
+    <div class="m-b-15" ng-if="requirement_initial">
         <textarea class="textarea form-control" data-ng-model="emailForm.content" placeholder="Enter text ..." rows="12"></textarea>
+    <button class="btn btn-success m-r-5 m-b-5" ng-click="">Send Requirement</button>
     </div>
 
 </div>
