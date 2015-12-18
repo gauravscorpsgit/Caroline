@@ -91,19 +91,14 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
                 else if($cookies.get('redirect')!== undefined){
                     if($cookies.get('redirect').indexOf('storefront') > -1){
                         $location.path($cookies.get('redirect'));
-                        $cookies.remove('redirect');
                     }
                     else if($cookies.get('redirect').indexOf('enter_requirements')> -1){
                         $location.path($cookies.get('redirect'));
-                        $cookies.remove('redirect');
+                    }
+                    else if($cookies.get('redirect').indexOf('/client/work')> -1){
+                        $location.path($cookies.get('redirect'));
                     }
                 }
-
-
-                $cookies.remove('redirect');
-                /*if(this.isContractor)
-                 $location.path('/contractor');*/
-
                 $rootScope.$emit('loggedin');
             }
         };
@@ -242,7 +237,25 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
                 // Not Authenticated or not Admin
                 else {
                     $timeout(deferred.reject);
-                    $location.url('/');
+                    //$location.url('/');
+                }
+            });
+
+            return deferred.promise;
+        };
+
+        MeanUserKlass.prototype.checkContractor = function() {
+            var deferred = $q.defer();
+
+            // Make an AJAX call to check if the user is logged in
+            $http.get('/api/loggedin').success(function(user) {
+                // Authenticated
+                if (user !== '0' && user.roles.indexOf('contractor') !== -1) $timeout(deferred.resolve);
+
+                // Not Authenticated or not Admin
+                else {
+                    $timeout(deferred.reject);
+                    //$location.url('/');
                 }
             });
 

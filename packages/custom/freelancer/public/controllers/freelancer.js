@@ -12,6 +12,42 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             $scope.landing_editable = !$scope.landing_editable;
         };
 
+        this.getClientWork = function(){
+            Freelancer.getClientWork_resource.get(function(response, error, header){
+                if(response.success){
+                    Notification.success('Freelancer added as your Co-worker');
+                    $scope.orders_client = {myorders : [], freelancer :[], products :[]};
+                    var client_product_object_array = [];
+                    var client_freelancer_object_array = [];
+
+                    for(var j = 0; j<response.my_orders.length; j=j+1 ) {
+                        for (var i = 0; i < response.purchased_products.length; i = i + 1) {
+                            if (response.purchased_products[i]._id == response.my_orders[j].product_id) {
+                                client_product_object_array.push(response.purchased_products[i]);
+                            }
+                        }
+                        for (var k = 0; k < response.my_freelancer.length; k = k + 1) {
+                            if (response.my_freelancer[k]._id == response.my_orders[j].freelancer_id) {
+                                client_freelancer_object_array.push(response.my_freelancer[k]);
+                            }
+                        }
+                    }
+
+                    $scope.orders_client.myorders = response.my_orders;
+                    $scope.orders_client.freelancer = client_freelancer_object_array;
+                    $scope.orders_client.products = client_product_object_array;
+
+                }else{
+                    Notification.error('No work history found. Please try again.');
+                }
+            });
+        };
+
+
+        this.approveWork = function(order_id,index){
+            console.log(order_id+'  '+index);
+        };
+
         $scope.addSkills = function(){
             var skill ={name : 'New Skill', percentage:50};
             $scope.landing_info.user_skills.push(skill);
@@ -31,11 +67,9 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.getWorker_resource.get({email : email}, function(response,header,error){
                 if(response.success){
                     $scope.Search_initial = false;
-                    console.log(response);
                     $scope.Freelancer_list = response.freelancer_object;
                 }
                 else{
-                    console.log('there is an issue');
                     $scope.Search_success = false;
                 }
             })
@@ -415,7 +449,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         $scope.getProductId = function(){
             Freelancer.productOrder_resource.put(function(response,header,error){
                 if(response.success){
-                    Notification.success('Successfully');
+                    Notification.success('Successfully found.');
                     $scope.orders = {orders : [], customers :[], products :[]}
                     var product_object_array = [];
                     var customers_object_array = [];

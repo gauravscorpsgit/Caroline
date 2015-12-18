@@ -279,6 +279,39 @@ exports.submitWork = function(req,resMain) {
         });
 };
 
+exports.getClientWork = function(req, resMain){
+    OrderSchema.find({customer_id : req.user._id , paymentStatus:'Success'}, function(err, orders){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        }else{
+            var product_id_array = [];
+            var freelancer_id_array = [];
+            for (var i =0; i<orders.length; i=i+1){
+                product_id_array.push(orders[i].product_id);
+                freelancer_id_array.push(orders[i].freelancer_id);
+            }
+
+            ProductSchema.find({'_id': { $in: product_id_array}}, function(err, products) {
+                if (err) {
+                    resMain.json({success: false});
+                } else {
+                    UserSchema.find({
+                        '_id': { $in: freelancer_id_array}
+                    }, function(err, freelancer){
+                        if(err){
+                            resMain.json({success: false});
+                        }
+                        else{
+                            resMain.json({success: true,purchased_products : products, my_orders: orders, my_freelancer: freelancer});
+                        }
+                    });
+                }
+            });
+
+        }
+    });
+};
 
 
 function sendMail(mailOptions) {

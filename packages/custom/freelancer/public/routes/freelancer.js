@@ -15,6 +15,18 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 }
             }
         })
+        $stateProvider.state('client work', {
+            url: '/client/work',
+            templateUrl: 'freelancer/views/work_approval.html',
+            resolve: {
+                loggedin: function(MeanUser) {
+                    return MeanUser.checkLoggedin();
+                },
+                isContractor: function(MeanUser) {
+                    return MeanUser.checkContractor();
+                }
+            }
+        })
             .state('freelancer_landing_page', {
                 url: '/freelancer/storefront/:freelancerId',
                 templateUrl: 'freelancer/views/freelancer_landing.html'

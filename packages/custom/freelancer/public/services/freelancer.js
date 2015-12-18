@@ -37,6 +37,9 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
             productOrder_resource :$resource('/api/freelancer/productOrder',{}, {
                 put : {method: 'PUT', data: '@_data'},
                 post_work_to_client : {method : 'POST', data :'@_data'}
+            }),
+            getClientWork_resource : $resource('/api/getClientWork',{},{
+                get : {method: 'GET', isArray: false}
             })
         };
 

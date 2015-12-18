@@ -1,0 +1,32 @@
+<div ng-controller="FreelancerController as fc" ng-init="fc.getClientWork()">
+<h1>Your Projects History</h1>
+    <div class="col-md-4" ng-repeat-start="Object in orders_client.myorders" style="margin-bottom: 5px;">
+        <div class="md-card" style="background-color: #ffffff; padding: 10px;">
+            <img style="border-top-left-radius: 4px;border-top-right-radius: 4px; width: 100%" class="img-responsive" src = "{{orders_client.products[$index].image}}/convert?h=150&fit=scale"/>
+            <p><strong>Order Id: </strong>{{Object._id}}</p>
+            <p><strong>Approval Status: </strong>{{Object.approval_status}}</p>
+            <!--<p><strong>Date Of Delivery: </strong>{{Object.date_delivery}}</p>-->
+            <ol ng-if="Object.deliverables.length > 0">
+                <strong>Work Submission Details</strong>
+                <li ng-repeat="deliverable in Object.deliverables">
+                    <p><strong>Deliverable Url: </strong>{{deliverable.url}}</p>
+                    <p><strong>Submitted On: </strong>{{deliverable.date}}</p>
+                </li>
+            </ol>
+            <p><strong>Order Date: </strong>{{Object.order_date}}</p>
+            <p><strong>Payment Status: </strong>{{Object.paymentStatus}}</p>
+            <p><strong>Product Id: </strong>{{Object.product_id}}</p>
+            <p><strong>{{orders_client.products[$index].title}}</strong></p>
+            <p><strong>{{orders_client.products[$index].description}}</strong></p>
+            <strong>Freelancer Detail: </strong>
+            <img  ng-src="/freelancer/assets/freelancer/img/user.png" style="width:75px; height: 75px;">
+            <br/>
+            <p><strong>Freelancer Id: </strong>{{Object.freelancer_id}}</p>
+            <p><strong>Name: </strong>{{orders_client.freelancer[$index].name}}</p>
+            <p><strong>Email: </strong>{{orders_client.freelancer[$index].email}}</p>
+            <button type="submit" class="btn btn-success p-l-40 p-r-40" ng-if="!Object.approval_status"  style="margin: 10px;" ng-click="fc.approveWork(Object._id, $index)">Approve Work</button>
+            </div>
+    </div>
+    <div class="clearfix" ng-if="$index%3==2"></div>
+    <div ng-repeat-end=""></div>
+</div>

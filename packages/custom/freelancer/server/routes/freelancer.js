@@ -46,6 +46,8 @@ module.exports = function(Freelancer, app, auth, database) {
         .put(freelancer_server_controllers.putProductOrder)
         .post(freelancer_server_controllers.submitWork);
 
+    app.route('/api/getClientWork')
+        .get(freelancer_server_controllers.getClientWork);
 
     app.get('/freelancer/example/render', function(req, res, next) {
         Freelancer.render('index', {

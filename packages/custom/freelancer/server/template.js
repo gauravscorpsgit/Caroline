@@ -32,8 +32,8 @@ module.exports = {
     },
     deliverable_notify: function(mailOptions, object) {
         mailOptions.html = [
-            'Hi '+object.customer.name+',<br><br>'+object.freelancer.name+' has submitted the work.<br><br>Kindly download the work from here: '+object.deliverable.url+'' +
-            '<br><br>Please go through the work and approve it.<br><br>Regards:<br>Admin'
+            'Hi '+object.customer.name+',<br><br>'+object.freelancer.name+' has submitted the work.<br><br>Kindly download the work from <a href="'+object.deliverable.url+'">Here</a><br/><br/>' +
+            'Please go through the work and approve it <a href="http://localhost:3000/client/work">here</a>.<br><br>Regards:<br>Admin'
         ].join('\n\n');
         mailOptions.subject = 'Hi Five! Work submission for order #'+object.order._id;
         return mailOptions;
