@@ -35,10 +35,10 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 url: '/payment_status_success/:order_id',
                 templateUrl: 'freelancer/views/payment_success.html'
             })
-            .state('client_requirement', {
-                url: '/enter_requirements',
+           /* .state('client_requirement', {
+                url: '/enter_requirements/:order_id',
                 templateUrl: 'freelancer/views/client_requirement.html'
-            })
+            })*/
             .state('payment_failed', {
                 url: '/payment_status_failed/:order_id',
                 templateUrl: 'freelancer/views/payment_failed.html'

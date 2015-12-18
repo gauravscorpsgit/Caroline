@@ -203,7 +203,35 @@ exports.updateOrderId = function(req,resMain) {
                 mailOptions = templates.paypalFail_Mail(mailOptions,req.body);
                 sendMail(mailOptions);
             }
+
             resMain.json({success: true, order_object : res});
+        }
+    })
+};
+
+
+exports.putRequirement = function(req,resMain){
+console.log(req.body.order_id,req.body.client_Des);
+    UserSchema.findById({_id: req.body.freelancer_id ,order:req.body.order_id,client_Des:req.body.client_Des }, function(err,res){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        }
+        else{
+            var mailOptions = {
+                to: res.email,
+                from: config.emailFrom
+            };
+
+            var clientreq = {
+                freelancer : res,
+                contractor:req.user.name,
+                orderId:req.body.order_id,
+                clientreqire:req.body.client_Des
+            };
+            mailOptions = templates.client_Mail(mailOptions,clientreq);
+            sendMail(mailOptions);
+            resMain.json({success: true});
         }
     })
 };

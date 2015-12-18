@@ -40,6 +40,10 @@ var FreelancerEmailsSchema = new Schema({
     },created: {
         type: Date,
         default: Date.now
+    },
+    requirement:{
+        type: String,
+        required: true
     }
 });
 

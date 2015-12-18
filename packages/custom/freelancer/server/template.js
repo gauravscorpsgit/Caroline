@@ -30,6 +30,13 @@ module.exports = {
         mailOptions.subject = 'Payment Failed';
         return mailOptions;
     },
+    client_Mail: function(mailOptions,object) {
+        mailOptions.html = [
+            'Hi'+object.freelancer.name+',<br>'+object.contractor+ 'has just sent you the requirements, please go through it mentioned below: <br>'+object.clientreqire.description+'.'
+        ].join('\n\n');
+        mailOptions.subject = 'Hi'+object.freelancer.name+'! You have received the requirements from ORderId'+object.orderId+'.';
+        return mailOptions;
+    },
     deliverable_notify: function(mailOptions, object) {
         mailOptions.html = [
             'Hi '+object.customer.name+',<br><br>'+object.freelancer.name+' has submitted the work.<br><br>Kindly download the work from <a href="'+object.deliverable.url+'">Here</a><br/><br/>' +

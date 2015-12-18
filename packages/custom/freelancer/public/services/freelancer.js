@@ -1,5 +1,6 @@
 'use strict';
 
+
 angular.module('mean.freelancer').factory('Freelancer', ['$resource',
     function($resource) {
         return {
@@ -40,7 +41,10 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
             }),
             getClientWork_resource : $resource('/api/getClientWork',{},{
                 get : {method: 'GET', isArray: false}
-            })
+            }),
+            require_resource :$resource('/api/freelancer/require',{}, {
+            put : {method: 'PUT', data: '@_data'}
+        })
         };
 
     }
