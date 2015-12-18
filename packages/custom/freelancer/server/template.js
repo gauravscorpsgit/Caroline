@@ -32,9 +32,9 @@ module.exports = {
     },
     client_Mail: function(mailOptions,object) {
         mailOptions.html = [
-            'Hi'+object.freelancer.name+',<br>'+object.contractor+ 'has just sent you the requirements, please go through it mentioned below: <br>'+object.clientreqire.description+'.'
+            'Hi'+object.freelancer.name+',<br><br>'+object.contractor+ 'has just sent you the requirements, please go through it mentioned below: <br><br>'+object.clientreqire.description+'.<br><br>Reagrds:<br>'+object.contractor
         ].join('\n\n');
-        mailOptions.subject = 'Hi'+object.freelancer.name+'! You have received the requirements from ORderId'+object.orderId+'.';
+        mailOptions.subject = 'Hi '+object.freelancer.name+'! You have received the requirements from order #'+object.orderId+'.';
         return mailOptions;
     },
     deliverable_notify: function(mailOptions, object) {
