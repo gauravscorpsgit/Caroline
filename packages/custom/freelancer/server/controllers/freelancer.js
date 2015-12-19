@@ -334,7 +334,36 @@ exports.submitWork = function(req,resMain) {
             }
         });
 };
+exports.updateWorkApprovalStatus = function(req, resMain){
+    OrderSchema.findByIdAndUpdate(req.body.order_id, {approval_status: true}, function(err, res){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        }else{
+            resMain.json({success: true});
+            UserSchema.findById(res.freelancer_id, function(err, freelancer){
 
+                if(err){
+
+                }else{
+                    var mailOptions = {
+                        to: freelancer.email,
+                        from: config.emailFrom
+                    };
+                    var email_content ={
+                        order: res,
+                        freelancer : freelancer,
+                        customer : req.user
+                    }
+
+                    mailOptions = templates.deliverable_notify(mailOptions,email_content);
+                    sendMail(mailOptions);
+                }
+
+            });
+        }
+    });
+};
 exports.getClientWork = function(req, resMain){
     OrderSchema.find({customer_id : req.user._id , paymentStatus:'Success'}, function(err, orders){
         if(err){
