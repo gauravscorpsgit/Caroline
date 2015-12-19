@@ -31,6 +31,19 @@ exports.getUserSentEmails = function(req,resMain){
         }
     }).sort({ created: -1 });
 };
+exports.getSentInbox = function(req,resMain){
+
+    FreelancerEmailsSchema.find({from : 'contractor'}, function(err,res){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        } else{
+            resMain.json({success: true, sent_emails : res});
+        }
+    }).sort({ created: -1 });
+};
+
+
 
 exports.createFreelancerProduct = function(req,resMain){
     req.body.user_id = req.user._id;
