@@ -158,6 +158,10 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         });
 
         $rootScope.$on('openInbox', function(){
+            $scope.activeTemplate = 'freelancer/views/email_sent.html';
+        });
+
+        $rootScope.$on('sentInbox', function(){
             $scope.activeTemplate = 'freelancer/views/email_inbox.html';
         });
 
@@ -197,6 +201,21 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                 if(response.success){
 
                     $scope.user_emails = response.emails;
+                    console.log(response);
+                    Notification.success('Emails fetched successfully');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            });
+
+        };
+
+        $scope.getSentMessage = function(){
+            Freelancer.sentMessage_resource.get(function(response,header,error) {
+                if(response.success){
+
+                    $scope.user_emails = response.sent_emails;
                     console.log(response);
                     Notification.success('Emails fetched successfully');
                 }
@@ -372,6 +391,8 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                     $scope.emailForm.to_user='';
                     $scope.emailForm.subject='';
                     $scope.emailForm.content='';
+
+
                 }
 
                 else{
@@ -469,7 +490,6 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.require_resource.put({freelancer_id:freelancer_id ,client_Des: $scope.clientReqiuire, order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Mail send successfully');
-                    $scope.requirement_sent = true;
                 }
                 else{
                     Notification.error('Mail not send, Please try again');

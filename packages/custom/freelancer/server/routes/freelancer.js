@@ -9,6 +9,9 @@ module.exports = function(Freelancer, app, auth, database) {
         .post(freelancer_server_controllers.createEmail)
         .get(freelancer_server_controllers.getUserSentEmails);
 
+    app.route('/api/compose/sentMessage')
+        .get(freelancer_server_controllers.getSentInbox);
+
     app.route('/api/freelancer/addworker')
         .get(freelancer_server_controllers.getUserWorkerEmail);
 
