@@ -49,7 +49,8 @@ module.exports = function(Freelancer, app, auth, database) {
         .post(freelancer_server_controllers.submitWork);
 
     app.route('/api/getClientWork')
-        .get(freelancer_server_controllers.getClientWork);
+        .get(freelancer_server_controllers.getClientWork)
+        .put(freelancer_server_controllers.updateWorkApprovalStatus);
 
     app.get('/freelancer/example/render', function(req, res, next) {
         Freelancer.render('index', {

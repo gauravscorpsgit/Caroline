@@ -15,7 +15,7 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 }
             }
         })
-        $stateProvider.state('client work', {
+        $stateProvider.state('client_work', {
             url: '/client/work',
             templateUrl: 'freelancer/views/work_approval.html',
             resolve: {
