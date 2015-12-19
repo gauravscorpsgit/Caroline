@@ -15,7 +15,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         this.getClientWork = function(){
             Freelancer.getClientWork_resource.get(function(response, error, header){
                 if(response.success){
-                    Notification.success('Freelancer added as your Co-worker');
+                    Notification.success('Project history fetched successfully.');
                     $scope.orders_client = {myorders : [], freelancer :[], products :[]};
                     var client_product_object_array = [];
                     var client_freelancer_object_array = [];
