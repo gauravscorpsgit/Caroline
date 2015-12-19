@@ -354,6 +354,8 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         $scope.email_form = function(email_auto){
             $scope.emailForm.to_user = email_auto;
+
+            console.log($scope.emailForm);
             Freelancer.compose_resource.post($scope.emailForm, function(response,header,error) {
                 if(response.success){
                     Notification.success('Email has been saved and sent to '+ email_auto);

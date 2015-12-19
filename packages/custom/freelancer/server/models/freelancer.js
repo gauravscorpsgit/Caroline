@@ -41,7 +41,7 @@ var FreelancerEmailsSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    requirement:{
+    from:{
         type: String,
         required: true
     }

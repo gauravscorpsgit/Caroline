@@ -51,9 +51,15 @@ exports.createFreelancerProduct = function(req,resMain){
 
 exports.createEmail = function(req,resMain){
 
-    req.body.user_id = req.user._id;
-
-    var freelancer_db = new FreelancerEmailsSchema(req.body);
+    var composeObject ={
+        user_id : req.user._id,
+        recipient_id : 0,
+        to_user :req.body.to_user,
+        subject:req.body.subject,
+        content:req.body.content,
+        from:'freelancer'
+    };
+    var freelancer_db = new FreelancerEmailsSchema(composeObject);
     freelancer_db.save(function(err,res) {
         if (err) {
             console.log(err);
@@ -68,6 +74,8 @@ exports.createEmail = function(req,resMain){
             };
             mailOptions = templates.notify_contrator(mailOptions,req.body);
             sendMail(mailOptions);
+
+            console.log(res);
         }
     })
 };
@@ -171,7 +179,6 @@ exports.createOrder = function(req,resMain){
 };
 
 exports.updateOrderId = function(req,resMain) {
-    console.log(req.body.order_id);
     OrderSchema.findOneAndUpdate({_id: req.body.order_id}, {paymentStatus: req.body.state}, function(err,res){
         if (err) {
             console.log(err);
@@ -211,13 +218,34 @@ exports.updateOrderId = function(req,resMain) {
 
 
 exports.putRequirement = function(req,resMain){
-console.log(req.body.order_id,req.body.client_Des);
-    UserSchema.findById({_id: req.body.freelancer_id ,order:req.body.order_id,client_Des:req.body.client_Des }, function(err,res){
+    UserSchema.findById({_id: req.body.freelancer_id}, function(err,res){
         if(err){
             console.log(err);
             resMain.json({success: false});
         }
         else{
+            var email_schema ={
+                user_id : req.user._id,
+                recipient_id : req.body.freelancer_id,
+                to_user :res.email,
+                subject:'Hi '+res.name+'! You have received the requirements from order #'+req.body.order_id,
+                content:req.body.client_Des.description,
+                from:'contractor'
+            };
+
+
+
+            var freelancer_db = new FreelancerEmailsSchema(email_schema);
+            freelancer_db.save(function(err,resemail){
+                if(err){
+                    console.log(err);
+                    resMain.json({success:false});
+                }
+                else{
+                    resMain.json({success:true ,email_object:resemail});
+                    console.log(resemail);
+                }
+            })
             var mailOptions = {
                 to: res.email,
                 from: config.emailFrom
