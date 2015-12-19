@@ -1,7 +1,7 @@
 <section data-ng-controller="UsersController" class="users">
 
 
-    <form id="user-add-form" class="row-fluid form-horizontal col-sm-6 well" name="addUserForm" ng-show="showForm">
+   <!-- <form id="user-add-form" class="row-fluid form-horizontal col-sm-6 well" name="addUserForm" ng-show="showForm">
       <div ng-repeat="error in userError" class="col-sm-12">
         <div class="alert alert-danger animated fadeIn">{{error.msg}}</div>
       </div>
@@ -20,7 +20,7 @@
             <button  class="btn" ng-click="add(addUserForm.$valid)">Add</button>
             <input class="btn" type="button" value="Cancel" ng-click="showForm = false; user= {}"/>
         </div>
-    </form>
+    </form>-->
 
     <div class="loader" data-ng-init="init()" data-ng-hide="users.length"></div>
        <!--  <div class="col-sm-6 well" ng-show="!showForm" ng-click="showForm=true;">
@@ -33,7 +33,7 @@
         <input type="button" class="btn btn-primary" data-ng-show="edit" data-ng-click="edit=!edit" value="Done"> -->
         <button class="btn" data-ng-hide="edit" data-ng-click="edit=!edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Edit</button>
         <button class="btn btn-primary" data-ng-show="edit" data-ng-click="edit=!edit"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp; Done</button>
-        <button class="btn" ng-show="!showForm" ng-click="showForm=true;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add user</button>
+       <!-- <button class="btn" ng-show="!showForm" ng-click="showForm=true;"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add user</button>-->
         <!-- <input type="button" class="btn" ng-show="!showForm" ng-click="showForm=true;"/> -->
     </div>
 

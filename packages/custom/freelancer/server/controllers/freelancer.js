@@ -348,7 +348,7 @@ exports.updateWorkApprovalStatus = function(req, resMain){
                 }else{
                     var mailOptions = {
                         to: freelancer.email,
-                        from: config.emailFrom
+                        from: config.admin_email
                     };
                     var email_content ={
                         order: res,
@@ -356,12 +356,13 @@ exports.updateWorkApprovalStatus = function(req, resMain){
                         customer : req.user
                     }
 
-                    mailOptions = templates.deliverable_notify(mailOptions,email_content);
+                    mailOptions = templates.work_approval(mailOptions,email_content);
                     sendMail(mailOptions);
                 }
 
             });
         }
+
     });
 };
 exports.getClientWork = function(req, resMain){

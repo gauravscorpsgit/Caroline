@@ -99,6 +99,10 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
                         $location.path($cookies.get('redirect'));
                     }
                 }
+                else if(this.isAdmin)
+                    $location.path('/admin/users');
+
+
                 $rootScope.$emit('loggedin');
             }
         };

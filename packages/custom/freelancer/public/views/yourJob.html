@@ -36,8 +36,9 @@
                 <br/>
                 <p><strong>Name: </strong>{{orders.customers[$index].name}}</p>
                 <p><strong>Email: </strong>{{orders.customers[$index].email}}</p>
-                <button type="submit" class="btn btn-primary p-l-40 p-r-40"  style="margin: 10px;" ng-click="submitWork(Object._id, $index)">Submit Work</button>
+                <button type="submit" ng-if="!Object.approval_status" class="btn btn-primary p-l-40 p-r-40"  style="margin: 10px;" ng-click="submitWork(Object._id, $index)">Submit Work</button>
             </div>
+
         </div><br/>
         <div class="clearfix" ng-if="$index%3==2"></div>
         <div ng-repeat-end=""></div>

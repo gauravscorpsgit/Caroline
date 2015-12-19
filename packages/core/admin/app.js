@@ -22,7 +22,7 @@ Admin.register(function(app, auth, database) {
         menu: 'main'
     });
 
-    Admin.menus.add({
+    /*Admin.menus.add({
         roles: ['admin'],
         title: 'MODULES',
         link: 'modules',
@@ -35,7 +35,7 @@ Admin.register(function(app, auth, database) {
         link: 'themes',
         icon: icons + 'themes.png',
         menu: 'admin'
-    });
+    });*/
     Admin.menus.add({
         roles: ['admin'],
         title: 'SETTINGS',
