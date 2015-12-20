@@ -12,6 +12,9 @@ module.exports = function(Freelancer, app, auth, database) {
     app.route('/api/compose/sentMessage')
         .get(freelancer_server_controllers.getSentInbox);
 
+    app.route('/api/compose/ClientInbox')
+        .get(freelancer_server_controllers.getClient_Inbox);
+
     app.route('/api/freelancer/addworker')
         .get(freelancer_server_controllers.getUserWorkerEmail);
 
@@ -23,6 +26,11 @@ module.exports = function(Freelancer, app, auth, database) {
 
     app.route('/api/freelancer/searchEmail')
         .get(freelancer_server_controllers.getSearchEmail);
+
+    app.route('/api/freelancer/clienEmail')
+        .get(freelancer_server_controllers.getClienEmail)
+        .post(freelancer_server_controllers.postClienEmail);
+
 
     app.route('/api/freelancer/updateWorker')
         .put(freelancer_server_controllers.putWorker)

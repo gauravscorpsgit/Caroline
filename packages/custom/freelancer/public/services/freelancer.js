@@ -10,6 +10,9 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
             sentMessage_resource :$resource('/api/compose/sentMessage',{},{
                 get : {method : 'GET',isArray: false}
             }),
+            ClientInbox_resource :$resource('/api/compose/ClientInbox',{},{
+                get : {method : 'GET',isArray: false}
+            }),
             freelancer_details_resource : $resource('/api/user/freelancer/landing',{},{update :{method : 'PUT',data : '@_data'},
                 get : {method : 'GET',isArray: false}
             }),
@@ -30,6 +33,9 @@ angular.module('mean.freelancer').factory('Freelancer', ['$resource',
             }),
             getSearchEmail_resource :$resource('/api/freelancer/searchEmail',{searchEmail_id: '@_searchEmail_id'}, {
                 get : {method: 'GET', isArray: false}
+            }),
+            getclienEmail_resource :$resource('/api/freelancer/clienEmail',{clienEmail_id: '@_clienEmail_id'}, {
+                get : {method: 'GET', isArray: false},post:{method:'POST',com_data:'@_com_data'}
             }),
             addWorker_resource :$resource('/api/freelancer/updateWorker',{Worker_id : '@_Worker_id'}, {
                 put : {method: 'PUT'}

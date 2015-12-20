@@ -121,7 +121,11 @@
                         </div>
                         <div ng-if="!requirement_sent">
                         <textarea class="textarea form-control" ng-model="clientReqiuire.description" placeholder="Enter text ..." rows="12"></textarea>
-
+                            <div class="btn-toolbar">
+                                <div class="btn-group">
+                                    <a href="" ng-click="openRequirementDialog()" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-paperclip fa-2x"></i></a>
+                                </div>
+                            </div>
                         <button class="btn btn-success m-r-5 m-b-5"  style="float: right; margin: 8px;" ng-click="sendRequirement(orderObject.freelancer_id )">Send Requirement</button>
                         </div>
                         <div ng-if="requirement_sent">

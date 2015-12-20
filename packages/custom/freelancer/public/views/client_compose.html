@@ -1,4 +1,4 @@
-<div id="content" class="content content-full-width">
+<div id="content" class="content content-full-width" ng-controller="FreelancerController as cte">
     <!-- begin vertical-box -->
     <div class="vertical-box">
         <!-- begin vertical-box-column -->
@@ -39,7 +39,7 @@
                 <!-- begin btn-toolbar -->
                 <div class="btn-toolbar">
                     <div class="btn-group">
-                        <a href="" ng-click="openUploadDialog()" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-paperclip fa-2x"></i></a>
+                        <a href="" ng-click="" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-paperclip fa-2x"></i></a>
                     </div>
                 </div>
                 <!-- end btn-toolbar -->
@@ -50,19 +50,20 @@
             <div class="wrapper">
                 <div class="p-30 bg-white">
                     <!-- begin email form -->
-                    <form name="email_to_form" ng-submit="email_form(contractor_email.title, contractor_email.description._id)" ng-init="email_search()">
+                    <form name="email_to_form" ng-submit="cte.emailClient_form(Freelancer_email.title)" ng-init="cte.clienEmail_search()">
                         <label class="control-label">To:</label>
-                        <div angucomplete-alt id="ex1" ng-enter="searchChefs()" ng-disabled="fetching" placeholder="Enter contractor email address" maxlength="50" pause="100" selected-object="contractor_email" local-data="contractors_list.data" search-fields="email" title-field="email" minlength="1" input-class="form-control m-b-15 form-control-small" match-class="highlight"></div>
+
+                        <div angucomplete-alt id="ex1" ng-enter="searchChefs()" ng-disabled="fetching" placeholder="Enter contractor email address" maxlength="50" pause="100" selected-object="Freelancer_email" local-data="freelancer_list.data" search-fields="email" title-field="email" minlength="1" input-class="form-control m-b-15 form-control-small" match-class="highlight"></div>
                         <!-- begin email subject -->
                         <label class="control-label">Subject:</label>
                         <div class="m-b-15">
-                            <input type="text" class="form-control" data-ng-model="emailForm.subject">
+                            <input type="text" class="form-control" data-ng-model="emailClientForm.subject">
                         </div>
                         <!-- end email subject -->
                         <!-- begin email content -->
                         <label class="control-label">Content:</label>
                         <div class="m-b-15">
-                            <textarea class="textarea form-control" data-ng-model="emailForm.content" placeholder="Enter text ..." rows="12"></textarea>
+                            <textarea class="textarea form-control" data-ng-model="emailClientForm.content" placeholder="Enter text ..." rows="12"></textarea>
                         </div>
 
                         <!-- end email content -->

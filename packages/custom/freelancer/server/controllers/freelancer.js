@@ -32,13 +32,23 @@ exports.getUserSentEmails = function(req,resMain){
     }).sort({ created: -1 });
 };
 exports.getSentInbox = function(req,resMain){
-
-    FreelancerEmailsSchema.find({from : 'contractor'}, function(err,res){
+    FreelancerEmailsSchema.find({reciepient_id: req.body.reciepient_id, from : 'contractor'}, function(err,res){
         if(err){
             console.log(err);
             resMain.json({success: false});
         } else{
             resMain.json({success: true, sent_emails : res});
+        }
+    }).sort({ created: -1 });
+};
+
+exports.getClient_Inbox = function(req,resMain){
+    FreelancerEmailsSchema.find({reciepient_id:req.body.reciepient_id, from : 'freelancer'}, function(err,res){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        } else{
+            resMain.json({success: true, client_inbox : res});
         }
     }).sort({ created: -1 });
 };
@@ -66,7 +76,7 @@ exports.createEmail = function(req,resMain){
 
     var composeObject ={
         user_id : req.user._id,
-        recipient_id : 0,
+        reciepient_id : req.body.reciepient_id,
         to_user :req.body.to_user,
         subject:req.body.subject,
         content:req.body.content,
@@ -92,6 +102,40 @@ exports.createEmail = function(req,resMain){
         }
     })
 };
+
+
+
+exports.postClienEmail = function(req,resMain){
+
+    var composeObject ={
+        user_id : req.user._id,
+
+        to_user :req.body.to_user,
+        subject:req.body.subject,
+        content:req.body.content,
+        from:'contractor'
+    };
+    var freelancer_db = new FreelancerEmailsSchema(composeObject);
+    freelancer_db.save(function(err,res) {
+        if (err) {
+            console.log(err);
+            resMain.json({success: false});
+        }
+        else
+        {
+            resMain.json({success: true});
+            var mailOptions = {
+                to: req.body.to_user,
+                from: config.emailFrom
+            };
+            mailOptions = templates.notify_freelancer(mailOptions,req.body);
+            sendMail(mailOptions);
+
+            console.log(res);
+        }
+    })
+};
+
 
 
 exports.getUserWorkerEmail = function(req,resMain){
@@ -166,6 +210,23 @@ exports.getSearchEmail =function(req,resMain){
 
 };
 
+exports.getClienEmail =function(req,resMain){
+    UserSchema.find({roles : 'freelancer'}, function(err,res){
+        if(err){
+            console.log(err);
+            resMain.json({success: false});
+        } else{
+            console.log(res);
+
+            resMain.json({success: true, Freelancer_list :res});
+
+
+        }
+    })
+
+};
+
+
 exports.createOrder = function(req,resMain){
 
     if(req.user != undefined){
@@ -237,12 +298,15 @@ exports.putRequirement = function(req,resMain){
             resMain.json({success: false});
         }
         else{
+
+            var desc = req.body.client_Des.description +' Open Attachment: '+req.body.clientAttach;
+console.log(req.body.clientAttach);
             var email_schema ={
                 user_id : req.user._id,
                 recipient_id : req.body.freelancer_id,
                 to_user :res.email,
                 subject:'Hi '+res.name+'! You have received the requirements from order #'+req.body.order_id,
-                content:req.body.client_Des.description,
+                content:desc,
                 from:'contractor'
             };
 

@@ -21,7 +21,7 @@ var FreelancerEmailsSchema = new Schema({
         type: Number,
         required: true
     },
-    recipient_id :{
+    reciepient_id :{
         type: Number,
         required: true,
         default: 1

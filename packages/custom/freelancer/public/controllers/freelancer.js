@@ -125,6 +125,18 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
+        this.clienEmail_search = function(){
+            Freelancer.getclienEmail_resource.get(function(response,header,error){
+                if(response.success){
+                    console.log(response);
+                    $scope.freelancer_list = {data:response.Freelancer_list};
+                }
+                else{
+                    Notification.error('No contractors found, Please try again');
+                }
+            })
+        };
+
         $scope.updateFreelancerLanding = function(){
             Freelancer.freelancer_details_resource.update($scope.landing_info,function(response,header,error){
                 if(response.success){
@@ -189,7 +201,8 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         $scope.emailForm = {
             to_user:'',
             subject:'',
-            content:''
+            content:'',
+            reciepient_id:''
         };
 
         $scope.openComposePage = function(){
@@ -201,6 +214,21 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                 if(response.success){
 
                     $scope.user_emails = response.emails;
+                    console.log(response);
+                    Notification.success('Emails fetched successfully');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            });
+
+        };
+
+        $scope.getClientInbox = function(){
+            Freelancer.ClientInbox_resource.get(function(response,header,error) {
+                if(response.success){
+
+                    $scope.user_emails = response.client_inbox;
                     console.log(response);
                     Notification.success('Emails fetched successfully');
                 }
@@ -381,8 +409,36 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         }
 
 
-        $scope.email_form = function(email_auto){
+
+        $scope.openRequirementDialog = function(){
+            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.pickMultiple(
+                {
+                    imageMax: [600 , 600],
+                    imageMin: [200, 200],
+                    maxFiles: 1
+                },
+                function(Blobs){
+                    console.log(JSON.stringify(Blobs));
+                    $scope.uploaded_files_array = Blobs;
+                    $scope.uploadDone = true;
+                    $scope.emailAttachment = Blobs[0].url;
+                    $scope.$apply();
+
+                },
+                function(error){
+                    console.log(JSON.stringify(error));
+                }
+            );
+        }
+
+
+
+
+
+        $scope.email_form = function(email_auto, reciepient_id){
             $scope.emailForm.to_user = email_auto;
+    $scope.emailForm.reciepient_id=  reciepient_id;
 
             console.log($scope.emailForm);
             Freelancer.compose_resource.post($scope.emailForm, function(response,header,error) {
@@ -401,6 +457,35 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
+
+        $scope.emailClientForm = {
+            to_user:'',
+            subject:'',
+            content:''
+
+        };
+
+
+        this.emailClient_form = function(email_auto){
+            $scope.emailClientForm.to_user = email_auto;
+
+
+            console.log($scope.emailClientForm);
+            Freelancer.getclienEmail_resource.post($scope.emailClientForm, function(response,header,error) {
+                if(response.success){
+                    Notification.success('Email has been saved and sent to '+ email_auto);
+                    $scope.emailClientForm.to_user='';
+                    $scope.emailClientForm.subject='';
+                    $scope.emailClientForm.content='';
+
+
+                }
+
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
 
         $scope.getYourCoworker = function(){
             Freelancer.storefront_resource.get(function(response,header,error){
@@ -487,7 +572,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         };
         $scope.sendRequirement =function(freelancer_id){
 
-            Freelancer.require_resource.put({freelancer_id:freelancer_id ,client_Des: $scope.clientReqiuire, order_id: $stateParams.order_id}, function(response,header,error){
+            Freelancer.require_resource.put({clientAttach :$scope.emailAttachment, freelancer_id:freelancer_id ,client_Des: $scope.clientReqiuire, order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Mail send successfully');
                 }
@@ -531,6 +616,10 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                     Notification.error('There was an issue, Please try again');
                 }
             })
+        };
+
+        this.clientEmailCompose= function(){
+            $location.url('/client/client_compose');
         };
 
         $scope.submitWork = function(oid, index){

@@ -27,6 +27,33 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 }
             }
         })
+
+        $stateProvider.state('client_compose', {
+            url: '/client/client_compose',
+            templateUrl: 'freelancer/views/client_compose.html',
+            resolve: {
+                loggedin: function(MeanUser) {
+                    return MeanUser.checkLoggedin();
+                },
+                isContractor: function(MeanUser) {
+                    return MeanUser.checkContractor();
+                }
+            }
+        })
+
+        $stateProvider.state('client_inbox', {
+            url: '/client/inbox',
+            templateUrl: 'freelancer/views/clientInbox.html',
+            resolve: {
+                loggedin: function(MeanUser) {
+                    return MeanUser.checkLoggedin();
+                },
+                isContractor: function(MeanUser) {
+                    return MeanUser.checkContractor();
+                }
+            }
+        })
+
             .state('freelancer_landing_page', {
                 url: '/freelancer/storefront/:freelancerId',
                 templateUrl: 'freelancer/views/freelancer_landing.html'
@@ -43,5 +70,7 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 url: '/payment_status_failed/:order_id',
                 templateUrl: 'freelancer/views/payment_failed.html'
             })
+
+
     }
 ]);
