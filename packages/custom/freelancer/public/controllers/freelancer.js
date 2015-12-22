@@ -304,7 +304,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
 
         $scope.openProductPicDialog = function(index, is_intial){
-            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.setKey("ASPabrYriTquKmXg2Zg8Az");
             filepicker.pickMultiple(
                 {
                     imageMax: [600 , 600],
@@ -345,7 +345,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
 
         $scope.openPortfolioPicDialog = function(index, is_intial){
-            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.setKey("ASPabrYriTquKmXg2Zg8Az");
             filepicker.pickMultiple(
                 {
                     imageMax: [600 , 600],
@@ -366,7 +366,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         };
 
         $scope.openProfilePicDialog = function(){
-            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.setKey("ASPabrYriTquKmXg2Zg8Az");
             filepicker.pickMultiple(
                 {
                     imageMax: [600 , 600],
@@ -387,7 +387,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
 
         $scope.openUploadDialog = function(){
-            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.setKey("ASPabrYriTquKmXg2Zg8Az");
             filepicker.pickMultiple(
                 {
                     imageMax: [600 , 600],
@@ -411,7 +411,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
 
         $scope.openRequirementDialog = function(){
-            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.setKey("ASPabrYriTquKmXg2Zg8Az");
             filepicker.pickMultiple(
                 {
                     imageMax: [600 , 600],
@@ -623,7 +623,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         };
 
         $scope.submitWork = function(oid, index){
-            filepicker.setKey("ARoCfO2mWS1yDsyxtUsZPz");
+            filepicker.setKey("ASPabrYriTquKmXg2Zg8Az");
             filepicker.pickMultiple(
                 {
                     imageMax: [600 , 600],
