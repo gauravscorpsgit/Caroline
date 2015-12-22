@@ -33,6 +33,7 @@ Icon
 nbproject/private/
 build/
 nbbuild/
+dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
@@ -64,6 +65,7 @@ modules/public/
 modules/views/
 /public/build/
 /packages/contrib/
+/packages/**/**/public/assets/lib
 
 
 # --------------------
