@@ -86,7 +86,7 @@
                         </a>
                         <div class="clearfix"></div>
                         <div style="padding:5px;">
-                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-if="order_list._id !== undefined && order_list.product_id == product._id">
+                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-if="order_list._id !== undefined && order_list.product_id == product._id">
                                 <input type="hidden" name="cmd" value="_xclick" />
                                 <input type="hidden" name="business" value="{{freelancer_object.paypal_email}}" />
                                 <input type="hidden" name="lc" value="CA" />
