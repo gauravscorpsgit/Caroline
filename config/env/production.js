@@ -28,7 +28,7 @@ module.exports = {
   },
   hostname: 'http://176.58.122.89',
   app: {
-    name: 'Innovative way to Freelance'
+    name: 'Perfect Agency - We are here to help small business owners!'
   },
   logging: {
     format: 'combined'

@@ -13,7 +13,7 @@ module.exports = {
   },
   hostname: 'http://176.58.122.89:3000',
   app: {
-    name: 'Innovative way to Freelance'
+    name: 'Perfect Agency - We are here to help small business owners!'
   },
   strategies: {
     local: {

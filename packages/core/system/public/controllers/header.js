@@ -53,6 +53,22 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
             });
         };
 
+        $scope.getLandingObjectCustom = function(){
+            //$stateParams.FreelancerId
+            Freelancer.storefront_resource.get({freelancerId: MeanUser.user._id}, function(response,header,error){
+                if(response.success){
+                    Notification.success('Freelancer details updated successfully.');
+                    if(response.freelancer_object.length > 0)
+                        $scope.freelancer_object = response.freelancer_object[0];
+                    else
+                        $location.url('/')
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            });
+        };
+
     
 
         vm.openFreelancerBlock = function(flag){
@@ -93,7 +109,8 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
                 case 'public_landing':
                     $scope.flag = flag;
                     $scope.category = 'Page';
-                    $location.url('/freelancer/storefront/'+MeanUser.user._id);
+                    $rootScope.$broadcast('public_landing');
+                    //$location.url('/freelancer/storefront/'+MeanUser.user._id);
                     break;
 
                 case 'Add_CoWorker':
