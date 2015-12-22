@@ -185,6 +185,10 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             $scope.activeTemplate = 'freelancer/views/freelancer_demo_page.html';
         });
 
+        $rootScope.$on('Add_CoWorker', function(){
+            $scope.activeTemplate = 'freelancer/views/add_worker.html';
+        });
+
         $rootScope.$on('public_landing', function(){
             $scope.activeTemplate = 'freelancer/views/freelancer_landing_custom.html';
         });
