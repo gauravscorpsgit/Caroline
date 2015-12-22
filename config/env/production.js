@@ -26,7 +26,7 @@ module.exports = {
     }
     */
   },
-  hostname: 'http://176.58.122.89:3000',
+  hostname: 'http://176.58.122.89:80',
   app: {
     name: 'Innovative way to Freelance'
   },
