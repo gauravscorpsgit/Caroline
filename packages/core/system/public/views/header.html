@@ -2,17 +2,14 @@
 <div id="header" class="header navbar navbar-default navbar-fixed-top" ng-controller="HeaderController as hdrctr" ng-if="!hdrctr.hdrvars.isFreelancer || hdrctr.hdrvars.isAdmin">
     <!-- begin container -->
 
-    <div class="container">
-        <!-- begin navbar-header -->
+    <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar">
+            <a href="index.html" class="navbar-brand"><img style="height: 145%;" ng-src="system/assets/theme/landing/img/logo.jpg"/></a>
+            <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="index.html" class="navbar-brand">
-                <a href="index.html" class="navbar-brand"><img style="height: 145%;" ng-src="system/assets/theme/landing/img/logo.jpg"/></a>
-            </a>
         </div>
         <!-- end navbar-header -->
         <!-- begin navbar-collapse -->
