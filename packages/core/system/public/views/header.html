@@ -202,7 +202,6 @@
                     <li ng-class="{active : flag === 'compose'}"><a href="" ng-click="hdrctr.openFreelancerBlock('compose', 'Email')">Compose Email</a></li>
                     <li ng-class="{active : flag === 'inbox'}"><a href="" ng-click="hdrctr.openFreelancerBlock('inbox', 'Email')">Inbox</a></li>
                     <li ng-class="{active : flag === 'sent'}"><a href="" ng-click="hdrctr.openFreelancerBlock('sent', 'Email')">Sent</a></li>
-                    <li ng-class="{active : flag === 'paid'}"><a href="" ng-click="hdrctr.openFreelancerBlock('paid', 'Email')">Paid</a></li>
                 </ul>
             </li>
             <li class="has-sub" ng-class="{active : category === 'Page'}">
@@ -212,8 +211,9 @@
                     <span>Freelancer Landing Page</span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a ng-class="{active : flag === 'free_landing_demo'}" href="" ng-click="hdrctr.openFreelancerBlock('free_landing_demo', 'Page')">Freelancer Demo Landing Page</a></li>
-                    <li><a ng-class="{active : flag === 'public_landing'}" href="" ng-click="hdrctr.openFreelancerBlock('public_landing', 'Page')">Your Store Front</a></li>
+                    <li><a ng-class="{active : flag === 'free_landing_demo'}" href="" ng-click="hdrctr.openFreelancerBlock('free_landing_demo', 'Page')">Edit Landing Page</a></li>
+                    <li><a ng-class="{active : flag === 'public_landing'}" href="" ng-click="hdrctr.openFreelancerBlock('public_landing', 'Page')">View Landing Page</a></li>
+                    <li ng-class="{active : flag === 'paid'}"><a href="" ng-click="hdrctr.openFreelancerBlock('paid', 'Email')">Update Paypal Details</a></li>
                 </ul>
             </li>
             <li class="has-sub" ng-class="{active : category === 'Worker'}">

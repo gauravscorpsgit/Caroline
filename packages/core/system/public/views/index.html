@@ -9,6 +9,9 @@
     }
     .textcontent{text-align:justify;font-size: 20px; color: #b2b2b2; padding-top: 65px;
         padding-bottom: 65px;font-style: initial;}
+    p{
+        font-size: 15px;
+    }
 </style>
 <div id="home" class="content has-bg home" style="height: 643px;" data-ng-controller="IndexController">
     <!-- begin content-bg -->
@@ -26,11 +29,9 @@
             We have created a multi-purpose theme that take the form of One-Page or Multi-Page Version.<br />
             Use our <a href="#">theme panel</a> to select your favorite theme color.
         </p>-->
-        <!--<a href="#" class="btn btn-theme">Explore More</a>--> <a href="#" style="margin-top: 80px;" class="btn btn-outline">Purchase Now</a><br />
-        <br />
-        or <a href="#">subscribe</a> newsletter
+        <!--<a href="#" class="btn btn-theme">Explore More</a>--> <a  ui-sref="auth.register" style="margin-top: 80px;" class="btn btn-outline">Create Free Landing Page</a><br />
     </div>
-        <!-- end container -->
+    <!-- end container -->
 
 </div>
 <!-- end #home -->
@@ -42,59 +43,52 @@
         <h2 class="content-title">Free Premium Sales Page for Small Business Owners</h2>
         <p class="content-desc">
             If you are a freelancer, writer, consultant, or small business, having an easy and effective website to sell your services is imperative.  It’s important that it not only look appealing on the front-end, but also contain comprehensive back-end support to keep track of orders and sales.
-            <br/>
+            <br/><br/>
             If you’ve been looking for the perfect website solution, then your search is finally over.
-            <br/>
+            <br/><br/>
             We've just developed a remarkable web app that allows small business owners and service providers to sell their products & services through a mobile responsive website and manage all the orders through a very clean and simple admin back-end.
-            <br/>
+            <br/><br/>
             Establishing your web presence has never been easier.  Here are just some of the features and benefits you’ll receive:
         </p>
         <!-- begin row -->
         <div class="row">
             <!-- begin col-4 -->
-            <div class="col-md-4 col-sm-6">
+            <div class="col-md-12 col-sm-12">
                 <!-- begin about -->
                 <div class="about">
                     <h3>How it works</h3>
-                    <p>
-                        Easily design and customize site to look exactly how you like!
-                    </p>
-                    <p>
-                        State-of-the-art back-end system to efficiently and effectively manage and track orders!
-                    </p>
-                    <p>100% mobile & tablet friendly!
-                    </p>
-                    <p>Add your PayPal email and you can be selling within 10 min!</p>
-                    <p>All payment go straight into YOUR PayPal!</p>
-                    <p>Free tips and tricks on marketing, generating leads, and converting sales!</p>
-                    <p>& Much More To Come….</p>
-                    <p>Sign up today and see how easy building a sales page for your business can be!</p>
+                    <ol>
+                        <li>
+                            <p>
+                                Easily design and customize site to look exactly how you like!
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                State-of-the-art back-end system to efficiently and effectively manage and track orders!
+                            </p>
+                        </li>
+                        <li>
+                            <p>100% mobile & tablet friendly!
+                            </p>
+                        </li>
+                        <li>
+                        <li><p>Add your PayPal email and you can be selling within 10 min!</p></li>
+                        <li><p>All payment go straight into YOUR PayPal!</p></li>
+                        <li><p>Free tips and tricks on marketing, generating leads, and converting sales!</p></li>
+                        <li><p>& Much More To Come….</p></li>
+                        <p>Sign up today and see how easy building a sales page for your business can be!</p>
+                    </ol>
                 </div>
                 <!-- end about -->
             </div>
+            <div class="col-md-12" align="center">
+                <a  ui-sref="auth.register">
+                    <img src="system/assets/sign-up.png">
+                </a>
+            </div>
             <!-- end col-4 -->
             <!-- begin col-4 -->
-            <div class="col-md-4 col-sm-6">
-                <h3>Our Philosophy</h3>
-                <!-- begin about-author -->
-                <div class="about-author">
-                    <div class="quote bg-silver">
-                        <i class="fa fa-quote-left"></i>
-                        <h3>We work harder,<br /><span>to let our user keep simple</span></h3>
-                        <i class="fa fa-quote-right"></i>
-                    </div>
-                    <div class="author">
-                        <div class="image">
-                            <img src="system/assets/theme/landing/img/user-1.jpg" alt="Sean Ngu" />
-                        </div>
-                        <div class="info">
-                            Sean Ngu
-                            <small>Front End Developer</small>
-                        </div>
-                    </div>
-                </div>
-                <!-- end about-author -->
-            </div>
         </div>
     </div>
 </div>
