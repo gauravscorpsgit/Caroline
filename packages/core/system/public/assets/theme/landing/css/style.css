@@ -246,7 +246,7 @@ p {
 }
 .content.has-bg .content-bg:before {
     content: '';
-    background: url(../img/content-bg-cover.png);
+/*    background: url(../img/content-bg-cover.png);*/
     position: absolute;
     left: 0;
     right: 0;
