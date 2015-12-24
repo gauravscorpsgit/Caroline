@@ -554,6 +554,18 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
+        $scope.getPaybackFail = function(){
+            Freelancer.Payback_resource.put({state: 'unsuccessful', order_id: $stateParams.order_id}, function(response,header,error){
+                if(response.success){
+                    console.log(response);
+                    Notification.success('Your payment has been unsuccessful');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
+
         $scope.getPaypalSuccess = function(){
             Freelancer.order_resource.put({state: 'Success', order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
@@ -562,6 +574,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                      $location.url('/enter_requirements');*/
 
                     $scope.orderObject = response.order_object;
+                    $scope.akhilObject = response.akhil;
                     $timeout(function(){
                         $scope.requirement_initial = true;
                     },1000);
@@ -628,6 +641,11 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         this.clientEmailCompose= function(){
             $location.url('/client/client_compose');
+        };
+
+        $scope.selectedOrderID_Payback=-1;
+        $scope.selectOrderForPayback = function(order_id){
+            $scope.selectedOrderID_Payback= order_id;
         };
 
         $scope.submitWork = function(oid, index){

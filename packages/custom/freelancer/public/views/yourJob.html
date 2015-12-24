@@ -4,9 +4,7 @@
     <h1>Your Jobs</h1>
     <!-- begin breadcrumb -->
     <div class="row">
-
         <!-- begin col-12 -->
-
         <!-- begin panel -->
         <div class="col-lg-4"   ng-repeat-start="Object in orders.orders">
             <!--<img style="border-top-left-radius: 4px;border-top-right-radius: 4px; width: 100%" class="img-responsive" src = "{{Object.product_id.image}}/convert?h=150&fit=scale"/>-->
@@ -29,14 +27,37 @@
                 <p><strong>Order Date: </strong>{{Object.order_date}}</p>
                 <p><strong>Payment Status: </strong>{{Object.paymentStatus}}</p>
                 <p><strong>Product Id: </strong>{{Object.product_id}}</p>
-                <p><strong>{{orders.products[$index].title}}</strong></p>
-                <p><strong>{{orders.products[$index].description}}</strong></p>
+                <p><strong>Product Title:{{orders.products[$index].title}}</strong></p>
+                <p><strong>Product Description:{{orders.products[$index].description}}</strong></p>
+                <p><strong>Product Price: ${{orders.products[$index].price}}</strong></p>
                 <strong>Client: </strong>
                 <img  ng-src="/freelancer/assets/freelancer/img/user.png" style="width:75px; height: 75px;">
                 <br/>
                 <p><strong>Name: </strong>{{orders.customers[$index].name}}</p>
                 <p><strong>Email: </strong>{{orders.customers[$index].email}}</p>
                 <button type="submit" ng-if="!Object.approval_status" class="btn btn-primary p-l-40 p-r-40"  style="margin: 10px;" ng-click="submitWork(Object._id, $index)">Submit Work</button>
+                <div>
+                    <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-if="Object._id !== undefined && Object._id == selectedOrderID_Payback">
+                        <input type="hidden" name="cmd" value="_xclick" />
+                        <input type="hidden" name="business" value="info@moneysitecontent.com" />
+                        <input type="hidden" name="lc" value="CA" />
+                        <input type="hidden" name="item_name" value="{{orders.products[$index].title}}" />
+                        <input type="hidden" name="item_number" value="{{orders.products[$index]._id}}" />
+                        <input type="hidden" name="amount" value="{{(orders.products[$index].price*7)/100}}" />
+                        <input type="hidden" name="currency_code" value="{{ settings.paypal.currency_code }}" />
+                        <input type="hidden" name="button_subtype" value="services" />
+                        <input type="hidden" name="no_note" value="{{ settings.paypal.no_note }}" />
+                        <input type="hidden" name="tax_rate" value="0" />
+                        <input type="hidden" name="shipping" value="0" />
+                        <input type="hidden" name="return" value="http://localhost/admin/freelancer/perfectAgency_status_success/{{Object._id}}">
+                        <input type="hidden" name="cancel_return" value="http://localhost/admin/freelancer/perfectAgency_status_failed/{{Object._id}}">
+                        <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest" />
+                        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+                        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                    </form>
+
+                    <button type="submit" class="btn btn-warning p-l-40 p-r-40" style="margin: 10px;" ng-if="Object._id != selectedOrderID_Payback" ng-click="selectOrderForPayback(Object._id)">Pay to ${{(orders.products[$index].price*7)/100}} Perfect Agency</button>
+                </div>
             </div>
 
         </div><br/>

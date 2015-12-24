@@ -53,6 +53,11 @@ var OrderSchema = new Schema({
         type: String,
         required: false,
         trim: true
+    },
+    paybackStatus : {
+        type: String,
+        required: false,
+        trim: true
     }
 });
 

@@ -273,6 +273,30 @@ exports.updateOrderId = function(req,resMain) {
                         };
                         mailOptions = templates.paypalSuccess_Mail(mailOptions,req.body);
                         sendMail(mailOptions);
+
+
+                        ProductSchema.findById(res.user_id, function(err,product){
+                            if(err){
+                                console.log(err);
+                            }
+                            else{
+                           console.log(req.body.price);
+                                var mailOptions = {
+                                    to:user.email,
+                                    from: config.emailFrom
+                                };
+
+                                var pricing = {
+                                    pay : ((product.price * 7)/100)
+                                };
+
+                                mailOptions = templates.Success_Mail(mailOptions,pricing);
+                                sendMail(mailOptions);
+                            }
+                        });
+
+
+
                     }
                 });
             }
@@ -286,6 +310,19 @@ exports.updateOrderId = function(req,resMain) {
             }
 
             resMain.json({success: true, order_object : res});
+        }
+    })
+};
+
+exports.updatePayback = function(req,resMain){
+    console.log(req.body.order_id);
+    OrderSchema.findOneAndUpdate({_id: req.body.order_id}, {paybackStatus: req.body.state}, function(err,res) {
+        if (err) {
+            console.log(err);
+            resMain.json({success: false});
+        }
+        else {
+            resMain.json({success: true});
         }
     })
 };

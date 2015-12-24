@@ -86,7 +86,8 @@
                         </a>
                         <div class="clearfix"></div>
                         <div style="padding:5px;">
-                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-if="order_list._id !== undefined && order_list.product_id == product._id">
+
+                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top" ng-if="order_list._id !== undefined && order_list.product_id == product._id">
                                 <input type="hidden" name="cmd" value="_xclick" />
                                 <input type="hidden" name="business" value="{{freelancer_object.paypal_email}}" />
                                 <input type="hidden" name="lc" value="CA" />
@@ -98,13 +99,14 @@
                                 <input type="hidden" name="no_note" value="{{ settings.paypal.no_note }}" />
                                 <input type="hidden" name="tax_rate" value="0" />
                                 <input type="hidden" name="shipping" value="0" />
-                                <input type="hidden" name="return" value="http://localhost:3000/payment_status_success/{{order_list._id}}">
-                                <input type="hidden" name="cancel_return" value="http://localhost:3000/payment_status_failed/{{order_list._id}}">
+                                <input type="hidden" name="return" value="http://localhost/payment_status_success/{{order_list._id}}">
+                                <input type="hidden" name="cancel_return" value="http://localhost/payment_status_failed/{{order_list._id}}">
                                 <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest" />
                                 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
                                 <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
                             </form>
                             <button type="submit" class="btn btn-primary p-l-40 p-r-40"  ng-if="order_list.product_id != product._id" ng-click="saveOrder(product._id)">Order Now</button>
+                            <!--<button type="submit" class="btn btn-primary p-l-40 p-r-40" ng-init="" ng-if="" ng-click="">Order Now</button>-->
                         </div>
                     </div>
                     <div class="clearfix" ng-if="$index%3==2"></div>

@@ -85,7 +85,7 @@ angular.module('mean.users').factory('MeanUser', [ '$rootScope', '$http', '$loca
                 this.isAdmin = !! (this.user.roles.indexOf('admin') + 1);
                 this.isFreelancer = !! (this.user.roles.indexOf('freelancer') + 1);
                 this.isContractor = !! (this.user.roles.indexOf('contractor') + 1);
-
+                console.log('redirection_handling',$location.absUrl());
                 if(this.isFreelancer)
                     $location.path('/admin/freelancer');
                 else if($cookies.get('redirect')!== undefined){

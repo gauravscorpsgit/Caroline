@@ -15,6 +15,18 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 }
             }
         })
+
+            .state('payback_success', {
+                url: '/perfectAgency_status_success/:order_id',
+                templateUrl: 'freelancer/views/payAgency_success.html'
+            })
+            .state('payback_failed', {
+                url: '/perfectAgency_status_failed/:order_id',
+                templateUrl: 'freelancer/views/payAgency_failed.html'
+            })
+
+
+
         $stateProvider.state('client_work', {
             url: '/client/work',
             templateUrl: 'freelancer/views/work_approval.html',
@@ -62,6 +74,8 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 url: '/payment_status_success/:order_id',
                 templateUrl: 'freelancer/views/payment_success.html'
             })
+
+
            /* .state('client_requirement', {
                 url: '/enter_requirements/:order_id',
                 templateUrl: 'freelancer/views/client_requirement.html'
@@ -70,6 +84,7 @@ angular.module('mean.freelancer').config(['$stateProvider',
                 url: '/payment_status_failed/:order_id',
                 templateUrl: 'freelancer/views/payment_failed.html'
             })
+
 
 
     }

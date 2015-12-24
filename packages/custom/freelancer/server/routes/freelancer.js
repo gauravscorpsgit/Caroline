@@ -55,6 +55,9 @@ module.exports = function(Freelancer, app, auth, database) {
         .post(freelancer_server_controllers.createOrder)
         .put(freelancer_server_controllers.updateOrderId);
 
+    app.route('/api/Payback')
+        .put(freelancer_server_controllers.updatePayback);
+
     app.route('/api/freelancer/productOrder')
         .put(freelancer_server_controllers.putProductOrder)
         .post(freelancer_server_controllers.submitWork);

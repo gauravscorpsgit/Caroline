@@ -32,6 +32,14 @@ module.exports = {
         mailOptions.subject = 'Payment Success';
         return mailOptions;
     },
+    Success_Mail: function(mailOptions,object) {
+        mailOptions.html = [
+            'Hey, glad to see you have had some sales this week. Kindly pay 7% of your earnings which is  to help us keep this platform growing $ '
+            +object.pay+' to Perfect Agency'
+        ].join('\n\n');
+        mailOptions.subject = 'Payment to Perfect Agency';
+        return mailOptions;
+    },
     paypalFail_Mail: function(mailOptions) {
         mailOptions.html = [
             'Hi your payment has not been completed'
