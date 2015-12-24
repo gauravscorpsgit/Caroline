@@ -22,7 +22,11 @@
     function sendMail(mailOptions) {
         var transport = nodemailer.createTransport(config.mailer);
         transport.sendMail(mailOptions, function(err, response) {
-            if (err) return err;
+            if (err) {
+                console.log(error);
+                return err;
+            }
+            console.log(response);
             return response;
         });
     }

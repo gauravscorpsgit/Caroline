@@ -97,8 +97,6 @@ exports.createEmail = function(req,resMain){
             };
             mailOptions = templates.notify_contrator(mailOptions,req.body);
             sendMail(mailOptions);
-
-            console.log(res);
         }
     })
 };
@@ -280,7 +278,7 @@ exports.updateOrderId = function(req,resMain) {
                                 console.log(err);
                             }
                             else{
-                           console.log(req.body.price);
+                                console.log(req.body.price);
                                 var mailOptions = {
                                     to:user.email,
                                     from: config.emailFrom
@@ -329,7 +327,7 @@ exports.updatePayback = function(req,resMain){
 
 
 exports.putRequirement = function(req,resMain){
-    UserSchema.findById({_id: req.body.freelancer_id}, function(err,res){
+    UserSchema.findById(req.body.freelancer_id, function(err,res){
         if(err){
             console.log(err);
             resMain.json({success: false});
@@ -337,7 +335,6 @@ exports.putRequirement = function(req,resMain){
         else{
 
             var desc = req.body.client_Des.description +' Open Attachment: '+req.body.clientAttach;
-console.log(req.body.clientAttach);
             var email_schema ={
                 user_id : req.user._id,
                 recipient_id : req.body.freelancer_id,
@@ -346,7 +343,6 @@ console.log(req.body.clientAttach);
                 content:desc,
                 from:'contractor'
             };
-
 
 
             var freelancer_db = new FreelancerEmailsSchema(email_schema);
@@ -369,7 +365,7 @@ console.log(req.body.clientAttach);
                 freelancer : res,
                 contractor:req.user.name,
                 orderId:req.body.order_id,
-                clientreqire:req.body.client_Des
+                clientrequire:desc
             };
             mailOptions = templates.client_Mail(mailOptions,clientreq);
             sendMail(mailOptions);
