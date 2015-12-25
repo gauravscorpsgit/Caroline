@@ -36,6 +36,16 @@ module.exports = {
         mailOptions.subject = 'Payment Success';
         return mailOptions;
     },
+    paybackSuccess_Mail: function(mailOptions) {
+        mailOptions.html = [
+            '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
+
+            'Hi Perfect Agency your payment have been completed successfully'
+        ].join('\n\n');
+        mailOptions.subject = 'Payback Success';
+        return mailOptions;
+    },
+
     Success_Mail: function(mailOptions,object) {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+

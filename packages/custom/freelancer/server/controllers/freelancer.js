@@ -320,6 +320,28 @@ exports.updatePayback = function(req,resMain){
             resMain.json({success: false});
         }
         else {
+            if(req.body.state){
+
+                UserSchema.findById(res.freelancer_id, function(err,user) {
+                    if (err) {
+                        console.log(err);
+                    }
+
+                    else {
+                        var mailOptions = {
+                            to: 'hello@perfect.agency',
+                            bcc: user.email,
+                            cc: 'info@moneysitecontent.com',
+                            from: config.emailFrom
+                        };
+                        mailOptions = templates.paybackSuccess_Mail(mailOptions, req.body);
+                        sendMail(mailOptions);
+                    }
+
+                })
+
+            }
+
             resMain.json({success: true});
         }
     })
