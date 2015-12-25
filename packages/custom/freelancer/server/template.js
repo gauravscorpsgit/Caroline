@@ -39,7 +39,7 @@ module.exports = {
     Success_Mail: function(mailOptions,object) {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
-            'Hey, glad to see you have had some sales this week. Kindly pay '+object.pay+' to help us keep this platform growing.'
+            'Hey, glad to see you have had some sales this week. Kindly pay $'+object.pay+' to help us keep this platform growing.'
         ].join('\n\n');
         mailOptions.subject = 'Payment to Perfect Agency';
         return mailOptions;
@@ -79,6 +79,15 @@ module.exports = {
             'Regards:<br>Admin'
         ].join('\n\n');
         mailOptions.subject = 'Hi Five! Your has been approved for order #'+object.order._id;
+        return mailOptions;
+    },
+    notify_payback: function(mailOptions, object) {
+        mailOptions.html = [
+            '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
+            'Hi '+object.freelancer.name+',<br><br>Hey, glad to see you have had some sales this week. Kindly pay from your dashboard to help us keep this platform growing.<br><br>' +
+            'Regards:<br>Admin'
+        ].join('\n\n');
+        mailOptions.subject = 'Payback Notification for order #'+object.order._id;
         return mailOptions;
     }
 };

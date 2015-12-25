@@ -14,7 +14,57 @@ var mongoose = require('mongoose'),
     nodemailer = require('nodemailer'),
     templates = require('../template'),
     config = require('meanio').loadConfig(),
-    _ = require('lodash');
+    _ = require('lodash'),
+    schedule = require('node-schedule');
+
+
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(5)];
+rule.hour = 0;
+rule.minute = 5;
+
+var remind_payback = schedule.scheduleJob(rule, function(){
+    OrderSchema.find({paybackStatus : false}, function(err,res){
+        if(err){
+            console.log(err);
+        }else{
+            var freelancer_id_array = [];
+            for (var i =0; i<res.length; i=i+1){
+                freelancer_id_array.push(res[i].freelancer_id);
+            }
+            UserSchema.find({'_id': { $in: freelancer_id_array}}, function(err, freelancers){
+                if(err){
+                    console.log(err)
+                }else{
+
+                    var freelancer_email_array = [];
+                    for (var i =0; i<freelancers.length; i=i+1){
+                        var mailOptions = {
+                            to: freelancers[i].email,
+                            bcc: config.emailFrom,
+                            from: config.emailFrom
+                        };
+
+
+                        var email_content ={
+                            order: res[i],
+                            freelancer : freelancers[i]
+                        }
+
+                        mailOptions = templates.notify_payback(mailOptions,email_content);
+                        sendMail(mailOptions);
+
+                    }
+
+                }
+            })
+
+        }
+
+    });
+
+});
+
 
 exports.render = function(req, res) {
     res.render('index');
