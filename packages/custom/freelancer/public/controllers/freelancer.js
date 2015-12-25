@@ -625,11 +625,13 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         $scope.clientReqiuire = {
             description:''
         };
+        $scope.requirement_sent = false;
         $scope.sendRequirement =function(freelancer_id){
 
             Freelancer.require_resource.put({clientAttach :$scope.emailAttachment, freelancer_id:freelancer_id ,client_Des: $scope.clientReqiuire, order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     Notification.success('Mail send successfully');
+                    $scope.requirement_sent = true;
                 }
                 else{
                     Notification.error('Mail not send, Please try again');
