@@ -61,6 +61,11 @@ var FreelancerLandingSchema = new Schema({
         type: String,
         required: false,
         trim: true
+    },
+    dues_cleared: {
+        type: Boolean,
+        required: false,
+        default : true
     }
 });
 

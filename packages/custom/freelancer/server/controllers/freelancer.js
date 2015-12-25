@@ -1,5 +1,5 @@
 /**
- * Created by akhil on 01-12-2015.
+ * Created by Gaurav Chawla on 01-12-2015.
  */
 
 'use strict';
@@ -15,55 +15,120 @@ var mongoose = require('mongoose'),
     templates = require('../template'),
     config = require('meanio').loadConfig(),
     _ = require('lodash'),
-    schedule = require('node-schedule');
+    schedule = require('node-schedule'),
+    cluster = require('cluster');
+
 
 
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(5)];
-rule.hour = 0;
+rule.hour = 8;
 rule.minute = 5;
 
+var rule_block = new schedule.RecurrenceRule();
+rule_block.dayOfWeek = [0, new schedule.Range(1)];
+rule_block.hour = 8;
+rule_block.minute = 5;
+
+
 var remind_payback = schedule.scheduleJob(rule, function(){
-    OrderSchema.find({paybackStatus : false}, function(err,res){
-        if(err){
-            console.log(err);
-        }else{
-            var freelancer_id_array = [];
-            for (var i =0; i<res.length; i=i+1){
-                freelancer_id_array.push(res[i].freelancer_id);
-            }
-            UserSchema.find({'_id': { $in: freelancer_id_array}}, function(err, freelancers){
-                if(err){
-                    console.log(err)
-                }else{
-
-                    var freelancer_email_array = [];
-                    for (var i =0; i<freelancers.length; i=i+1){
-                        var mailOptions = {
-                            to: freelancers[i].email,
-                            bcc: config.emailFrom,
-                            from: config.emailFrom
-                        };
-
-
-                        var email_content ={
-                            order: res[i],
-                            freelancer : freelancers[i]
-                        }
-
-                        mailOptions = templates.notify_payback(mailOptions,email_content);
-                        sendMail(mailOptions);
-
-                    }
-
+    if(cluster.worker.id == 1){
+        OrderSchema.find({paybackStatus : false}, function(err,res){
+            if(err){
+                console.log(err);
+            }else{
+                var freelancer_id_array = [];
+                var order_id_array = [];
+                for (var i =0; i<res.length; i=i+1){
+                    freelancer_id_array.push(res[i].freelancer_id);
+                    order_id_array.push(res[i]._id);
                 }
-            })
+                for (var i =0; i<order_id_array.length; i=i+1){
+                    var order_id = order_id_array[i];
+                    console.log('in',order_id);
+                    OrderSchema.findById(order_id, function (err, order) {
+                        if(err){
+                            console.log(err);
+                        }else{
+                            UserSchema.findById(order.freelancer_id, function(err, freelancer){
+                                if(err){
+                                    console.log(err);
+                                }else{
+                                    var mailOptions = {
+                                        to: freelancer.email,
+                                        bcc: config.emailFrom,
+                                        from: config.emailFrom
+                                    };
+                                    var email_content ={
+                                        order: order._id,
+                                        freelancer : freelancer
+                                    };
 
-        }
+                                    mailOptions = templates.notify_payback(mailOptions,email_content);
+                                    sendMail(mailOptions);
 
-    });
+                                }
+                            })
+
+                        }
+                    })
+                }
+            }
+        });
+    }
+});
+
+var remind_freelancer_block = schedule.scheduleJob(rule_block, function(){
+    if(cluster.worker.id == 1) {
+        OrderSchema.find({paybackStatus: false}, function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                var freelancer_id_array = [];
+
+                for (var i = 0; i < res.length; i = i + 1) {
+                    freelancer_id_array.push(res[i].freelancer_id);
+                }
+                UserSchema.find({'_id': {$in: freelancer_id_array}}, function (err, freelancers) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        for (var j = 0; j < freelancers.length; j = j + 1) {
+                            Freelancer_DetailsSchema.findOneAndUpdate({user_id: freelancers[j]._id}, {dues_cleared: false}, function (err, landing) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    UserSchema.findById(landing.user_id, function (err, user) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            var mailOptions = {
+                                                to: user.email,
+                                                bcc: config.emailFrom,
+                                                from: config.emailFrom
+                                            };
+                                            var email_content = {
+                                                freelancer: user
+                                            }
+
+                                            mailOptions = templates.storefront_blocked_notify(mailOptions, email_content);
+                                            sendMail(mailOptions);
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                })
+
+            }
+
+        });
+    }
 
 });
+
 
 
 exports.render = function(req, res) {
@@ -363,7 +428,8 @@ exports.updateOrderId = function(req,resMain) {
 };
 
 exports.updatePayback = function(req,resMain){
-    console.log(req.body.order_id);
+    console.log(req.body);
+
     OrderSchema.findOneAndUpdate({_id: req.body.order_id}, {paybackStatus: req.body.state}, function(err,res) {
         if (err) {
             console.log(err);
@@ -371,12 +437,32 @@ exports.updatePayback = function(req,resMain){
         }
         else {
             if(req.body.state){
+                OrderSchema.find({paybackStatus : false, freelancer_id :res.freelancer_id}, function(err, orders){
+                    if(err){
+                        console.log(err);
+                    }else{
+                        var paid = true;
+                        for (var i =0; i<orders.length; i=i+1){
+                            if(!orders[i].paybackStatus){
+                                paid = false;
+                                break;
+                            }
+                        }
+                        console.log('paid',paid);
+                        if(paid){
+                            Freelancer_DetailsSchema.findOneAndUpdate({user_id : res.freelancer_id},{dues_cleared: true}, function(err){
+                                if(err)
+                                    console.log(err);
+                            })
+                        }
+                    }
+
+                });
 
                 UserSchema.findById(res.freelancer_id, function(err,user) {
                     if (err) {
                         console.log(err);
                     }
-
                     else {
                         var mailOptions = {
                             to: 'hello@perfect.agency',

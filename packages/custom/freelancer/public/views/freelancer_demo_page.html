@@ -100,24 +100,6 @@
 
                         <div class="clearfix"></div>
                         <div style="margin-left: 10px;">
-                            <!--<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                                <input type="hidden" name="cmd" value="_xclick" />
-                                <input type="hidden" name="business" value="molnars77@gmail.com" />
-                                <input type="hidden" name="lc" value="CA" />
-                                <input type="hidden" name="item_name" value="{{product.title}}" />
-                                <input type="hidden" name="item_number" value="{{product._id}}" />
-                                <input type="hidden" name="amount" value="{{product.price}}" />
-                                <input type="hidden" name="currency_code" value="{{ settings.paypal.currency_code }}" />
-                                <input type="hidden" name="button_subtype" value="services" />
-                                <input type="hidden" name="no_note" value="{{ settings.paypal.no_note }}" />
-                                <input type="hidden" name="tax_rate" value="0" />
-                                <input type="hidden" name="shipping" value="0" />
-                                <input type="hidden" name="return" value="http://rankmantra.in/Suresh/design/CloudOne/Cloud/app/#/payment_status_success">
-                                <input type="hidden" name="cancel_return" value="http://rankmantra.in/Suresh/design/CloudOne/Cloud/app/#/payment_status_failed">
-                                <input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynowCC_LG.gif:NonHostedGuest" />
-                                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
-                                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-                            </form>-->
 
                             <button type="submit" class="btn btn-primary p-l-40 p-r-40" ng-click="saveOrder(product._id)">Order Now</button>
                         </div>
@@ -126,7 +108,7 @@
                     <div ng-repeat-end=""></div>
 
                 </div>
-                <div class="col-lg-4" ng-if="landing_info.products.length == 0">
+                <div class="col-lg-4" ng-if="landing_info.products.length == 0 && landing_info.dues_cleared">
                     <div class="alert alert-warning fade in m-b-15">
                         <strong>Warning!</strong>
                         No Services added.
@@ -147,7 +129,7 @@
                     <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstProduct()">ADD SERVICE</button>
                 </div>
 
-                <div class="col-lg-4" ng-show ="landing_editable && landing_info.products.length > 0">
+                <div class="col-lg-4" ng-show ="landing_editable && landing_info.products.length > 0 && landing_info.dues_cleared">
                     <input  ng-model="product_skeleton.title" type="text" class="form-control" placeholder="Service Title">
                     <p>{{product_skeleton.title}}</p>
                     <div class="clearfix"></div>

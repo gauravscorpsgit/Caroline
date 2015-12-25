@@ -97,7 +97,16 @@ module.exports = {
             'Hi '+object.freelancer.name+',<br><br>Hey, glad to see you have had some sales this week. Kindly pay from your dashboard to help us keep this platform growing.<br><br>' +
             'Regards:<br>Admin'
         ].join('\n\n');
-        mailOptions.subject = 'Payback Notification for order #'+object.order._id;
+        mailOptions.subject = 'Payback Notification for order #'+object.order;
+        return mailOptions;
+    },
+    storefront_blocked_notify : function(mailOptions, object) {
+        mailOptions.html = [
+            '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
+            'Hi '+object.freelancer.name+',<br><br>Hey, your store front selling service has been stopped. Please pay pending dues to continue selling your products or services.<br><br>Visit your jobs section at your dashboard to pay your pending dues. To resume stopped service visit your edit landing page section available in dashboard.<br><br>' +
+            'Regards:<br>Admin'
+        ].join('\n\n');
+        mailOptions.subject = 'Selling Service Blocked';
         return mailOptions;
     }
 };
