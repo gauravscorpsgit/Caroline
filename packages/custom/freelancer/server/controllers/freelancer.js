@@ -429,7 +429,6 @@ exports.updateOrderId = function(req,resMain) {
 
 exports.updatePayback = function(req,resMain){
     console.log(req.body);
-
     OrderSchema.findOneAndUpdate({_id: req.body.order_id}, {paybackStatus: req.body.state}, function(err,res) {
         if (err) {
             console.log(err);
@@ -448,7 +447,6 @@ exports.updatePayback = function(req,resMain){
                                 break;
                             }
                         }
-                        console.log('paid',paid);
                         if(paid){
                             Freelancer_DetailsSchema.findOneAndUpdate({user_id : res.freelancer_id},{dues_cleared: true}, function(err){
                                 if(err)
@@ -470,7 +468,11 @@ exports.updatePayback = function(req,resMain){
                             cc: 'info@moneysitecontent.com',
                             from: config.emailFrom
                         };
-                        mailOptions = templates.paybackSuccess_Mail(mailOptions, req.body);
+                        var desc = {
+                            orderID:req.body.order_id,
+                            freelancer_name:user.name
+                        };
+                        mailOptions = templates.paybackSuccess_Mail(mailOptions, desc);
                         sendMail(mailOptions);
                     }
 
