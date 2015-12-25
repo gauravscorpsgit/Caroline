@@ -573,7 +573,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             Freelancer.Payback_resource.put({state: true, order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     console.log(response);
-                    Notification.success('Your payment has been unsuccessful');
+                    Notification.success('Your payment has been Successful');
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
