@@ -206,6 +206,8 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         });
 
 
+
+
         $scope.emailForm = {
             to_user:'',
             subject:'',
@@ -446,7 +448,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         $scope.email_form = function(email_auto, reciepient_id){
             $scope.emailForm.to_user = email_auto;
-    $scope.emailForm.reciepient_id=  reciepient_id;
+            $scope.emailForm.reciepient_id=  reciepient_id;
 
             console.log($scope.emailForm);
             Freelancer.compose_resource.post($scope.emailForm, function(response,header,error) {
@@ -554,8 +556,21 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             })
         };
 
-        $scope.getPaybackFail = function(){
-            Freelancer.Payback_resource.put({state: 'unsuccessful', order_id: $stateParams.order_id}, function(response,header,error){
+        $scope.paybackFailed = function(){
+            Freelancer.Payback_resource.put({state: 'false', order_id: $stateParams.order_id}, function(response,header,error){
+                if(response.success){
+                    Notification.success('Your payment has been unsuccessful');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            })
+        };
+
+
+
+        $scope.getPaybackSuccess = function(){
+            Freelancer.Payback_resource.put({state: 'true', order_id: $stateParams.order_id}, function(response,header,error){
                 if(response.success){
                     console.log(response);
                     Notification.success('Your payment has been unsuccessful');
@@ -574,7 +589,6 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                      $location.url('/enter_requirements');*/
 
                     $scope.orderObject = response.order_object;
-                    $scope.akhilObject = response.akhil;
                     $timeout(function(){
                         $scope.requirement_initial = true;
                     },1000);
@@ -584,6 +598,26 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                     Notification.error('There was an issue, Please try again');
                 }
             })
+        };
+
+        $scope.checkParameters = function(){
+            console.log('checkParameters');
+            if($stateParams != undefined && $stateParams.pay_status != undefined){
+               var check_status = $stateParams.pay_status;
+                var paymentStatus = check_status.split("_");
+
+                var payment = paymentStatus[0];
+                var orderId = paymentStatus[1];
+                console.log(payment);
+                console.log((payment == 'success'));
+                if(payment == 'success'){
+                    $scope.activeTemplate = 'freelancer/views/payAgency_success.html';
+                }
+                else{
+                    $scope.activeTemplate = 'freelancer/views/payAgency_failed.html';
+                }
+            }
+
         };
 
 

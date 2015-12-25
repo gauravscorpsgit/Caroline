@@ -4,7 +4,7 @@ angular.module('mean.freelancer').config(['$stateProvider',
     function($stateProvider) {
 
         $stateProvider.state('freelancer admin', {
-            url: '/admin/freelancer',
+            url: '/admin/freelancer?pay_status',
             templateUrl: 'freelancer/views/index.html',
             resolve: {
                 loggedin: function(MeanUser) {
