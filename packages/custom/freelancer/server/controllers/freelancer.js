@@ -313,7 +313,7 @@ exports.updateOrderId = function(req,resMain) {
 };
 
 exports.updatePayback = function(req,resMain){
-    console.log(req.body.order_id);
+    console.log(req.body);
     OrderSchema.findOneAndUpdate({_id: req.body.order_id}, {paybackStatus: req.body.state}, function(err,res) {
         if (err) {
             console.log(err);
@@ -328,13 +328,20 @@ exports.updatePayback = function(req,resMain){
                     }
 
                     else {
+
+console.log(req.body.order_id,'akhil');
+
                         var mailOptions = {
                             to: 'hello@perfect.agency',
                             bcc: user.email,
                             cc: 'info@moneysitecontent.com',
                             from: config.emailFrom
                         };
-                        mailOptions = templates.paybackSuccess_Mail(mailOptions, req.body);
+                        var desc = {
+                            orderID:req.body.order_id,
+                            freelancer_name:user.name
+                        };
+                        mailOptions = templates.paybackSuccess_Mail(mailOptions, desc);
                         sendMail(mailOptions);
                     }
 

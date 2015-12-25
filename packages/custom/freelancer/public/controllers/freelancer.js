@@ -557,7 +557,8 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         };
 
         $scope.paybackFailed = function(){
-            Freelancer.Payback_resource.put({state: false, order_id: $stateParams.order_id}, function(response,header,error){
+            console.log('akhil',$scope.paybackID);
+            Freelancer.Payback_resource.put({state: false, order_id: $scope.paybackID}, function(response,header,error){
                 if(response.success){
                     Notification.success('Your payment has been unsuccessful');
                 }
@@ -570,7 +571,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
 
         $scope.getPaybackSuccess = function(){
-            Freelancer.Payback_resource.put({state: true, order_id: $stateParams.order_id}, function(response,header,error){
+            Freelancer.Payback_resource.put({state: true, order_id: $scope.paybackID}, function(response,header,error){
                 if(response.success){
                     console.log(response);
                     Notification.success('Your payment has been Successful');
@@ -608,6 +609,8 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
                 var payment = paymentStatus[0];
                 var orderId = paymentStatus[1];
+
+                $scope.paybackID = orderId;
                 console.log(payment);
                 console.log((payment == 'success'));
                 if(payment == 'success'){
