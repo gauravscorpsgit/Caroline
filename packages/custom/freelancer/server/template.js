@@ -22,25 +22,24 @@ module.exports = {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
 
-            'Hi you have been added as co-worker'
+            'Hi, you have been added as co-worker.<br><br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
-        mailOptions.subject = 'New co-worker Added';
+        mailOptions.subject = 'New Co-Worker Added';
         return mailOptions;
     },
     paypalSuccess_Mail: function(mailOptions) {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
 
-            'Hi your payment have been completed successfully'
+            'Hi your payment have been completed successfully.<br><br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
-        mailOptions.subject = 'Payment Success';
+        mailOptions.subject = 'Paypal  Payment Success';
         return mailOptions;
     },
     paybackSuccess_Mail: function(mailOptions,object) {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
-
-            'Hi Perfect Agency your payment have been recievd successfully from '+object.freelancer_name+' for OrderId # '+object.orderID+'.'
+            'Hi Perfect Agency your payment have been received successfully from '+object.freelancer_name+' for OrderId # '+object.orderID+'.<br><br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
         mailOptions.subject = 'Payback Success';
         return mailOptions;
@@ -49,7 +48,8 @@ module.exports = {
     Success_Mail: function(mailOptions,object) {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
-            'Hey, glad to see you have had some sales this week. Kindly pay $'+object.pay+' to help us keep this platform growing.'
+            'Hey, glad to see you have had some sales this week. Please pay $'+object.pay+' to help us keep this platform running & growing. This is just 7% of the sales we have processed through perfect.agency for you this week.'+
+            'Kind Regards:<br>Perfect Agency<br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
         mailOptions.subject = 'Payment to Perfect Agency';
         return mailOptions;
@@ -58,15 +58,15 @@ module.exports = {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
 
-            'Hi your payment has not been completed'
+            'Hi, your payment has not been completed, Please try again.<br><br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
-        mailOptions.subject = 'Payment Failed';
+        mailOptions.subject = 'Paypal  Payment Failed';
         return mailOptions;
     },
     client_Mail: function(mailOptions,object) {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
-            'Hi '+object.freelancer.name+',<br><br>'+object.contractor+ ' has just sent you the requirements, please go through it mentioned below: <br><br>'+object.clientrequire+'.<br><br>Reagrds:<br>'+object.contractor
+            'Hi '+object.freelancer.name+',<br><br>'+object.contractor+ ' has just sent you the requirements, please go through it mentioned below: <br><br>'+object.clientrequire+'.<br><br>Kind Regards:<br>'+object.contractor+'<br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
         mailOptions.subject = 'Hi '+object.freelancer.name+'! You have received the requirements from order #'+object.orderId+'.';
         return mailOptions;
@@ -76,7 +76,7 @@ module.exports = {
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
 
             'Hi '+object.customer.name+',<br><br>'+object.freelancer.name+' has submitted the work.<br><br>Kindly download the work from <a href="'+object.deliverable.url+'">Here</a><br/><br/>' +
-            'Please go through the work and approve it <a href="http://localhost:3000/client/work">here</a>.<br><br>Regards:<br>Admin'
+            'Please go through the work and approve it <a href="http://localhost:3000/client/work">here</a>.<br><br>Kind Regards:<br>Perfect Agency<br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
         mailOptions.subject = 'Hi Five! Work submission for order #'+object.order._id;
         return mailOptions;
@@ -86,7 +86,7 @@ module.exports = {
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
 
             'Hi '+object.freelancer.name+',<br><br>'+object.customer.name+' has approved your work for order #'+object.order._id+'<br/><br/>' +
-            'Regards:<br>Admin'
+            'Kind Regards:<br>Perfect Agency<br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
         mailOptions.subject = 'Hi Five! Your has been approved for order #'+object.order._id;
         return mailOptions;
@@ -95,18 +95,18 @@ module.exports = {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
             'Hi '+object.freelancer.name+',<br><br>Hey, glad to see you have had some sales this week. Kindly pay from your dashboard to help us keep this platform growing.<br><br>' +
-            'Regards:<br>Admin'
+            'Kind Regards:<br>Perfect Agency<br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
-        mailOptions.subject = 'Payback Notification for order #'+object.order;
+        mailOptions.subject = 'Keep Perfect Agency going.....';
         return mailOptions;
     },
     storefront_blocked_notify : function(mailOptions, object) {
         mailOptions.html = [
             '<img src="http://perfect.agency/system/assets/theme/landing/img/logo.jpg" style="width: 200px; margin: 2px;"/><br/>'+
-            'Hi '+object.freelancer.name+',<br><br>Hey, your store front selling service has been stopped. Please pay pending dues to continue selling your products or services.<br><br>Visit your jobs section at your dashboard to pay your pending dues. To resume stopped service visit your edit landing page section available in dashboard.<br><br>' +
-            'Regards:<br>Admin'
+            'Hi '+object.freelancer.name+',<br><br>Hey, your storefront has been stopped. Please pay to get it back. It’s just 7% of your sales from last week.<br><br>If you are having any questions or need help please send us an email on help@perfect.agency.<br><br>' +
+            'Kind Regards:<br>Perfect Agency<br><a href="http://perfect.agency">http://perfect.agency</a>'
         ].join('\n\n');
-        mailOptions.subject = 'Selling Service Blocked';
+        mailOptions.subject = 'Please clear balance to keep your store running.';
         return mailOptions;
     }
 };

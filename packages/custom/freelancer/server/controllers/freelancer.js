@@ -471,6 +471,7 @@ exports.updatePayback = function(req,resMain){
                         var desc = {
                             orderID:req.body.order_id,
                             freelancer_name:user.name
+
                         };
                         mailOptions = templates.paybackSuccess_Mail(mailOptions, desc);
                         sendMail(mailOptions);
