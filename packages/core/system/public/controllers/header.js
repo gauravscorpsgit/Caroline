@@ -37,6 +37,8 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
             });
         };
 
+        window.scrollTo(0,0);
+
         $scope.getLandingObject = function(){
             //$stateParams.FreelancerId
             Freelancer.storefront_resource.get({freelancerId: $stateParams.freelancerId}, function(response,header,error){

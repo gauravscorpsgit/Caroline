@@ -1,3 +1,20 @@
-<div ng-controller="FreelancerController" ng-init="checkParameters()">
+<style>
+    .freelancer_class{
+        margin-left: 0px;
+    }
+    @media (max-width: 767px){
+        .sidebar {
+            position: absolute;
+            left: 0px;
+            padding-top: 0;
+            z-index: 1030;
+            margin-top: 109px;
+        }
+        .freelancer_class{
+            margin-left: 50px;
+        }
+    }
+</style>
+<div class="freelancer_class" ng-controller="FreelancerController" ng-init="checkParameters()">
     <div ng-include="activeTemplate"></div>
 </div>

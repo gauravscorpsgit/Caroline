@@ -1,10 +1,21 @@
 <!-- begin #header -->
+<style>
+    @media (max-width: 767px){
+        .sidebar {
+            position: absolute;
+            left: 0px;
+            padding-top: 0;
+            z-index: 1030;
+            margin-top: 109px;
+        }
+    }
+</style>
 <div id="header" class="header navbar navbar-default navbar-fixed-top" ng-controller="HeaderController as hdrctr" ng-if="!hdrctr.hdrvars.isFreelancer || hdrctr.hdrvars.isAdmin">
     <!-- begin container -->
 
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="http://perfect.agency/" class="navbar-brand"><img style="height: 145%;" ng-src="system/assets/theme/landing/img/logo.jpg"/></a>
+            <a ui-sref="home" class="navbar-brand"><img style="height: 145%;" ng-src="system/assets/theme/landing/img/logo.jpg"/></a>
             <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -15,19 +26,7 @@
         <!-- begin navbar-collapse -->
         <div class="collapse navbar-collapse" id="header-navbar">
             <ul class="nav navbar-nav navbar-right">
-                <li class="active dropdown">
-                    <a ng-if="hdrctr.hdrvars.isAdmin" href="#home" data-click="scroll-to-target" data-target="#" data-toggle="dropdown">SUPER ADMIN <b class="caret"></b></a>
-                    <ul class="dropdown-menu dropdown-menu-left animated fadeInDown">
-                        <li><a ui-sref="users">MANAGE USER</a></li>
-                    </ul>
-                </li>
                 <li><a href="#about" data-click="scroll-to-target">ABOUT</a></li>
-               <!-- <li><a href="#team" data-click="scroll-to-target">TEAM</a></li>
-                <li><a href="#service" data-click="scroll-to-target">SERVICES</a></li>
-                <li><a href="#work" data-click="scroll-to-target">WORK</a></li>
-                <li><a href="#client" data-click="scroll-to-target">CLIENT</a></li>
-                <li><a href="#pricing" data-click="scroll-to-target">PRICING</a></li>
-                <li><a href="#contact" data-click="scroll-to-target">CONTACT</a></li>-->
                 <li class="active dropdown" ng-show="!hdrctr.hdrvars.authenticated">
                 <a href="#home" data-click="scroll-to-target" data-target="#" data-toggle="dropdown">LOGIN/JOIN<b class="caret"></b></a>
                 <ul class="dropdown-menu dropdown-menu-left animated fadeInDown">
@@ -43,6 +42,7 @@
                     </a>
                     <ul class="dropdown-menu animated fadeInLeft">
                         <li class="arrow"></li>
+                        <li ng-if="hdrctr.hdrvars.isAdmin"><a ui-sref="users">MANAGE USER</a></li>
                         <li ng-if="!hdrctr.hdrvars.isAdmin"><a ui-sref="client_work">Your Projects</a></li>
                         <li><a ui-sref="client_inbox"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
                         <li class="divider"></li>
@@ -55,10 +55,10 @@
     </div>
     <!-- end container -->
 </div>
-<div id="header" class="header navbar navbar-default navbar-fixed-top"  ng-controller="HeaderController as hdrctr" ng-if="hdrctr.hdrvars.authenticated && hdrctr.hdrvars.isFreelancer">
+<div id="header" class="header navbar navbar-default navbar-fixed-top"  ng-controller="HeaderController as hdrctr" ng-if="hdrctr.hdrvars.authenticated && !hdrctr.hdrvars.isFreelancer">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="http://perfect.agency/" class="navbar-brand"><img style="height: 145%;" ng-src="system/assets/theme/landing/img/logo.jpg"/></a>
+            <a ui-sref="home" class="navbar-brand"><img style="height: 145%;" ng-src="system/assets/theme/landing/img/logo.jpg"/></a>
             <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -66,73 +66,34 @@
             </button>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <!--  <li>
-                <form class="navbar-form full-width">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter keyword" />
-                        <button type="submit" class="btn btn-search"><i class="fa fa-search"></i></button>
-                    </div>
-                </form>
-            </li>
-            <li class="dropdown">
-                <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle f-s-14">
-                    <i class="fa fa-bell-o"></i>
-                    <span class="label">5</span>
+            <li class="dropdown navbar-user">
+                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="system/assets/theme/img/user-13.jpg" alt="" />
+                    <span class="hidden-xs">{{hdrctr.hdrvars.user.name}}</span> <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu media-list pull-right animated fadeInDown">
-                    <li class="dropdown-header">Notifications (5)</li>
-                    <li class="media">
-                        <a href="javascript:;">
-                            <div class="media-left"><i class="fa fa-bug media-object bg-red"></i></div>
-                            <div class="media-body">
-                                <h6 class="media-heading">Server Error Reports</h6>
-                                <div class="text-muted f-s-11">3 minutes ago</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="media">
-                        <a href="javascript:;">
-                            <div class="media-left"><img src="system/assets/theme/img/user-1.jpg" class="media-object" alt="" /></div>
-                            <div class="media-body">
-                                <h6 class="media-heading">John Smith</h6>
-                                <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
-                                <div class="text-muted f-s-11">25 minutes ago</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="media">
-                        <a href="javascript:;">
-                            <div class="media-left"><img src="system/assets/theme/img/user-2.jpg" class="media-object" alt="" /></div>
-                            <div class="media-body">
-                                <h6 class="media-heading">Olivia</h6>
-                                <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
-                                <div class="text-muted f-s-11">35 minutes ago</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="media">
-                        <a href="javascript:;">
-                            <div class="media-left"><i class="fa fa-plus media-object bg-green"></i></div>
-                            <div class="media-body">
-                                <h6 class="media-heading"> New User Registered</h6>
-                                <div class="text-muted f-s-11">1 hour ago</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="media">
-                        <a href="javascript:;">
-                            <div class="media-left"><i class="fa fa-envelope media-object bg-blue"></i></div>
-                            <div class="media-body">
-                                <h6 class="media-heading"> New Email From John</h6>
-                                <div class="text-muted f-s-11">2 hour ago</div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="dropdown-footer text-center">
-                        <a href="javascript:;">View more</a>
-                    </li>
+                <ul class="dropdown-menu animated fadeInLeft">
+                    <li class="arrow"></li>
+                    <li ng-if="hdrctr.hdrvars.isAdmin"><a ui-sref="users">MANAGE USER</a></li>
+                    <li ng-if="!hdrctr.hdrvars.isAdmin"><a ui-sref="client_work">Your Projects</a></li>
+                    <li><a ui-sref="client_inbox"><span class="badge badge-danger pull-right">2</span> Inbox</a></li>
+                    <li class="divider"></li>
+                    <li><a ng-click="hdrctr.logout()" href="javascript:;">Log Out</a></li>
                 </ul>
-            </li>-->
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="header" class="header navbar navbar-default navbar-fixed-top"  ng-controller="HeaderController as hdrctr" ng-if="hdrctr.hdrvars.authenticated && hdrctr.hdrvars.isFreelancer">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a ui-sref="home" class="navbar-brand"><img style="height: 145%;" ng-src="system/assets/theme/landing/img/logo.jpg"/></a>
+            <button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
             <li class="dropdown navbar-user">
                 <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                     <img src="system/assets/theme/img/user-13.jpg" alt="" />
@@ -224,52 +185,3 @@
 <div class="sidebar-bg" ng-controller="HeaderController as hdrctr" ng-if="hdrctr.hdrvars.authenticated && hdrctr.hdrvars.isFreelancer"></div>
 <!-- end #sidebar -->
 
-<!--
-<nav class="navbar navbar-inverse navbar-fixed-top" data-role="navigation" ng-controller="HeaderController as hdrctr">
-    <div class="page-header">
-        <div class="navbar-header">
-            <div class="logo pull-left">
-                <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" ui-sref="home" mean-token="'site-title'">MEAN</a>
-            </div>
-        </div>
-
-        <div class="collapse navbar-collapse" ng-class="!isCollapsed && 'in'">
-            <div class="left pull-left">
-                <ul class="navbar-nav nav">
-                    <li ui-route="/{{item.link}}" ng-class="{active: $uiRoute}" ng-repeat="item in hdrctr.menus.main">
-                        <a mean-token="item.link" ui-sref='{{item.link}}'>{{item.title}}</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="right pull-right">
-                <div class="text-edit" ng-show="hdrctr.hdrvars.authenticated">
-                    <div class="pull-right" mean-token-editable></div>
-                    <div class="pull-right" mean-translate></div>
-                </div>
-                <ul class="navbar-nav nav auth-link" ng-show="!hdrctr.hdrvars.authenticated">
-                    <li><a ui-sref='auth.register'>Join</a></li>
-                    <li class="divider-vertical"></li>
-                    <li><a ui-sref='auth.login'>Log In</a></li>
-                </ul>
-                <ul class="navbar-nav nav" ng-show="hdrctr.hdrvars.authenticated">
-                    <li class="dropdown" uib-dropdown on-toggle="toggled(open)">
-                        <a href="#" class="dropdown-toggle" uib-dropdown-toggle>
-                            <span>{{hdrctr.hdrvars.user.name}}</span> <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" ng-click="hdrctr.logout()">Log Out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
--->
