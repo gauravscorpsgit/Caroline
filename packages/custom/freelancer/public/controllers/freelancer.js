@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope','$stateParams','$location','$cookies','$timeout',
-    function($scope, Global, Freelancer, Notification, $rootScope, $stateParams, $location, $cookies, $timeout) {
+angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).controller('FreelancerController', ['$scope', 'Global', 'Freelancer','Notification','$rootScope','$stateParams','$location','$cookies','$timeout','MeanUser',
+    function($scope, Global, Freelancer, Notification, $rootScope, $stateParams, $location, $cookies, $timeout, MeanUser) {
         $scope.global = Global;
         $scope.package = {
             name: 'freelancer'
@@ -193,6 +193,10 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
             $scope.activeTemplate = 'freelancer/views/freelancer_landing_custom.html';
         });
 
+        $rootScope.$on('url_landing', function(){
+            $scope.activeTemplate = 'freelancer/views/url_landingPage.html';
+        });
+
         $rootScope.$on('Your_CoWorker', function(){
             $scope.activeTemplate = 'freelancer/views/coworkers.html';
         });
@@ -264,6 +268,25 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
 
         };
 
+
+
+        $scope.urlLanding = function(){
+            Freelancer.storefront_resource.get({freelancerId: MeanUser.user._id}, function(response,header,error){
+                if(response.success){
+                    Notification.success('Freelancer details updated successfully.');
+                    if(response.freelancer_object.length > 0){
+                        $scope.freelancer_object = response.freelancer_object[0];
+                    $location.url('freelancer/storefront/'+ response.freelancer_object[0].user_id);
+                }
+                    else
+
+                    Notification.error('There was an issue, Please try again');
+                }
+                else{
+                    Notification.error('There was an issue, Please try again');
+                }
+            });
+        };
 
 
         $scope.saveOrder = function(id){

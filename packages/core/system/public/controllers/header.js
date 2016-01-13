@@ -115,6 +115,13 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
                     //$location.url('/freelancer/storefront/'+MeanUser.user._id);
                     break;
 
+                case 'url_landing':
+                    $scope.flag = flag;
+                    $scope.category = 'Page';
+                    $rootScope.$broadcast('url_landing');
+                    //$location.url('/freelancer/storefront/'+MeanUser.user._id);
+                    break;
+
                 case 'Add_CoWorker':
                     $scope.flag = flag;
                     $scope.category = 'Worker';
