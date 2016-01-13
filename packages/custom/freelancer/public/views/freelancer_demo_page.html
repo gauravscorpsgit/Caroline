@@ -174,7 +174,7 @@
 
     <div class="container pt">
         <div class="row mt centered">
-            <h1>PORTFOLIO<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a></h1>
+            <h1>PORTFOLIO<!--<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a>--></h1>
             <div ng-if="landing_info.portfolio.length > 0">
                 <div class="col-lg-4" ng-repeat="portfolio in landing_info.portfolio">
                     <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removePortfolio($index)"><i class="fa fa-minus"></i></a>
@@ -191,14 +191,17 @@
                 <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
                 <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot</a>
                 <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
-                <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
+                <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
+                <a ng-if="!isImg"  href="{{portfolio_skeleton.image}}">Download Attachment</a>
                 <p>{{portfolio_skeleton.title}}</p>
             </div>
             <div class="col-lg-4" ng-show ="landing_editable && landing_info.portfolio.length > 0">
                 <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
                 <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot</a>
                 <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
-                <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
+                <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
+                <a ng-if="!isImg"  href="{{portfolio_skeleton.image}}">Download Attachment</a>
+
                 <p>{{portfolio_skeleton.title}}</p>
             </div>
         </div><!-- /row -->
