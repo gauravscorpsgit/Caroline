@@ -192,7 +192,7 @@
                 </div>
                 <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
                 <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot or Attachment</a>
-                <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
+                <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">Save</button>
                 <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image[0].url}}" alt="" /></a>
                 <a ng-if="!isImg && portfolio_skeleton.image.length > 0"  href="{{portfolio_skeleton.image[0].url}}">Download Attachment</a>
                 <p>{{portfolio_skeleton.title}}</p>
@@ -200,7 +200,7 @@
             <div class="col-lg-4" ng-show ="landing_editable && landing_info.portfolio.length > 0">
                 <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
                 <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot or Attachment</a>
-                <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
+                <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">Save</button>
                 <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image[0].url}}" alt="" /></a>
                 <a ng-if="!isImg && portfolio_skeleton.image.length >0"  href="{{portfolio_skeleton.image[0].url}}">Download Attachment</a>
                 <p>{{portfolio_skeleton.title}}</p>
