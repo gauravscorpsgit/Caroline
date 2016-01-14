@@ -155,11 +155,14 @@
         <div class="row mt centered">
             <h1>PORTFOLIO<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a></h1>
             <div ng-if="freelancer_object.portfolio.length > 0">
-                <div class="col-lg-4" ng-repeat="portfolio in freelancer_object.portfolio">
+                <div class="col-lg-4" ng-repeat-start="portfolio in freelancer_object.portfolio" align="center">
                     <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removePortfolio($index)"><i class="fa fa-minus"></i></a>
-                    <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio.image}}" alt="" /></a>
+                    <a ng-if="(portfolio.image[0].mimetype.indexOf('image/jpg') != -1 || portfolio.image[0].mimetype.indexOf('image/png') != -1 || portfolio.image[0].mimetype.indexOf('image/jpeg') != -1)" class="zoom green" href=""><img class="img-responsive" src="{{portfolio.image[0].url}}" alt="" /></a>
+                    <a ng-if="!(portfolio.image[0].mimetype.indexOf('image/jpg') != -1 || portfolio.image[0].mimetype.indexOf('image/png') != -1 || portfolio.image[0].mimetype.indexOf('image/jpeg') != -1)" href="{{portfolio.image[0].url}}"><img class="img-responsive" src="/freelancer/assets/img/attach.png" alt="" />Download Attachment</a>
                     <p>{{portfolio.title}}</p>
                 </div>
+                <div class="clearfix" ng-if="$index%3==2"></div>
+                <div ng-repeat-end=""></div>
             </div>
             <div class="col-lg-4" ng-if="freelancer_object.portfolio.length == 0">
                 <div class="alert alert-warning fade in m-b-15">

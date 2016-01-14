@@ -153,19 +153,11 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         $scope.getFreelancerDetails = function(){
             Freelancer.freelancer_details_resource.get(function(response,header,error){
                 if(response.success){
-
-                    var mimetype = response.freelancer_object[0].portfolio[0].image[0].mimetype;
-                    $scope.isImg = false;
-                    console.log(mimetype);
+                    console.log(response.freelancer_object);
                     $scope.landing_info = response.freelancer_object[0];
                     if($scope.landing_info.user_intro.profile_image.indexOf('filepicker.io') > -1)
                         $scope.landing_info.user_intro.profile_image = $scope.landing_info.user_intro.profile_image;
                     Notification.success('Freelancer details fetched');
-                    if( mimetype.indexOf("image/jpg") != -1 || mimetype.indexOf("image/png") != -1 || mimetype.indexOf("image/jpeg") != -1){
-                        $scope.isImg = true;
-                    }
-
-
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
@@ -285,11 +277,11 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                     Notification.success('Freelancer details updated successfully.');
                     if(response.freelancer_object.length > 0){
                         $scope.freelancer_object = response.freelancer_object[0];
-                    $location.url('freelancer/storefront/'+ response.freelancer_object[0].user_id);
-                }
+                        $location.url('freelancer/storefront/'+ response.freelancer_object[0].user_id);
+                    }
                     else
 
-                    Notification.error('There was an issue, Please try again');
+                        Notification.error('There was an issue, Please try again');
                 }
                 else{
                     Notification.error('There was an issue, Please try again');
@@ -398,6 +390,15 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
                     console.log(JSON.stringify(Blobs));
                     if(is_intial){
                         $scope.portfolio_skeleton.image = Blobs;
+
+
+                        var mimetype = Blobs[0].mimetype;
+                        $scope.isImg = false;
+                        console.log(mimetype);
+                        if( mimetype.indexOf("image/jpg") != -1 || mimetype.indexOf("image/png") != -1 || mimetype.indexOf("image/jpeg") != -1){
+                            $scope.isImg = true;
+                        }
+
                     }
                     $scope.$apply();
                 },
@@ -635,7 +636,7 @@ angular.module('mean.freelancer',['ui-notification','angucomplete-alt']).control
         $scope.checkParameters = function(){
             console.log('checkParameters');
             if($stateParams != undefined && $stateParams.pay_status != undefined){
-               var check_status = $stateParams.pay_status;
+                var check_status = $stateParams.pay_status;
                 var paymentStatus = check_status.split("_");
 
                 var payment = paymentStatus[0];

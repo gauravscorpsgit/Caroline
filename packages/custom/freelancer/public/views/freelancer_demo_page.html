@@ -81,7 +81,7 @@
                             <div class="col-md-7" style="text-align: left;">
                                 <p style="font-size: initial;">{{product.description}}</p>
                             </div>
-                            
+
                             <div class="col-md-5">
                                 <div style="text-align: left;">
                                     <h4><i class="fa fa-usd"></i> {{product.price}}</b></h4>
@@ -156,7 +156,6 @@
             <div class="col-lg-6">
                 <h4>THE SKILLS</h4>
                 <div ng-repeat="skill in landing_info.user_skills">
-                    {{skill.name}}
                     <input ng-show="landing_editable" type="text" class="form-control" ng-model="landing_info.user_skills[$index].name">
                     <input ng-show="landing_editable" type="text" class="form-control" ng-model="landing_info.user_skills[$index].percentage">
                     <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removeSkill($index)"><i class="fa fa-minus"></i></a>
@@ -171,17 +170,20 @@
         </div><!-- /row -->
     </div>
     <!-- +++++ Projects Section +++++ -->
-
     <div class="container pt">
         <div class="row mt centered">
             <h1>PORTFOLIO<!--<a ng-show="landing_editable" href=""> <i class="fa fa-plus"></i>Add</a>--></h1>
             <div ng-if="landing_info.portfolio.length > 0">
-                <div class="col-lg-4" ng-repeat="portfolio in landing_info.portfolio">
+                <div class="col-lg-4" ng-repeat-start="portfolio in landing_info.portfolio" align="center">
                     <a ng-show="landing_editable" href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" ng-click="removePortfolio($index)"><i class="fa fa-minus"></i></a>
-                    <a class="zoom green" href=""><img class="img-responsive" src="{{portfolio.image}}" alt="" /></a>
+                    <a ng-if="(portfolio.image[0].mimetype.indexOf('image/jpg') != -1 || portfolio.image[0].mimetype.indexOf('image/png') != -1 || portfolio.image[0].mimetype.indexOf('image/jpeg') != -1)" class="zoom green" href=""><img class="img-responsive" src="{{portfolio.image[0].url}}" alt="" /></a>
+                    <a ng-if="!(portfolio.image[0].mimetype.indexOf('image/jpg') != -1 || portfolio.image[0].mimetype.indexOf('image/png') != -1 || portfolio.image[0].mimetype.indexOf('image/jpeg') != -1)" href="{{portfolio.image[0].url}}"><img class="img-responsive" src="/freelancer/assets/img/attach.png" alt="" />Download Attachment</a>
                     <p>{{portfolio.title}}</p>
                 </div>
+                <div class="clearfix" ng-if="$index%3==2"></div>
+                <div ng-repeat-end=""></div>
             </div>
+
             <div class="col-lg-4" ng-if="landing_info.portfolio.length == 0">
                 <div class="alert alert-warning fade in m-b-15">
                     <strong>Warning!</strong>
@@ -189,19 +191,18 @@
                     <span class="close" data-dismiss="alert">&times;</span>
                 </div>
                 <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
-                <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot</a>
+                <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot or Attachment</a>
                 <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
-                <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
-                <a ng-if="!isImg"  href="{{portfolio_skeleton.image}}">Download Attachment</a>
+                <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image[0].url}}" alt="" /></a>
+                <a ng-if="!isImg && portfolio_skeleton.image.length > 0"  href="{{portfolio_skeleton.image[0].url}}">Download Attachment</a>
                 <p>{{portfolio_skeleton.title}}</p>
             </div>
             <div class="col-lg-4" ng-show ="landing_editable && landing_info.portfolio.length > 0">
                 <input  ng-model="portfolio_skeleton.title" type="text" class="form-control">
-                <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot</a>
+                <a ng-click="openPortfolioPicDialog(0,true)"  href="" ><i class="fa fa-pencil-square-o"></i>Add Portfolio Snapshot or Attachment</a>
                 <button class="btn btn-success m-r-5 m-b-5" ng-click="pushFirstPortfolio()">ADD</button>
-                <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image}}" alt="" /></a>
-                <a ng-if="!isImg"  href="{{portfolio_skeleton.image}}">Download Attachment</a>
-
+                <a ng-if="isImg" class="zoom green" href=""><img class="img-responsive" src="{{portfolio_skeleton.image[0].url}}" alt="" /></a>
+                <a ng-if="!isImg && portfolio_skeleton.image.length >0"  href="{{portfolio_skeleton.image[0].url}}">Download Attachment</a>
                 <p>{{portfolio_skeleton.title}}</p>
             </div>
         </div><!-- /row -->
