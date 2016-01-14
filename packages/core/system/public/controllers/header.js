@@ -97,7 +97,7 @@ angular.module('mean.system',['ui-notification']).controller('HeaderController',
 
                 case  'paid':
                     $scope.flag = flag;
-                    $scope.category = 'Email';
+                    $scope.category = 'Page';
                     $rootScope.$broadcast('openPaid');
                     break;
 
